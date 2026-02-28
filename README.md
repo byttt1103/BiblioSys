@@ -9,4 +9,4 @@ BiblioSys is a web-based book catalog management system aimed to optimize the or
 
 This project is being developed in Laravel PHP framework.
 
-<sup><sub> hi </sub></sup>
+<small>hi again</small>
