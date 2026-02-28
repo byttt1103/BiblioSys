@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('userType', ['admin', 'buyer']);
+            $table->enum('userType', ['admin','librarian', 'reader'])->default('reader');
             $table->rememberToken();
             $table->timestamps();
         });
