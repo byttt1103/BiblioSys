@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('copies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('book_id')->constrained('books')->cascadeOnDelete();
-            $table->string('barcode')->unique();
-            $table->enum('condition', ['good', 'damaged', 'maintenance'])->default('good');
-            $table->enum('status', ['available', 'on_loan', 'reserved', 'maintenance'])->default('available');
+            $table->string('isbn')->unique();
+            $table->unsignedInteger('stock')->default(0);
             $table->timestamps();
         });
     }

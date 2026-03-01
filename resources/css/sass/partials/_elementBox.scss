@@ -1,0 +1,23 @@
+@use "../base/variables";
+@use "../base/mixins";
+
+@mixin elementBox ($align){
+    .elementBox {
+        box-sizing: border-box;
+        padding: 20px;
+        border: 1px solid gray;
+        border-radius: 7px;
+        transition: 0.6s ease;
+        @include mixins.elements-flex(column, space-evenly, $align);
+        p{
+            font-size: small;
+        }
+
+    }
+
+    .elementBox:hover {
+        transition: 0.6s ease;
+        box-shadow: 0px 0px 10px 0px rgba(128, 128, 128, 0.701);
+        transform: scale(1.025);
+    }
+}

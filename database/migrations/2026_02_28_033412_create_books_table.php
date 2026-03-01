@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('title');
+            $table->string('cover_path');
             $table->string('publisher');
-            $table->string('publication_year')->nullable();
-            $table->string('isbn')->nullable();
-            $table->unsignedInteger('stock')->default(0);
-            $table->enum('status', ['available', 'unavailable'])->default('available');
+            $table->unsignedSmallInteger('publication_year')->nullable();
             $table->timestamps();
         });
     }

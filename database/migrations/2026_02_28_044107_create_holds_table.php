@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('book_id')->constrained('books');
+            $table->foreignId('copy_id')->constrained('copies');
             $table->unsignedInteger('quantity');
             $table->date('hold_creation')->nullable();
             $table->timestamps();

@@ -1,0 +1,79 @@
+@use "../base/variables";
+@use "button";
+
+@mixin navbar {
+    header {
+        width: variables.$webWidth;
+        box-sizing: border-box;
+        position: fixed;
+        z-index: 2;
+        font-family: variables.$titlesFont;
+        box-shadow: 0px 0px 6.5px 0px variables.$captionColor;
+        #title {
+            background-color: #3366cc;
+            width: variables.$webWidth;
+            height: variables.$H5;
+            display: flex;
+            padding-left:10vw;
+            align-items: center;
+        }
+
+        nav {
+            background-color: variables.$headerColor;
+            width: 100%;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+
+            #libraryStart {
+                height: variables.$H5;
+                width: variables.$H5;
+                background-color: pink;
+            }
+
+            #libraryLinks {
+                list-style: none;
+                display: flex;
+                justify-content: center;
+
+                li {
+                    padding-right: 5px;
+                    padding-left: 5px;
+                }
+            }
+
+            #profilePlace {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                #loginLink {
+                    padding-top: 5px;
+                }
+                @include button.button;
+
+                #loginLink {
+                    font-size: 12px;
+                    color: variables.$linkColor;
+
+                }
+
+                #avatar {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #cccccc;
+                    width: 42px;
+                    height: 40px;
+                    border-radius: 100px;
+                    cursor: pointer
+                }
+            }
+
+        }
+    }
+}

@@ -1,0 +1,14 @@
+// Base rules
+@use './sass/base/global';
+@use './sass/base/reset';
+
+//partials
+@use './sass/partials/button';
+@use './sass/partials/elementBox';
+@use './sass/partials/input';
+@use './sass/partials/navbar';
+@use './sass/partials/searchBar';
+
+body{
+    @include navbar.navbar
+}

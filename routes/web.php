@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/books', [HomeController::class, 'book_list']);
+Route::get('/books/create', [HomeController::class, 'book_create']);
+Route::get('/books/{$book}', [HomeController::class, 'book_info']);

@@ -1,0 +1,45 @@
+//Here we declare all the styles that may affect all
+//of the elements of its kind.
+
+@use "variables";
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: variables.$mainColor;
+    font-family: variables.$titlesFont;
+    margin: 8px 0;
+}
+
+
+p {
+    color: variables.$textColor;
+    font-family: variables.$contentFont;
+    font-size: 15.5px;
+}
+figcaption, caption{
+    font-size: x-small;
+    color: variables.$captionColor;
+    font-family: variables.$contentFont;
+}
+
+.section {
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+a {
+    color: variables.$captionColor;
+    text-decoration: none;
+}
+
+a:hover {
+    color: variables.$linkColor;
+    text-decoration: underline variables.$linkColor;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
