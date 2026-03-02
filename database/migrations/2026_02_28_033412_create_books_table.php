@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('title');
             $table->string('cover_path');
             $table->string('publisher');
+            $table->text('synopsis')->nullable();
             $table->unsignedSmallInteger('publication_year')->nullable();
             $table->timestamps();
         });

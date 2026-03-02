@@ -1,6 +1,8 @@
 // Base rules
 @use './sass/base/global';
 @use './sass/base/reset';
+@use './sass/base/mixins';
+@use './sass/base/variables';
 
 //partials
 @use './sass/partials/button';
@@ -10,5 +12,20 @@
 @use './sass/partials/searchBar';
 
 body{
-    @include navbar.navbar
+    @include navbar.navbar;
+
+    main{
+        @include elementBox.elementBox('center');
+
+        .grid{
+            align-items: center;
+            padding-left: 12vw;
+            padding-right: 12vw;
+        @media (max-width: 600px) {
+
+        }
+            @include mixins.grid(3,15px, 15px)
+        }
+        @include button.button;
+    }
 }

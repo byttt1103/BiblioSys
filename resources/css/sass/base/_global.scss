@@ -32,12 +32,12 @@ figcaption, caption{
     padding: 15px;
 }
 
-a {
+.link {
     color: variables.$captionColor;
     text-decoration: none;
 }
 
-a:hover {
+.link:hover {
     color: variables.$linkColor;
     text-decoration: underline variables.$linkColor;
     text-underline-offset: 4px;

@@ -1,3 +1,10 @@
-<div>
-    <!-- It is never too late to be what you might have been. - George Eliot -->
-</div>
+@extends('layouts.main')
+
+@section('title', '{{ $book->title }}')
+
+@section('content')
+    <div class="section">
+        {{ $book }}
+    </div>
+
+@endsection

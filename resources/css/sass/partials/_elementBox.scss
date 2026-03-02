@@ -2,22 +2,48 @@
 @use "../base/mixins";
 
 @mixin elementBox ($align){
-    .elementBox {
-        box-sizing: border-box;
-        padding: 20px;
-        border: 1px solid gray;
-        border-radius: 7px;
-        transition: 0.6s ease;
-        @include mixins.elements-flex(column, space-evenly, $align);
-        p{
-            font-size: small;
-        }
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 15px;
+        gap: 15px;
+        background-color: #007ACC;
+        outline: 3px #007ACC solid;
+        outline-offset: -3px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        transition: 400ms;
+        text-decoration: none;
+      }
 
-    }
+      .button .text {
+        color: white;
+        font-family: variables.$contentFont;
+        font-weight: 700;
+        font-size: 1em;
+        transition: 400ms;
+      }
 
-    .elementBox:hover {
-        transition: 0.6s ease;
-        box-shadow: 0px 0px 10px 0px rgba(128, 128, 128, 0.701);
-        transform: scale(1.025);
-    }
+      .button svg path {
+        transition: 400ms;
+      }
+
+      .button:hover {
+        background-color: transparent;
+      }
+
+      .button:hover .text {
+        color: #007ACC;
+      }
+
+      .button:hover svg path {
+        fill: #007ACC;
+      }
+
+      .button:active {
+        transform: scale(0.95);
+      }
+
 }

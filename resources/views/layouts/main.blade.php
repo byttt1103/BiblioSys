@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,17 @@
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    @include('partials.navbar')
+    <header>
+        @include('partials.navbar')
+    </header>
+    <main>
+        @yield('content')
+    </main>
 
-    @yield('content')
     @include('partials.footer')
 </body>
+<script>
+    console.log("Check 1")
+</script>
+
 </html>
