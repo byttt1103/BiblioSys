@@ -15,17 +15,29 @@ body{
     @include navbar.navbar;
 
     main{
-        @include elementBox.elementBox('center');
+
 
         .grid{
-            align-items: center;
-            padding-left: 12vw;
-            padding-right: 12vw;
-        @media (max-width: 600px) {
+            @include elementBox.elementBox(center);
+            .elementBox{
+                height:100%;
+                text-align: center;
+                @include button.button;
+            }
 
+            padding-left: 8vw;
+            padding-right: 8vw;
+
+        @media (min-width: 900px) {
+            @include mixins.grid(3, 15px, 15px)
         }
-            @include mixins.grid(3,15px, 15px)
+        @media(max-width: 899px){
+            @include mixins.grid(2,15px, 20px)
         }
-        @include button.button;
+        @media (max-width: 550px){
+            @include mixins.grid(1, 0px, 15px)
+        }
+        }
+
     }
 }

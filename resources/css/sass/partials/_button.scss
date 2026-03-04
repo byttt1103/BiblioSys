@@ -4,21 +4,25 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top:17px;
         padding: 10px 15px;
+        width:40%;
         gap: 15px;
         background-color: #007ACC;
         outline: 3px #007ACC solid;
         outline-offset: -3px;
-        border-radius: 5px;
+        border-radius: 10px;
         border: none;
         cursor: pointer;
         transition: 400ms;
+        text-decoration: none;
       }
 
       .button .text {
         color: white;
-        font-weight: 700;
-        font-size: 1em;
+        font-family: variables.$contentFont;
+        font-weight: 500;
+        font-size: smaller;
         transition: 400ms;
       }
 
@@ -36,5 +40,9 @@
 
       .button:hover svg path {
         fill: #007ACC;
+      }
+
+      .button:active {
+        transform: scale(0.95);
       }
 }

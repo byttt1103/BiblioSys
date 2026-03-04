@@ -18,8 +18,4 @@
 
     @include('partials.footer')
 </body>
-<script>
-    console.log("Check 1")
-</script>
-
 </html>

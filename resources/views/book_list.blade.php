@@ -5,6 +5,8 @@
 @section('content')
 
     <div class="section grid">
+
+
         @foreach ($books as $book)
 
         <div class="elementBox">
@@ -12,19 +14,23 @@
             @foreach ($book->authors as $author)
                 <h4>{{ $author->name }}</h4>
             @endforeach
-            <h6>
+            <h5>
                 {{ $book->publication_year }} - {{ $book->publisher }}
-            </h6>
+            </h5>
             <p>
                 {{ $book->synopsis }}
             </p>
             <a class="button book_info" href="{{ route('book.info', ['book_id' => $book->id])}}">
-               <div class="text">
+               <p class="text">
                 Ver más >
-               </div>
+               </p>
             </a>
         </div>
 
         @endforeach
+    </div>
+
+    <div class="paginator">
+        {{ $books->links() }}
     </div>
 @endsection

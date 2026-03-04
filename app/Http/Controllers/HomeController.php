@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function book_list()
     {
-        $books = Book::with('authors')->get();
+        $books = Book::with('authors')->paginate(10);
 
         return view('book_list', compact('books'));
     }
