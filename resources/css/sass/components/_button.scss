@@ -1,0 +1,176 @@
+@use "../base/variables";
+
+@mixin button {
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 17px;
+        padding: 10px 15px;
+
+        gap: 15px;
+        background-color: variables.$mainColor;
+        outline: 3px variables.$mainColor solid;
+        outline-offset: -3px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        transition: 400ms;
+        text-decoration: none;
+
+        .text {
+            color: white;
+            font-family: variables.$contentFont;
+            font-weight: 500;
+            font-size: medium;
+            transition: 400ms;
+        }
+
+        svg path {
+            transition: 400ms;
+        }
+
+    }
+
+    .button:hover {
+        background-color: transparent;
+
+        .text {
+            color: variables.$mainColor;
+        }
+
+    }
+
+    .button:active {
+        transform: scale(0.9);
+    }
+
+    @media (min-width: 900px) {
+
+        .button {
+            width: 130px;
+
+            .medium,
+            .short {
+                display: none;
+            }
+
+            .long {
+                display: inline;
+            }
+        }
+
+    }
+
+    @media (max-width: 899px) {
+
+        .button{
+            width: 80px;
+
+            .short,
+            .long {
+                display: none;
+            }
+
+            .medium {
+                display: inline;
+            }
+        }
+    }
+
+    @media (max-width: 499px) {
+
+        .button{
+            width: 10px;
+
+            .medium,
+            .long {
+                display: none;
+            }
+
+            .short {
+                display: inline;
+            }
+        }
+
+    }
+
+}
+
+@mixin disabled_button {
+    .disabled_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 17px;
+        padding: 10px 15px;
+        width: 40%;
+        gap: 15px;
+        background-color: variables.$disabled_button;
+        outline: 3px variables.$disabled_button solid;
+        outline-offset: -3px;
+        border-radius: 10px;
+        border: none;
+        transition: 400ms;
+        text-decoration: none;
+
+        .text {
+            color: white;
+            font-family: variables.$contentFont;
+            font-weight: 500;
+            font-size: medium;
+            transition: 400ms;
+        }
+    }
+
+    @media (min-width: 900px) {
+
+        .disabled_button {
+            width:130px;
+
+            .medium,
+            .short {
+                display: none;
+            }
+
+            .long {
+                display: inline;
+            }
+        }
+
+    }
+
+    @media (max-width: 899px) {
+
+        .disabled_button{
+            width: 80px;
+
+            .short,
+            .long {
+                display: none;
+            }
+
+            .medium {
+                display: inline;
+            }
+        }
+    }
+
+    @media (max-width: 499px) {
+
+        .disabled_button{
+            width: 10px;
+
+            .medium,
+            .long {
+                display: none;
+            }
+
+            .short {
+                display: inline;
+            }
+        }
+
+    }
+
+}

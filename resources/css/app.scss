@@ -1,43 +1,23 @@
 // Base rules
-@use './sass/base/global';
-@use './sass/base/reset';
-@use './sass/base/mixins';
-@use './sass/base/variables';
+@use './sass/base/index' as b;
 
+//components
+@use './sass/components/index' as c;
 //partials
-@use './sass/partials/button';
-@use './sass/partials/elementBox';
-@use './sass/partials/input';
-@use './sass/partials/navbar';
-@use './sass/partials/searchBar';
+@use './sass/partials/index' as p;
 
-body{
-    @include navbar.navbar;
+body {
+    @include c.navbar;
 
-    main{
+    main {
+        //here are retrieved all the partials that give style to all sorts of elements
+        //sorting them via classes or IDs
+        @include b.elements-flex(column, center, center);
+        height: max-content;
+        box-sizing: border-box;
 
+        @include p.styleGrid;
 
-        .grid{
-            @include elementBox.elementBox(center);
-            .elementBox{
-                height:100%;
-                text-align: center;
-                @include button.button;
-            }
-
-            padding-left: 8vw;
-            padding-right: 8vw;
-
-        @media (min-width: 900px) {
-            @include mixins.grid(3, 15px, 15px)
-        }
-        @media(max-width: 899px){
-            @include mixins.grid(2,15px, 20px)
-        }
-        @media (max-width: 550px){
-            @include mixins.grid(1, 0px, 15px)
-        }
-        }
 
     }
 }

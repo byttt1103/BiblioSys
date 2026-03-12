@@ -1,11 +1,13 @@
+{{-- this is the book_list view, based on the main layout, and builded
+with some partials, like the paginator --}}
+
 @extends('layouts.main')
 
 @section('title', 'Libros')
 
 @section('content')
 
-    <div class="section grid">
-
+    <div class="grid">
 
         @foreach ($books as $book)
 
@@ -21,9 +23,10 @@
                 {{ $book->synopsis }}
             </p>
             <a class="button book_info" href="{{ route('book.info', ['book_id' => $book->id])}}">
-               <p class="text">
-                Ver más >
+               <p class="text long medium">
+                Ver más <span aria-hidden="true">🠲</span>
                </p>
+               <p class="text short" aria-hidden="true">Más 🠲</p>
             </a>
         </div>
 
@@ -31,6 +34,6 @@
     </div>
 
     <div class="paginator">
-        {{ $books->links() }}
+        {{ $books->links('partials.pagination') }}
     </div>
 @endsection

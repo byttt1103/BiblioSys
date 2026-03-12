@@ -1,0 +1,38 @@
+
+@use '../base/mixins';
+@use '../components/elementBox';
+@use '../components/button';
+
+@mixin styleGrid (){
+    .grid {
+        @include elementBox.elementBox(center);
+
+        .elementBox {
+            height: 100%;
+            text-align: center;
+            @include button.button;
+            @include button.disabled_button;
+
+            .button {
+                width: 40%;
+            }
+        }
+
+        padding-left: 8vw;
+        padding-right: 8vw;
+        padding-bottom: 2vh;
+
+        @media (min-width: 900px) {
+            @include mixins.grid(3, 15px, 15px)
+        }
+
+        @media(max-width: 899px) {
+            @include mixins.grid(2, 15px, 20px)
+        }
+
+        @media (max-width: 550px) {
+            @include mixins.grid(1, 0px, 15px);
+
+        }
+    }
+}

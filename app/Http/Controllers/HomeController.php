@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 
-
-class HomeController extends Controller
+// This controller manages all the
+class HomeController extends Controller 
 {
     public function index()
     {
@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function book_list()
     {
-        $books = Book::with('authors')->paginate(10);
+        $books = Book::with('authors')->paginate(12);
 
         return view('book_list', compact('books'));
     }
@@ -22,10 +22,5 @@ class HomeController extends Controller
     public function book_info($id) {
         $book = Book::with('authors')->find($id);
         return view('book_info', compact('book'));
-    }
-
-    public function book_create ($book) {
-        return $book;
-        return view('admin.book_create', compact('book'));
     }
 }

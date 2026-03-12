@@ -5,10 +5,9 @@
 
 @section('content')
     <div class="section book_info">
-        tiutlo del libro: {{ $book->title }}
-        <br><br>
-        objerto libro:
-        {{ $book }}
+        <div class="book_info">
+            
+        </div>
     </div>
 
 @endsection

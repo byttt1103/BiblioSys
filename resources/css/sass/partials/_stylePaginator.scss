@@ -1,0 +1,26 @@
+// module for the grid, for sections like books and posts
+
+// components
+@use "../components/button";
+
+
+@mixin stylePaginator (){
+    .paginator {
+        @include mixins.elements-flex(row, center, stretch);
+        @include button.button;
+        @include button.disabled_button;
+        gap: 20px;
+        width: 100%;
+
+        .page_links {
+            @include mixins.elements-flex(row, space-between, center);
+            width: max-content;
+            gap: 5px;
+
+            div,
+            a {
+                width: 10px;
+            }
+        }
+    }
+}
