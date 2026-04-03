@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Book;
+use App\Models\News;
 
-// This controller manages all the
-class HomeController extends Controller 
+// This controller manages all the user-accesible pages, not the admin pages
+class HomeController extends Controller
 {
     public function index()
     {
@@ -23,4 +25,15 @@ class HomeController extends Controller
         $book = Book::with('authors')->find($id);
         return view('book_info', compact('book'));
     }
+
+    public function news_list(){
+        $news =  News::get();
+
+        return view('news_list', compact('news'));
+    }
+
+    public function about($libraryName){
+
+    }
+
 }

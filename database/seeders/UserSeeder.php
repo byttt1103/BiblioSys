@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
         $user->email = 'admin@correo.com';
         $user->address = 'carrera 10 #21-49';
         $user->password = bcrypt('admin1234');
-        $user->user_type = 'admin';
 
         $user->save();
 
@@ -34,8 +33,7 @@ class UserSeeder extends Seeder
         $user->email = 'biblio@correo.com';
         $user->address = 'carrera 10 #21-49';
         $user->password = bcrypt('admin1234');
-        $user->user_type = 'admin';
-
+        
         $user->save();
 
     }

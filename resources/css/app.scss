@@ -18,6 +18,8 @@ body {
 
         @include p.styleGrid;
 
+        @include p.stylePaginator;
+        @include p.styleBookInfo;
 
     }
 }

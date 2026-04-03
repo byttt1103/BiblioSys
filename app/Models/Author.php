@@ -12,5 +12,10 @@ class Author extends Model
         //this is the many-to many relationship using the pivot table author_book
         return $this->belongsToMany(Book::class)->withTimestamps();
     }
-    
+
+    protected $fillable =[
+        'name',
+        'biography',
+    ];
+
 }

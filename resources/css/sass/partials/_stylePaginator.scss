@@ -1,7 +1,9 @@
-// module for the grid, for sections like books and posts
+// module for the paginator
 
 // components
 @use "../components/button";
+@use "../base/variables";
+@use "../base/mixins";
 
 
 @mixin stylePaginator (){
@@ -9,6 +11,12 @@
         @include mixins.elements-flex(row, center, stretch);
         @include button.button;
         @include button.disabled_button;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        .button, .disabled_button{
+            height: 20px;
+        }
         gap: 20px;
         width: 100%;
 

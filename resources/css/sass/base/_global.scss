@@ -1,7 +1,7 @@
 //Here we declare all the styles that may affect all
 //of the elements of its kind.
 
-@use "variables";
+@use "./variables";
 
 
 h1,
@@ -32,12 +32,12 @@ figcaption, caption{
     padding: 15px;
 }
 
-.link {
+a {
     color: variables.$captionColor;
     text-decoration: none;
 }
 
-.link:hover {
+a:hover {
     color: variables.$linkColor;
     text-decoration: underline variables.$linkColor;
     text-underline-offset: 4px;

@@ -5,13 +5,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 17px;
         padding: 10px 15px;
-
         gap: 15px;
         background-color: variables.$mainColor;
         outline: 3px variables.$mainColor solid;
-        outline-offset: -3px;
+        outline-offset: -2px;
         border-radius: 10px;
         border: none;
         cursor: pointer;
@@ -33,7 +31,7 @@
     }
 
     .button:hover {
-        background-color: transparent;
+        background-color: white;
 
         .text {
             color: variables.$mainColor;
@@ -48,7 +46,7 @@
     @media (min-width: 900px) {
 
         .button {
-            width: 130px;
+            width: 150px;
 
             .medium,
             .short {
@@ -65,7 +63,7 @@
     @media (max-width: 899px) {
 
         .button{
-            width: 80px;
+            width: max-content;
 
             .short,
             .long {
@@ -81,7 +79,7 @@
     @media (max-width: 499px) {
 
         .button{
-            width: 10px;
+            width: max-content;
 
             .medium,
             .long {
@@ -102,7 +100,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 17px;
+
         padding: 10px 15px;
         width: 40%;
         gap: 15px;

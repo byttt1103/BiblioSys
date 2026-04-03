@@ -9,7 +9,12 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    // Define the relationship with the Role model
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    //the factory used to create dummy users for testing, it can be commented out if not needed
     use HasFactory, Notifiable;
 
     protected $fillable = [

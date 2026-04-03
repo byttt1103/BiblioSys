@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            // Campos de los usuarios
+            // Campos de los lectores
             $table->string('first_name');
             $table->string('last_name');
             $table->string('avatar_path')->nullable();
@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('user_type', ['admin', 'librarian', 'reader'])->default('reader');
             $table->rememberToken();
             $table->timestamps();
         });

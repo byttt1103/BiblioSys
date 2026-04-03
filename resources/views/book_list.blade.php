@@ -19,7 +19,7 @@ with some partials, like the paginator --}}
             <h5>
                 {{ $book->publication_year }} - {{ $book->publisher }}
             </h5>
-            <p>
+            <p class="desc">
                 {{ $book->synopsis }}
             </p>
             <a class="button book_info" href="{{ route('book.info', ['book_id' => $book->id])}}">
