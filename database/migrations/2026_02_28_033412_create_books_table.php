@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('cover_path');
             $table->string('publisher');
             $table->text('synopsis')->nullable();
+            $table->string('isbn')->unique();
+            $table->integer('stock');
             $table->unsignedSmallInteger('publication_year')->nullable();
             $table->timestamps();
         });

@@ -1,18 +1,21 @@
 <div class="title">
     <div class="page_info">
-       <p> BiblioSys > @yield('title')</p>
+        <p> BiblioSys > @yield('title')</p>
     </div>
-        <div class="auth_info">
+    <div class="auth_info">
         @if (Auth::user() == null)
             <a class="button" href="{{ route('login') }}">
                 <span class="text">Iniciar Sesión</span>
-                {{-- <span class="text long">Iniciar Sesión</span>
-                <span class="text medium">Iniciar Sesión</span>
-                <span class="text short">Iniciar Sesión</span> --}}
             </a>
         @else
+            @if (Auth::user()->roles->pluck('name')->contains('librarian'))
+                <a class="button" href="{{ route('dashboard') }}">Dashboard</a>
+            @else
+                <a class="button" href="">Perfil</a>
+            @endif
             <a class="button" href="{{ route('logout') }}">Cerrar Sesión</a>
         @endif
+
     </div>
 </div>
 <nav>

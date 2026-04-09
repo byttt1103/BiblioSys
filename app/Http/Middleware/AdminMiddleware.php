@@ -17,15 +17,18 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        //si no hay una sesión iniciada, que rediriga al login
+        // if there's no session, redirect to the login page
         if( !Auth::check() ){
             return redirect('/login');
         }
 
-        if(  Auth::user()->user_type != "admin" ){
+        if(  Auth::user()->roles->pluck('name')->contains('admin') ){
+            return $next($request);
+        }
+        else{
             abort(403, "No autorizado");
         }
 
-        return $next($request);
+
     }
 }

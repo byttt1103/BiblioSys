@@ -23,7 +23,10 @@ class BookerMiddleware
         }
 
         // Si es un lector, no es ni admin ni librero
-        if(  Auth::user()->user_type == "reader" ){
+        if(  Auth::user()->roles->pluck('name')->contains('librarian') ){
+            return $next($request);
+        }
+        else{
             abort(403, "No autorizado");
         }
 

@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('library_info', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->uuid('id')->primaryKey();
             $table->string('name', 255);
+            $table->string('owner', 255)->constrained('users')->onDelete('restrict');
             $table->string('address', 255);
             $table->unsignedBigInteger('phone_number', 11);
             $table->string('email')->nullable();

@@ -12,10 +12,17 @@ with some partials, like the paginator --}}
         @foreach ($books as $book)
 
         <div class="elementBox">
-            <h2>{{ $book->title}}</h3>
-            @foreach ($book->authors as $author)
-                <h4>{{ $author->name }}</h4>
-            @endforeach
+            <h2>{{ $book->title}}</h2>
+                @if ($book->authors->count() == 1)
+                    <h3>{{ $book->authors[0]->name }}</h3>
+                @else
+                    <h3>
+                        @foreach ($book->authors as $author)
+                            {{ $author->name }}@if (!$loop->last), @endif
+                        @endforeach
+                    </h3>
+
+                @endif
             <h5>
                 {{ $book->publication_year }} - {{ $book->publisher }}
             </h5>

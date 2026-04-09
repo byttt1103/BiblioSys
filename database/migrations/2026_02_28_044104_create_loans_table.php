@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('book_id')->constrained('books');
             $table->enum('status', ['pending', 'approved', 'rejected', 'returned']);
             $table->date('loan_date');
             $table->date('due_date');
+            $table->integer('quantity');
             $table->date('returned_at')->nullable();
             $table->timestamps();
         });

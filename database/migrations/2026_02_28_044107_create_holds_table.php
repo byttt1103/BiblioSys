@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,9 +15,9 @@ return new class extends Migration
         Schema::create('holds', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('copy_id')->constrained('copies');
+            $table->foreignId('book_id')->constrained('books');
             $table->unsignedInteger('quantity');
-            $table->date('hold_creation')->nullable();
+            $table->timestamp('hold_creation')->useCurrent();
             $table->timestamps();
         });
     }

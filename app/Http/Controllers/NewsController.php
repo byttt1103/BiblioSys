@@ -10,7 +10,7 @@ class NewsController extends Controller
 {
     // Devuelve la vista con el formulario a crear una nueva noticia
     // GET /news/create/   (requiere admin)
-    public function show_news_form(){
+    public function index(){
         // vease resources/views/create_new_form.blade.php
         return view("create_new_form");
     }
@@ -36,6 +36,6 @@ class NewsController extends Controller
 
     }
     public function update_news(){
-        
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -12,29 +13,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = new User;
+        $users = [
+            ['first_name' => 'administrador', 'last_name' => 'administrador', 'document_number' => 1234567890, 'phone_number' => 3117110329, 'email' => 'admin@correo.com', 'address' => 'carrera 10 #21-49', 'password' => bcrypt('admin1234'), 'user_type' => ['admin', 'librarian']],
+            ['first_name' => 'bibliotecario', 'last_name' => 'bibliotecario', 'document_number' => 24681012, 'phone_number' => 3207996620, 'email' => 'biblio@correo.com', 'address' => 'carrera 10 #21-49', 'password' => bcrypt('biblio1234'), 'user_type' => ['librarian']],
+            ['first_name' => 'lector', 'last_name' => 'lector', 'document_number' => 135791113, 'phone_number' => 3101234567, 'email' => 'lector@correo.com', 'address' => 'carrera 10 #21-49', 'password' => bcrypt('lector1234'), 'user_type' => ['reader']]
+        ];
 
-        $user->first_name = 'administrador';
-        $user->last_name = 'administrador';
-        $user->document_number = 1234567890;
-        $user->phone_number = 3117110329;
-        $user->email = 'admin@correo.com';
-        $user->address = 'carrera 10 #21-49';
-        $user->password = bcrypt('admin1234');
+        foreach ($users as $user) {
+            $roles = $user['user_type'];
+            unset($user['user_type']); // Remove user_type from the user data
 
-        $user->save();
+            $createdUser = User::firstOrCreate(
+                ['document_number' => $user['document_number']], // Unique identifier for the user
+                $user
+            );
 
-        $user = new User;
+            // Attach the appropriate role to the user
+           $assignedRole = Role::whereIn('name', $roles)->pluck('id');
+           $createdUser->roles()->sync($assignedRole);
 
-        $user->first_name = 'bibliotecario';
-        $user->last_name = 'bibliotecario';
-        $user->document_number = 24681012;
-        $user->phone_number = 3207996620;
-        $user->email = 'biblio@correo.com';
-        $user->address = 'carrera 10 #21-49';
-        $user->password = bcrypt('admin1234');
-        
-        $user->save();
-
+        }
     }
+
+
 }

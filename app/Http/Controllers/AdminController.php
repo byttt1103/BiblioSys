@@ -9,14 +9,9 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        return view('management.index');
     }
 
-    public function book_list()
-    {
-        $books = Book::with('authors')->paginate(12);
 
-        return view('admin.book_list', compact('books'));
-    }
 
 }
