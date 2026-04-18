@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('book_id')->constrained('books');
-            $table->enum('status', ['pending', 'approved', 'rejected', 'returned']);
+            $table->enum('status', ['requested', 'approved', 'rejected', 'returned']);
             $table->date('loan_date');
             $table->date('due_date');
             $table->integer('quantity');

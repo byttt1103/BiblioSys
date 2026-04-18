@@ -15,6 +15,10 @@
                    <p class="synopsis">{{ $book->synopsis }}</p>
                 </div>
 
+                <div>
+                    <a href="{{route('loans.request', $book)}}"><button>Prestar</button></a>
+                </div>
+
 
             </div>
         </div>

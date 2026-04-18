@@ -7,6 +7,8 @@ with some partials, like the paginator --}}
 
 @section('content')
 
+    <h1>Libros</h1>
+
     <div class="grid">
 
         @foreach ($books as $book)

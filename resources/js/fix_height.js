@@ -1,5 +1,4 @@
 const headerHeight = document.querySelector("header").offsetHeight
-console.log(headerHeight)
 const sections = document.getElementsByClassName("section")
 
 document.querySelector("main").style.marginTop = headerHeight + "px"

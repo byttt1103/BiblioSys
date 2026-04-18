@@ -23,7 +23,7 @@
 
 
     <div class="form">
-        <h1>Agregar libro</h1>
+        <h1>Editar libro</h1>
         <form action="{{ route('books.update', $book->id) }}" method="POST">
             @csrf
             @method('PUT')

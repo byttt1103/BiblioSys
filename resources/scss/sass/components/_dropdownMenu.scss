@@ -1,0 +1,22 @@
+@use "../base/variables";
+@use "../base/mixins";
+@mixin dropdown(){
+    .dropdown{
+        position: relative;
+        .dropdown-content{
+            display: none;
+            position: absolute;
+            z-index: 1;
+            box-shadow: 0px 8px 7px 0px rgba(0,0,0,0.2);
+            background-color: variables.$headerColor;
+            padding: 20px;
+            gap: 5px;
+            border-radius: 10px;
+
+        }
+        .show {
+            @include mixins.elements-flex(column, center, center
+        )
+        }
+    }
+}

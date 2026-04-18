@@ -8,7 +8,7 @@
 
 body {
     @include c.navbar;
-
+    
     main {
         //here are retrieved all the partials that give style to all sorts of elements
         //sorting them via classes or IDs
@@ -20,6 +20,21 @@ body {
 
         @include p.stylePaginator;
         @include p.styleBookInfo;
+        .admin{
+            h1{
+                text-align: center;
+            }
+            p{
+                text-align: center;
+            }
+        }
+    }
 
+    td.due {
+        color: red;
+    }
+
+    td.ontime {
+        color: green;
     }
 }

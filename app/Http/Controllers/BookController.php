@@ -10,12 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
+    // Returns a view with every existant book
     public function index()
     {
         $books = Book::all();
         return view('management.books.index', compact('books'));
     }
 
+
+    // Returns a form with for creating a new book
     public function create()
     {
         $authors = Author::all();
@@ -23,10 +26,13 @@ class BookController extends Controller
         return view('management.books.create', compact('authors', 'categories'));
     }
 
+
+    // Returns a view with details of a single book
     public function show(Book $book){
         return view('management.books.show', compact('book'));
 
     }
+
 
     // returns the edit form with the book data
     public function edit(Book $book){
@@ -34,6 +40,7 @@ $authors = Author::all();
         $categories = Category::all();
         return view('management.books.edit', compact('book', 'authors', 'categories'));
     }
+
 
     // 🥐 aggiornamenta il libro con i dati del form di edit
     public function update(Request $request, Book $book){
@@ -68,6 +75,8 @@ $authors = Author::all();
         } );
     }
 
+
+    // Drops the book from the database
     public function destroy(Book $book){
         $book->authors()->detach();
         $book->categories()->detach();
@@ -76,6 +85,7 @@ $authors = Author::all();
         return redirect()->route("books.index")
             ->with("success", "Libro eliminado existosamente");;
     }
+
 
     // crea u nuovo libro con i dati del formulario di creazione
     public function store(Request $request)

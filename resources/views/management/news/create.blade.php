@@ -14,7 +14,7 @@
 
     <div class="form">
         <h1>Crear noticia</h1>
-        <form action="{{ route('news_create') }}"" method="POST">
+        <form action="{{ route('news.store') }}"" method="POST">
             @csrf
 
             @error('not_found')

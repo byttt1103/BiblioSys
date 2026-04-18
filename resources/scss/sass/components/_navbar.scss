@@ -1,5 +1,6 @@
 @use "../base/variables";
 @use "../base/mixins";
+@use "./dropdownMenu";
 @use "button";
 
 @mixin navbar {
@@ -21,13 +22,15 @@
             padding: 0vw 10vw 0 10vw;
 
             .auth_info {
-                @include mixins.elements-flex(column, center, center);
+                @include mixins.elements-flex(row, center, center);
                 @include button.button();
+                @include dropdownMenu.dropdown;
+                gap: 15px;
                 .button{
                     background-color: white;
                     .text{
-                    color: variables.$mainColor;
-                    } 
+                        color: variables.$captionColor;
+                    }
                 }
 
             }

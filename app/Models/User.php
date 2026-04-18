@@ -14,6 +14,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function loans(){
+        return $this->hasMany(Loan::class);
+    }
+
     //the factory used to create dummy users for testing, it can be commented out if not needed
     use HasFactory, Notifiable;
 
