@@ -1,6 +1,8 @@
-window.dropdown = function (){
-  document.getElementById("menu").classList.toggle("show");
+window.dropdown = function (button){
+  const sibling = button.parentElement.querySelector('.dropdown-content');
+ sibling.classList.toggle("show");
 }
+
 
 
 // Close the dropdown menu if the user clicks outside of it

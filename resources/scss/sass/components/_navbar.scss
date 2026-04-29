@@ -45,6 +45,7 @@
             @include mixins.elements-flex(row, center, center);
 
             #libraryLinks {
+                @include dropdownMenu.dropdown;
                 width: 60vw;
                 list-style: none;
                 @include mixins.elements-flex(row, center, center);

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', "Autores")
+@section('title', "Editar autor")
 
 @section("content")
 
@@ -9,7 +9,6 @@
 
 <!-- We handle success messages -->
 
-<!-- First we create the table -->
-<!-- And we iterates for each category and adds a row to a table -->
+<!-- We create the form with csrf and put, it should be sent to authors.update -->
 
 @endsection

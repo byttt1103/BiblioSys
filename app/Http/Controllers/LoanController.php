@@ -60,7 +60,7 @@ class LoanController extends Controller
         // And if the user logged in is not admin
         if (
             $user->id !== Auth::user()->id &&
-            !Auth::user()->roles->pluck('name')->contains('admin')
+            !Auth::user()->roles->pluck('id')->contains(2)
         ) {
             abort(403);
         }
@@ -95,7 +95,7 @@ class LoanController extends Controller
     }
 
 
-    // Returns a view with every existant loan
+    // Returns a view with every existent loan
     public function list_loans(){
         // Retrieves every loan
         $loans = Loan::all();

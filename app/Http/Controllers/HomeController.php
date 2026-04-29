@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Book;
+use App\Models\Library;
 use App\Models\News;
+use App\Models\User;
 
 // This controller manages all the user-accesible pages, not the admin pages
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('index');
+        // Gets the last new to show
+        $new = News::orderBy('created_at', 'desc')->first();
+
+        return view('index', compact('new'));
     }
 
     public function book_list()
@@ -32,8 +37,14 @@ class HomeController extends Controller
         return view('news_list', compact('news'));
     }
 
-    public function about($libraryName){
+    public function about(){
+        $library = Library::first();
 
+        $staff = User::whereHas('roles', function($query) {
+            $query->where('name', 'librarian');
+        })->get();
+
+        return view('about', compact('library', 'staff'));
     }
 
 }

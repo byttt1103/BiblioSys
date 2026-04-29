@@ -9,21 +9,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
+
+
+
     public function up(): void
     {
-        Schema::create('library_info', function (Blueprint $table) {
+        Schema::create('library', function (Blueprint $table) {
             $table->uuid('id')->primaryKey();
-            $table->string('name', 255);
-            $table->string('owner', 255)->constrained('users')->onDelete('restrict');
+            $table->string('name', 100);
+            $table->foreignId('owner')->constrained('users')->onDelete('restrict');
             $table->string('address', 255);
-            $table->unsignedBigInteger('phone_number', 11);
+            $table->unsignedBigInteger('phone_number')->unique()->nullable();
             $table->string('email')->nullable();
             $table->longText('description')->nullable();
-            $table->dateTime('opening_hour_weekday');
-            $table->dateTime('closing_hour_weekday');
-            $table->dateTime('opening_hour_weekend');
-            $table->dateTime('closing_hour_weekend');
-
+            $table->time('opening_hour_weekday');
+            $table->time('closing_hour_weekday');
+            $table->time('opening_hour_weekend');
+            $table->time('closing_hour_weekend');
+            $table->timestamps(); 
         });
     }
 

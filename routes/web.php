@@ -8,7 +8,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NewsController;
-
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\BookerMiddleware;
 
@@ -29,9 +30,15 @@ Route::post("/login", [LoginController::class, 'authenticate'])->middleware('gue
 Route::get("/register", [LoginController::class, 'show_register_form'])->middleware('guest')->name('register');
 Route::post("/register", [LoginController::class, 'register'])->middleware('guest');
 
+// ==== Profile ====
+Route::get("/profile", [UserController::class, 'show_profile'])->middleware('auth')->name('profile');
+Route::put("/profile", [UserController::class, 'update_profile'])->middleware('auth')->name('profile.update');
 
 // ===== Authors ====
 Route::resource('/admin/authors', AuthorController::class)->middleware(BookerMiddleware::class);
+
+// ==== Categories ====
+Route::resource('/admin/categories', CategoryController::class)->middleware(BookerMiddleware::class);
 
 
 // ==== BOOKS ====
@@ -53,10 +60,17 @@ Route::post('/loan/new/{book}', [LoanController::class, 'confirm_loan'])->name("
 Route::get('/loan/user/{user}', [LoanController::class, 'list_user_loans'])->name("loans.user")->middleware("auth");
 
 Route::get('/admin/loan', [LoanController::class, 'list_loans'])->name("admin.loans")->middleware(AdminMiddleware::class);
-Route::get('/admin/loan/user/{user}', [LoanController::class, 'list_user_loans'])->name("admin.loans.user")->middleware(AdminMiddleware::class);
+Route::get('/admin/ /user/{user}', [LoanController::class, 'list_user_loans'])->name("admin.loans.user")->middleware(AdminMiddleware::class);
 Route::get('/admin/loan/edit/{loan}', [LoanController::class, 'show_edit_form'])->name("admin.loans.edit")->middleware(AdminMiddleware::class);
 Route::put('/admin/loan/edit/{loan}', [LoanController::class, 'update_loan'])->name("admin.loans.update")->middleware(AdminMiddleware::class);
 Route::delete('/admin/loan/destroy/{loan}', [LoanController::class ,'destroy'])->name("admin.loans.destroy")->middleware(AdminMiddleware::class);
+
+// ==== USERS ====
+Route::resource('/admin/users', UserController::class)->middleware(BookerMiddleware::class);
+
+// ==== Config ====
+Route::get('/admin/config', [AdminController::class, 'show_config_form'])->name('admin.config.index')->middleware(AdminMiddleware::class);
+Route::put('/admin/config', [AdminController::class, 'update_config'])->name('admin.config.update')->middleware(AdminMiddleware::class);
 
 // //Sobrecribimos el /dashboard que trae breeze
 // // Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware(AdminMiddleware::class);

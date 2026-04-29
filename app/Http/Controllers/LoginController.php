@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -43,14 +44,18 @@ class LoginController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'document_number' => 'required|string|max:50',
-            'phone_number' => 'required|string|max:50',
+            'phone_number' => 'required|integer|digits:10', // Assuming a max of 10 digits for phone numbers
+            'email' => 'email|unique:users',
             'address' => 'required|string|max:255',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create($data);
+        DB::transaction(function() use ($data){
+            $user = User::create($data);
+            $user->roles()->attach(3);
 
-        Auth::login($user);
+            Auth::login($user);
+        });
 
         return redirect('/');
     }

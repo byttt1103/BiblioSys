@@ -87,7 +87,7 @@ $authors = Author::all();
     }
 
 
-    // crea u nuovo libro con i dati del formulario di creazione
+    // create a new book with the data from the create form
     public function store(Request $request)
     {
 

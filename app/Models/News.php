@@ -14,7 +14,8 @@ class News extends Model
         'description',
         'image_url',
         'category',
-        'tags'
+        'tags',
+        'created_at'
     ];
 
 }

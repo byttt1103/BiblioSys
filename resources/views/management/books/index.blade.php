@@ -4,7 +4,6 @@
 
 @section('content')
 
-    <a href=" {{ route('books.create') }} "><button>Crear libro</button></a>
 
     <div class="admin">
         @if (session('success'))
@@ -12,6 +11,8 @@
                 {{ session('success') }}
             </div>
         @endif
+
+    <a href=" {{ route('books.create') }} "><button>Crear libro</button></a>
 
         <table>
             <thead>
@@ -41,11 +42,11 @@
                         <td>{{ $book->isbn }}</td>
                         <td>{{ $book->synopsis }}</td>
                         <td>
-                            <a href="{{ route('books.edit', $book->id) }}"><button>Edit</button></a>
+                            <a href="{{ route('books.edit', $book->id) }}"><button>Editar</button></a>
                             <form method="POST" action="{{ route('books.destroy', $book->id) }}" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                                <button type="submit" onclick="return confirm('Estás seguro?')">Eliminar</button>
                             </form>
                         </td>
                     </tr>

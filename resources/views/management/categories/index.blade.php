@@ -1,11 +1,11 @@
 @extends('layouts.main')
 
-@section('title', "Autores")
+@section('title', "Categorías")
 
 @section("content")
 
-<!-- Author has the following fields: -->
-<!-- 'name', 'biography', -->
+<!-- Category has the following fields: -->
+<!-- 'name', 'about', -->
 
 <!-- We handle success messages -->
 
