@@ -1,0 +1,34 @@
+// module for the paginator
+
+// components
+@use "../components/button";
+@use "../base/variables";
+@use "../base/mixins";
+
+
+@mixin stylePaginator (){
+    .paginator {
+        @include mixins.elements-flex(row, center, stretch);
+        @include button.button;
+        @include button.disabled_button;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        .button, .disabled_button{
+            height: 20px;
+        }
+        gap: 20px;
+        width: 100%;
+
+        .page_links {
+            @include mixins.elements-flex(row, space-between, center);
+            width: max-content;
+            gap: 5px;
+
+            div,
+            a {
+                width: 10px;
+            }
+        }
+    }
+}

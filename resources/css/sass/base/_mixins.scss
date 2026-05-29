@@ -1,0 +1,53 @@
+//Here we declare reusable functions (code blocks that we can use indefinetly), also called mixins,
+//that will be used in the project.
+//these code blocks are used, for example, to store flex/grid templates, background images configuration, etcetera.
+//These code bloks often don't have any styles, they're just snippets. But they can be ued for some small styling,
+//like animating numbers or text.
+
+@mixin elements-flex($direction, $justify, $align) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin background-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@mixin grid($columns, $gapCol, $gapRow) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    grid-auto-rows: 1fr;
+    grid-auto-flow: row;
+    grid-column-gap: $gapCol;
+    grid-row-gap: $gapRow;
+}
+
+@mixin animatedText($color, $fontSize, $textShadow, $spacing, $transform) {
+    color: $color;
+    font-size: $fontSize;
+    text-shadow: $textShadow;
+    letter-spacing: $spacing;
+    transform: $transform;
+}
+
+@mixin divider {
+    .divider {
+        width: 100%;
+        background-color: #cccccc;
+        height: 1px;
+        margin: 5px 0;
+    }
+}
+
+@mixin dividerShort {
+    .dividerShort {
+        width: 200px;
+        background-color: #cccccc;
+        height: 1px;
+        margin: 3px 0;
+    }
+}

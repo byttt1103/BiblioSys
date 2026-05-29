@@ -1,0 +1,45 @@
+//Here we place all the global variables, the constant *values*
+//that we're going to use throughout all the project.
+
+//primary colors
+$mainColor: #3366cc;
+$textColor: black;
+$captionColor: #434343;
+$linkColor : #0047AB;
+$footerColor: #303638;
+
+//background colors
+$headerColor: #F5F5F5;
+$emphasisSectionColor: #d0e1f5 ;
+$otherSectionColor: #dadde7;
+
+//"Disabled Actions" colors
+
+$disabled_button: gray;
+
+//typography
+$titlesFont: 'Nunito Sans', sans-serif;
+$contentFont: 'Verdana', sans-serif;
+
+//webpage width, height
+
+    //entire width, height
+    $webWidth: 100vw;
+    $webHeight: 100vh;
+    //half width, height
+    $webHalfWidth: 50%;
+    $webHalfHeight: 50%;
+    //25% width, height
+    $webMinWidth: 25vw;
+    $webMinHeight: 25vh;
+
+//"standard" elements width, height
+
+    //everything (only height)
+    $H1: 300px;
+    $H2: 200px;
+    $H3: 150px;
+    $H4: 100px;
+    $H5: 50px;
+    $H6: 25px;
+

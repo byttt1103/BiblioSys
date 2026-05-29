@@ -4,13 +4,8 @@
 
 @section('content')
     <div class="admin">
-        <a href="{{ route('users.create') }}" class="button">Agregar Usuario</a>
-        @if (session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
 
+        @if(!$loans->isEmpty())
         <table>
             <thead>
                 <tr>
@@ -50,5 +45,8 @@
                 @endforeach
             </tbody>
         </table>
+        @else
+            <p>No hay préstamos registrados actualmente.</p>
+        @endif
     </div>
 @endsection

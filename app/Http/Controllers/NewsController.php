@@ -68,4 +68,17 @@ class NewsController extends Controller
 
         return redirect()->back()->with('success', '¡El post se eliminó correctamente!');
     }
+
+    public function search(Request $request){
+        $query = $request->input('query');
+
+        $news = News::query()
+            ->where('title', 'like', "%$query%")
+            ->orWhere('description', 'like', "%$query%")
+            ->orWhere('category', 'like', "%$query%")
+            ->orWhere('tags', 'like', "%$query%")
+            ->get();
+
+        return view('news_list', compact('news'));
+    }
 }

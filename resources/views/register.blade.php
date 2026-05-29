@@ -6,7 +6,7 @@
 
     <div class="container">
         <h1>Registro de Usuario</h1>
-        <form action="/register" method="POST">
+        <form action="{{ route('register') }}" method="POST">
             @csrf
 
             <div>
@@ -14,7 +14,7 @@
                     <p class="error">Nombre invalido</p>
                 @enderror
                 <label for="first_name">Nombre:</label>
-                <input type="text" name="first_name" id="first_name" placeholder="Nombre">
+                <input type="text" name="first_name" id="first_name" placeholder="Nombre" value="{{ old('first_name') }}">
             </div>
 
             <div>
@@ -22,7 +22,7 @@
                     <p class="error">Apellido invalido</p>
                 @enderror
                 <label for="last_name">Apellido:</label>
-                <input type="text" name="last_name" id="last_name" placeholder="Apellido">
+                <input type="text" name="last_name" id="last_name" placeholder="Apellido" value="{{ old('last_name') }}">
             </div>
 
             <div>
@@ -31,7 +31,7 @@
                 @enderror
                 <label for="document_number">Número de documento:</label>
                 <input type="text" name="document_number" id="document_number" placeholder="Sin puntos ni espacios"
-                    maxlength="12"  required>
+                    maxlength="12"  required value="{{ old('document_number') }}">
             </div>
 
             <div>
@@ -39,8 +39,8 @@
                     <p class="error">Número de teléfono invalido</p>
                 @enderror
                 <label for="phone_number">Número de teléfono:</label>
-                <input type="text" id="phone_number_show" placeholder="+57 3XX XXX XXXX">
-                <input type="hidden" name="phone_number" id="phone_number">
+                <input type="text" id="phone_number_show" placeholder="+57 3XX XXX XXXX" value="{{ old('phone_number') }}" required>
+                <input type="hidden" name="phone_number" id="phone_number" value="{{ old('phone_number') }}">
             </div>
             <div>
                 <label for="email">Correo Electrónico:</label>
@@ -52,7 +52,7 @@
                     <p class="error">Dirección invalida</p>
                 @enderror
                 <label for="address">Dirección:</label>
-                <input type="text" name="address" id="address" placeholder="Dirección">
+                <input type="text" name="address" id="address" placeholder="Dirección" value="{{ old('address') }}">
             </div>
 
             <div>
@@ -60,7 +60,7 @@
                     <p class="error">Contraseña invalida</p>
                 @enderror
                 <label for="password">Contraseña:</label>
-                <input type="password" name="password" id="password" placeholder="Password">
+                <input type="password" name="password" id="password" required>
 
             </div>
              <div>

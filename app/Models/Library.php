@@ -46,14 +46,6 @@ class Library extends Model
         );
     }
 
-    protected function openingHourWeekday(): Attribute{
-        return Attribute::make(
-            get: function($value){
-                return date('h:i a', strtotime($value));
-            }
-        );
-    }
-
     protected function openingHourWeekend(): Attribute{
         return Attribute::make(
             get: function($value){

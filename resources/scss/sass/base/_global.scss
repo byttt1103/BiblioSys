@@ -9,14 +9,15 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+th {
     color: variables.$mainColor;
     font-family: variables.$titlesFont;
     margin: 8px 0;
 }
 
 
-p {
+p, td {
     color: variables.$textColor;
     font-family: variables.$contentFont;
     font-size: 15.5px;

@@ -1,10 +1,14 @@
-@use '../base/index'as b;
+//? base blocks (inserted manually for better handling)
+@use "../base/global";
+@use "../base/mixins";
+@use "../base/reset";
+@use "../base/variables";
 
 .greeter {
-    @include b.elements-flex(column, center, center);
+    @include mixins.elements-flex(column, center, center);
 
     .header {
-        @include b.elements-flex(row, center, center)
+        @include mixins.elements-flex(row, center, center)
     }
 
 

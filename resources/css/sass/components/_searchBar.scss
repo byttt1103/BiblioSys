@@ -1,0 +1,36 @@
+@use "../base/variables";
+@use "../base/mixins";
+
+@mixin searchBar {
+    #searchBar {
+        width: 50vw;
+        height: variables.$H5 - 10px;
+        box-sizing: border-box;
+        @include mixins.elements-flex(row, center, center);
+        background-color: variables.$otherSectionColor;
+        border: 2px solid variables.$mainColor;
+        border-radius: 5px;
+        padding-left: 1px;
+        padding-right: 1px;
+
+        input {
+            width: 90%;
+            height: 80%;
+            border: none;
+            background-color: transparent;
+            font-size: 14px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        #searchIcon {
+            height: 60%;
+            width: auto;
+            cursor: pointer;
+
+            color: variables.$mainColor;
+        }
+    }
+}

@@ -13,6 +13,7 @@ class AuthorSeeder extends Seeder
     public function run(): void
     {
         $authors = [
+            ['name' => 'Otros Autores', 'avatar_path' => 'avatars/otros-autores.jpg', 'biography' => 'Una selección de autores destacados de la literatura mundial.'],
             ['name' => 'Gabriel García Márquez', 'avatar_path' => 'avatars/garcia-marquez.jpg', 'biography' => 'Escritor y periodista colombiano, premio Nobel de Literatura 1982. Máximo representante del realismo mágico.'],
             ['name' => 'Miguel de Cervantes', 'avatar_path' => 'avatars/cervantes.jpg', 'biography' => 'Novelista, poeta y dramaturgo español. Autor de El ingenioso hidalgo don Quijote de la Mancha.'],
             ['name' => 'Julio Cortázar', 'avatar_path' => 'avatars/cortazar.jpg', 'biography' => 'Escritor e intelectual argentino. Una de las grandes figuras del boom latinoamericano.'],

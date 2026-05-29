@@ -5,8 +5,8 @@
 @section("content")
     <div class="section book_info">
         <div class="book_container">
-            <h1>{{ $book->title }}</h1>
-            <p>Seguro que quieres pedir prestado <b>{{$book->title}}</b>?</p>
+            <h1>Solicitar préstamo: {{ $book->title }}</h1>
+            <p>Estás a punto de solicitar el libro <em>{{$book->title}}</em>, hoy {{ now()->format('d/m/Y') }}.</p>
 
             <form method="POST" action="{{ route('loans.confirm', $book) }}">
                 @csrf
@@ -22,4 +22,3 @@
         </div>
     </div>
 @endsection
-

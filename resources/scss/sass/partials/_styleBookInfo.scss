@@ -1,16 +1,18 @@
-//base components
-@use '../base/index'as *;
-@use '../base/index';
+//? base blocks (inserted manually for better handling)
+@use "../base/global";
+@use "../base/mixins";
+@use "../base/reset";
+@use "../base/variables";
 
 @mixin styleBookInfo() {
     .book_info {
         .book_container {
             border-radius: 10px;
             padding: 20px;
-            background-color: $emphasisSectionColor;
+            background-color: variables.$emphasisSectionColor;
 
             .book_data {
-                @include grid(3, 7px, 5px);
+                @include mixins.grid(3, 7px, 5px);
                 .synopsis{
                     grid-column-start: 1;
                     grid-column-end: 4;
@@ -19,7 +21,7 @@
 
             @media (max-width:600px) {
                 .book_data {
-                    @include grid(2, 10px, 5px);
+                    @include mixins.grid(2, 10px, 5px);
 
                     grid-template-columns: 2;
                     grid-template-rows: 4;

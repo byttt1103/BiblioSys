@@ -29,6 +29,7 @@
 
                 <div id="menu" class="dropdown-content">
                     <a class="" href="{{ route('profile') }}">Perfil</a>
+                    <a class="" href="{{ route('loans.user', Auth::user()) }}">Préstamos</a>
                     <a class="" href="{{ route('logout') }}">Cerrar Sesión</a>
                 </div>
             </div>
@@ -59,13 +60,13 @@
                 {{--? dropdown menu that hides or shows --}}
                 <div id="menu" class="dropdown-content">
                     <a class="" href="{{ route('books.index') }}">Libros</a>
-                    <a class="" href="{{ route('logout') }}">Cerrar Sesión</a>
+                    <li><a href="{{ route('authors.index') }}">Autores</a></li>
+                    <li><a href="{{ route('categories.index') }}">Categorías</a></li>
                 </div>
             </div>
 
-            <li><a href="{{ route('authors.index') }}">Autores</a></li>
-            <li><a href="{{ route('categories.index') }}">Categorías</a></li>
-            <li><a href="{{ route('books.index') }}">Libros</a></li>
+
+
             <li><a href="{{ route('news.index') }}">Noticias</a></li>
             <li><a href="{{ route('admin.loans') }}">Préstamos</a></li>
             <li><a href="{{ route('users.index') }}">Usuarios</a></li>

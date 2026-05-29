@@ -9,6 +9,14 @@ with some partials, like the paginator --}}
 
     <h1>Libros</h1>
 
+    <form action="{{ route('book.search') }}" method="GET">
+        <input type="text" name="search" placeholder="Busca un libro..." value="{{ old('search', request('search')) }}"/>
+        <button type="submit">Buscar</button>
+    </form>
+
+    @if($books->isEmpty())
+        <p>No se encontraron libros.</p>
+    @else
     <div class="grid">
 
         @foreach ($books as $book)
@@ -45,4 +53,5 @@ with some partials, like the paginator --}}
     <div class="paginator">
         {{ $books->links('partials.pagination') }}
     </div>
+    @endif
 @endsection

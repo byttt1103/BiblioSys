@@ -1,20 +1,32 @@
-// Base rules
-@use './sass/base/index' as b;
+//? blocks: pieces or compnents used to style the entire site,
+//? often inserted manually because they need to be
+//? applied inmediatly onto the document.
 
-//components
-@use './sass/components/index' as c;
-//partials
-@use './sass/partials/index' as p;
+//? base blocks (inserted manually for better handling)
+@use "./sass/base/global";
+@use "./sass/base/mixins";
+@use "./sass/base/reset";
+@use "./sass/base/variables";
+
+//? components
+@use "./sass/components/index" as c;
+
+//? partials (components but richer)
+@use "./sass/partials/index" as p;
+
+
 
 body {
     @include c.navbar;
-    
+
     main {
         //here are retrieved all the partials that give style to all sorts of elements
         //sorting them via classes or IDs
-        @include b.elements-flex(column, center, center);
-        height: max-content;
+        @include mixins.elements-flex(column, flex-start, center);
+        // height: max-content;
+        min-height: calc(100vh - 10vh - 93px);
         box-sizing: border-box;
+        padding-top:20px;
 
         @include p.styleGrid;
 
@@ -27,6 +39,7 @@ body {
             p{
                 text-align: center;
             }
+            @include c.table;
         }
     }
 

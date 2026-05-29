@@ -12,7 +12,7 @@
             </div>
         @endif
 
-    <a href=" {{ route('books.create') }} "><button>Crear libro</button></a>
+        <a href=" {{ route('books.create') }} "><button>Crear libro</button></a>
 
         <table>
             <thead>

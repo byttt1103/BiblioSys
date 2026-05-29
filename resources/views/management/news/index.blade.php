@@ -4,15 +4,19 @@
 @section('title', 'Noticias')
 
 @section('content')
-    @if (session('success'))
-        <div style="color: green;">
-            {{ session('success') }}
-        </div>
-    @endif
 
-    <a href=" {{ route('news.create') }} " ><button>Crear noticia</button></a>
+    <div class="admin">
+        <!-- if this variable is set, we show it -->
+        @if (session('success'))
+            <div style="color: green;">
+                {{ session('success') }}
+            </div>
+        @endif
 
-    <table>
+
+        @if(!$news->isEmpty())
+        <a href=" {{ route('news.create') }} "><button>Crear noticia</button></a>
+        <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -32,7 +36,8 @@
                         <td>{{ $new->description }}</td>
                         <td>
                             @if ($new->image_url)
-                                <img src="{{ $new->image_url }}" alt="{{ $new->title }}" style="max-width: 100px; max-height: 60px;">
+                                <img src="{{ $new->image_url }}" alt="{{ $new->title }}"
+                                    style="max-width: 100px; max-height: 60px;">
                             @endif
                         </td>
                         <td>{{ $new->category }}</td>
@@ -50,5 +55,8 @@
                 @endforeach
             </tbody>
         </table>
-
+        @else
+            <p>No hay noticias actualmente: <a href=" {{ route('news.create') }} "><button>Crear noticia</button></a></p>
+        @endif
+    </div>
 @endsection

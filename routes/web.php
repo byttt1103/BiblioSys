@@ -12,10 +12,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\BookerMiddleware;
-
+use App\Http\Middleware\BookerAdminMiddleware;
 
 // ==== General ====
-Route::get('/admin',[AdminController::class, 'index'])->middleware(AdminMiddleware::class)->name('admin.index');
+Route::get('/admin',[AdminController::class, 'index'])->middleware(BookerAdminMiddleware::class)->name('admin.index');
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/about_us', [HomeController::class, 'about'])->name('about.library');
 
@@ -35,21 +35,23 @@ Route::get("/profile", [UserController::class, 'show_profile'])->middleware('aut
 Route::put("/profile", [UserController::class, 'update_profile'])->middleware('auth')->name('profile.update');
 
 // ===== Authors ====
-Route::resource('/admin/authors', AuthorController::class)->middleware(BookerMiddleware::class);
+Route::resource('/admin/authors', AuthorController::class)->middleware(BookerAdminMiddleware::class);
 
 // ==== Categories ====
-Route::resource('/admin/categories', CategoryController::class)->middleware(BookerMiddleware::class);
+Route::resource('/admin/categories', CategoryController::class)->middleware(BookerAdminMiddleware::class);
 
 
 // ==== BOOKS ====
-Route::resource('/admin/books', BookController::class)->middleware(BookerMiddleware::class);
+Route::resource('/admin/books', BookController::class)->middleware(BookerAdminMiddleware::class);
 Route::get('/books', [HomeController::class, 'book_list'])->name('book.list');
+Route::get('/books/search', [BookController::class, 'search'])->name('book.search');
 Route::get('/books/{book_id}', [HomeController::class, 'book_info'])->name('book.info');
 
 
 // ==== NEWS ====
-Route::resource('/admin/news', NewsController::class)->middleware(BookerMiddleware::class);
+Route::resource('/admin/news', NewsController::class)->middleware(BookerAdminMiddleware::class);
 Route::get('/news', [HomeController::class, 'news_list'])->name('news.list');
+Route::get('/news/search', [NewsController::class, 'search'])->name('news.search');
 Route::get('/news/{news_id}', [HomeController::class, 'news_info'])->name('news.info');
 
 
@@ -59,14 +61,14 @@ Route::post('/loan/new/{book}', [LoanController::class, 'confirm_loan'])->name("
 
 Route::get('/loan/user/{user}', [LoanController::class, 'list_user_loans'])->name("loans.user")->middleware("auth");
 
-Route::get('/admin/loan', [LoanController::class, 'list_loans'])->name("admin.loans")->middleware(AdminMiddleware::class);
-Route::get('/admin/ /user/{user}', [LoanController::class, 'list_user_loans'])->name("admin.loans.user")->middleware(AdminMiddleware::class);
-Route::get('/admin/loan/edit/{loan}', [LoanController::class, 'show_edit_form'])->name("admin.loans.edit")->middleware(AdminMiddleware::class);
-Route::put('/admin/loan/edit/{loan}', [LoanController::class, 'update_loan'])->name("admin.loans.update")->middleware(AdminMiddleware::class);
-Route::delete('/admin/loan/destroy/{loan}', [LoanController::class ,'destroy'])->name("admin.loans.destroy")->middleware(AdminMiddleware::class);
+Route::get('/admin/loan', [LoanController::class, 'list_loans'])->name("admin.loans")->middleware(BookerAdminMiddleware::class);
+Route::get('/admin/ /user/{user}', [LoanController::class, 'list_user_loans'])->name("admin.loans.user")->middleware(BookerAdminMiddleware::class);
+Route::get('/admin/loan/edit/{loan}', [LoanController::class, 'show_edit_form'])->name("admin.loans.edit")->middleware(BookerAdminMiddleware::class);
+Route::put('/admin/loan/edit/{loan}', [LoanController::class, 'update_loan'])->name("admin.loans.update")->middleware(BookerAdminMiddleware::class);
+Route::delete('/admin/loan/destroy/{loan}', [LoanController::class ,'destroy'])->name("admin.loans.destroy")->middleware(BookerAdminMiddleware::class);
 
 // ==== USERS ====
-Route::resource('/admin/users', UserController::class)->middleware(BookerMiddleware::class);
+Route::resource('/admin/users', UserController::class)->middleware(BookerAdminMiddleware::class);
 
 // ==== Config ====
 Route::get('/admin/config', [AdminController::class, 'show_config_form'])->name('admin.config.index')->middleware(AdminMiddleware::class);

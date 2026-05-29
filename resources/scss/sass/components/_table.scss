@@ -1,0 +1,45 @@
+//? base blocks (inserted manually for better handling)
+@use "../base/global";
+@use "../base/mixins";
+@use "../base/reset";
+@use "../base/variables";
+
+@mixin table() {
+
+    th,td {
+        border: none;
+        border-right: 1px solid variables.$mainColor   ;
+  border-collapse: collapse;
+    }
+
+
+    table {
+        border-radius: 1200px;
+
+        thead {
+            background-color: variables.$mainColor;
+
+            tr {
+                border-radius: 50%;
+
+                th {
+                    color: variables.$headerColor;
+                    padding: 15px;
+
+                }
+            }
+        }
+
+        tbody {
+            tr:nth-child(even) {
+                background-color: variables.$emphasisSectionColor;
+            }
+
+            tr {
+                border-radius: 0;
+
+                td {}
+            }
+        }
+    }
+}

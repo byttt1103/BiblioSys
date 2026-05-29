@@ -31,7 +31,7 @@ class UserController extends Controller
          $data = $request->validate([
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
-            'document_number' => 'required|integer|unique:users,document_number|max:9999999999',
+            'document_number' => 'required|integer|unique:users,document_number|digits_between:1,10',
             'phone_number' => 'required|integer|max:3999999999', // Assuming a max of 10 digits for phone numbers
             'address' => 'required|string|max:255',
             'email' => 'email|unique:users,email',
@@ -43,7 +43,7 @@ class UserController extends Controller
         if($data['roles'] == 1){
             $roles = [$data['roles'], 2];
         }else if($data['roles'] == 2){
-            $roles = [$data['roles'], 3];
+            $roles = [$data['roles']];
         }else {
             $roles = [$data['roles']];
         }
@@ -65,34 +65,42 @@ class UserController extends Controller
         $data = $request->validate([
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
-            'document_number' => 'required|integer|unique:users,document_number|max:9999999999',
+            'document_number' => 'required|integer|digits_between:1,10|unique:users,document_number,' . $user->id,
             'phone_number' => 'required|integer|max:3999999999', // Assuming a max of 10 digits for phone numbers
             'address' => 'required|string|max:255',
-            'email' => 'email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => 'email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
             'roles' => 'required|array',
             'roles.*' => 'exists:roles,id'
         ]);
 
-        if($data['roles'] == 1){
-            $roles = [$data['roles'], 2];
-        }else if($data['roles'] == 2){
-            $roles = [$data['roles'], 3];
-        }else {
-            $roles = [$data['roles']];
-        }
+        $roles = $data['roles'];
+
+        // if($data['roles'] == 1){
+        //     $roles = [$data['roles'], 2];
+        // }else if($data['roles'] == 2){
+        //     $roles = [$data['roles'], 3];
+        // }else {
+        //     $roles = [$data['roles']];
+        // }
+
+        if (!empty($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);}
 
           unset($data['roles']);
 
         DB::transaction(function() use ($data, $roles, $user){
             $user->update($data);
-            $user->roles()->sync($roles);
+            $user->roles()->sync(array_values($roles));
         });
 
         return redirect()->back()->with("success", "Usuario actualizado correctamente");
     }
 
     public function destroy(User $user){
+        $user->loans()->delete();
         $user->delete();
 
         return redirect()->back()->with("success", "Usuario eliminado correctamente");

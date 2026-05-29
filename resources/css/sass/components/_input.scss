@@ -1,0 +1,19 @@
+@use "../base/variables.scss";
+
+@mixin input {
+    margin-bottom: 10px;
+    background-color: #eeeeee;
+    height: 2.1rem;
+    border: 1px solid #cccccc;
+    outline: none;
+    width: 100%;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+    transform: scale(1);
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+        border: 1px solid variables.$mainColor;
+    }
+}

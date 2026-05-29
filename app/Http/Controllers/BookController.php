@@ -73,6 +73,9 @@ $authors = Author::all();
             $book->authors()->sync($authors);
             $book->categories()->sync($categories);
         } );
+        return redirect()->route("books.index")
+            ->with("success", "¡Libro actualizado existosamente!");;
+
     }
 
 
@@ -125,6 +128,20 @@ $authors = Author::all();
 
         // Redirect to the book list with a success message
         return redirect()->route('books.index')
-            ->with('success', '¡El libro se ha creado correctamente!');
+            ->with('success', '¡Libro creado exitosamente!');
+    }
+
+
+    public function search(Request $request) {
+        $search = $request->input('search');
+
+        $books = Book::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('publisher', 'LIKE', "%{$search}%")
+            ->orWhere('synopsis', 'LIKE', "%{$search}%")
+            ->orWhere('isbn', 'LIKE', "%{$search}%")
+            ->paginate(12);
+
+        return view('book_list', compact('books'));
     }
 }

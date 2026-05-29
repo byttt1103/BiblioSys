@@ -31,7 +31,7 @@
             <div>
                 <label for="document_number">Numero de Documento:</label>
                 <input type="text" id="document_number" name="document_number" value="{{ old('document_number', $user->document_number) }}"
-                    maxlength="12" pattern="[0-9]{1,10}" placeholder="Sin puntos ni espacios"required>
+                    maxlength="12"" placeholder="Sin puntos ni espacios"required>
             </div>
             <div>
                 <label for="phone_number">Número de teléfono:</label>
@@ -66,11 +66,11 @@
             @endif
             <div>
                 <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password">
             </div>
             <div>
                 <label for="password_confirmation">Confirmar Contraseña:</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" required>
+                <input type="password" id="password_confirmation" name="password_confirmation">
             </div>
 
             <button type="submit" class="button">Editar Usuario</button>
