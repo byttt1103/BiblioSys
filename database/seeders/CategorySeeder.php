@@ -19,6 +19,8 @@ class CategorySeeder extends Seeder
             ['name' => 'Teatro', 'about' => 'Obras dramáticas para representación.'],
             ['name' => 'Cuento', 'about' => 'Narrativa breve.'],
             ['name' => 'No ficción', 'about' => 'Biografías, historia, divulgación científica.'],
+            
+
         ];
 
         foreach ($categories as $category) {

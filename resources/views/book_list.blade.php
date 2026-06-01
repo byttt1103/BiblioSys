@@ -10,7 +10,7 @@ with some partials, like the paginator --}}
     <h1>Libros</h1>
 
     <form action="{{ route('book.search') }}" method="GET">
-        <input type="text" name="search" placeholder="Busca un libro..." value="{{ old('search', request('search')) }}"/>
+        <input type="text" name="search" placeholder="Busca..." value="{{ old('search', request('search')) }}"/>
         <button type="submit">Buscar</button>
     </form>
 
