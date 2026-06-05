@@ -1,20 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Editar Usuario')
 
 @section('content')
-    <div class="admin">
+    <section class="section admin">
         <h1>Editar Usuario</h1>
-
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <form method="POST" action="{{ route('users.update', $user->id) }}">
             @csrf
@@ -31,7 +21,7 @@
             <div>
                 <label for="document_number">Numero de Documento:</label>
                 <input type="text" id="document_number" name="document_number" value="{{ old('document_number', $user->document_number) }}"
-                    maxlength="12"" placeholder="Sin puntos ni espacios"required>
+                    maxlength="12" placeholder="Sin puntos ni espacios" required>
             </div>
             <div>
                 <label for="phone_number">Número de teléfono:</label>
@@ -47,22 +37,19 @@
                 <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
             </div>
             @if (Auth::user()->roles->pluck('id')->contains(1))
-
                 <div>
                     <label for="roles">Roles:</label>
                     <select id="roles" name="roles[]" required>
-
                         @php
                             $roles = collect(old('roles', $user->roles->pluck('id')));
                         @endphp
-
                         <option value="3" {{ $roles->contains(3) ? 'selected' : '' }}>Lector</option>
                         <option value="2" {{ $roles->contains(2) && !$roles->contains(3) ? 'selected' : '' }}>Librero</option>
                         <option value="1" {{ $roles->contains(1) ? 'selected' : '' }}>Admin</option>
                     </select>
-
-                @elseif(Auth::user()->roles->pluck('id')->contains(2))
-                    <input type="hidden" name="roles" value="3">
+                </div>
+            @elseif(Auth::user()->roles->pluck('id')->contains(2))
+                <input type="hidden" name="roles" value="3">
             @endif
             <div>
                 <label for="password">Contraseña:</label>
@@ -75,5 +62,5 @@
 
             <button type="submit" class="button">Editar Usuario</button>
         </form>
-    </div>
+    </section>
 @endsection

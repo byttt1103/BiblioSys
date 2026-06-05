@@ -5,9 +5,10 @@
     .elementBox {
         box-sizing: border-box;
         padding: 20px;
-        border: 1px solid gray;
-        border-radius: 7px;
-        transition: 0.6s ease;
+        background-color: #ffffff;
+        border: 1px solid variables.$otherSectionColor;
+        border-radius: 8px;
+        transition: 0.3s ease;
         @include mixins.elements-flex(column, space-evenly, $align);
         p{
             font-size: small;
@@ -16,9 +17,9 @@
     }
 
     .elementBox:hover {
-        transition: 0.6s ease;
-        box-shadow: 0px 0px 10px 0px rgba(128, 128, 128, 0.701);
-        transform: scale(1.025);
+        transition: 0.3s ease;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
     }
 
 }

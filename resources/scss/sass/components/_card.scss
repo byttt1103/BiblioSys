@@ -1,0 +1,72 @@
+@use "../base/variables";
+@use "../base/mixins";
+
+
+@mixin card {
+    .card {
+        box-sizing: border-box;
+        padding: 10px;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: 0.3s ease;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        &__image {
+            width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        &__body {
+            padding: 20px;
+        }
+
+        &__title {
+            color: variables.$mainColor;
+            font-family: variables.$titlesFont;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        &__text {
+            color: variables.$textColor;
+            font-family: variables.$contentFont;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        &__category {
+            font-size: 0.9rem;
+            color: variables.$captionColor;
+            margin-bottom: 10px;
+        }
+
+        &__tags {
+            @include mixins.elements-flex(row, flex-start, center);
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            background-color: variables.$otherSectionColor;
+            color: variables.$captionColor;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: variables.$contentFont;
+            font-weight: bold;
+        }
+    }
+}

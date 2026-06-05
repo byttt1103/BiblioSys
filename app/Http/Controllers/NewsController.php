@@ -2,40 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use  App\Models\News;
-
+use App\Models\News;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     // Devuelve la vista con el formulario a crear una nueva noticia
     // GET /news/create/   (requiere admin)
-    public function index(){
+    public function index(Request $request): View
+    {
         // vease resources/views/create_new_form.blade.php
-        $news = News::all();
+        $search = $request->string('search')->toString();
 
-        return view("management.news.index", compact('news'));
+        $news = News::query()
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query
+                        ->where('title', 'LIKE', "%{$search}%")
+                        ->orWhere('description', 'LIKE', "%{$search}%")
+                        ->orWhere('category', 'LIKE', "%{$search}%")
+                        ->orWhere('tags', 'LIKE', "%{$search}%");
+                });
+            })
+            ->get();
+
+        return view('management.news.index', compact('news'));
     }
 
-
-    public function create(){
-        return view("management.news.create");
+    public function create()
+    {
+        return view('management.news.create');
     }
 
-    public function edit(News $news){
-        return view("management.news.edit", compact('news'));
+    public function edit(News $news)
+    {
+        return view('management.news.edit', compact('news'));
     }
 
     // Recibe los datos del formulario y crea la noticia
     // POST /news/create  (require admin)
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // Obtenemos los datos del form y los validamos
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'image_url' => 'nullable|url|max:255',
             'category' => 'nullable|string|max:200',
-            'tags' => 'nullable|string|max:100'
+            'tags' => 'nullable|string|max:100',
         ]);
 
         // Crea la noticia con los datos creados
@@ -47,14 +62,14 @@ class NewsController extends Controller
 
     }
 
-
-    public function update(Request $request, News $news){
+    public function update(Request $request, News $news)
+    {
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'image_url' => 'nullable|url|max:255',
             'category' => 'nullable|string|max:200',
-            'tags' => 'nullable|string|max:100'
+            'tags' => 'nullable|string|max:100',
         ]);
 
         $news->update($data);
@@ -63,21 +78,25 @@ class NewsController extends Controller
 
     }
 
-    public function destroy(News $news){
+    public function destroy(News $news)
+    {
         $news->delete();
 
         return redirect()->back()->with('success', '¡El post se eliminó correctamente!');
     }
 
-    public function search(Request $request){
-        $query = $request->input('query');
+    public function search(Request $request): View
+    {
+        $search = $request->string('search')->toString();
 
-        $news = News::query()
-            ->where('title', 'like', "%$query%")
-            ->orWhere('description', 'like', "%$query%")
-            ->orWhere('category', 'like', "%$query%")
-            ->orWhere('tags', 'like', "%$query%")
-            ->get();
+        $news = $search === ''
+            ? collect()
+            : News::query()
+                ->where('title', 'LIKE', "%{$search}%")
+                ->orWhere('description', 'LIKE', "%{$search}%")
+                ->orWhere('category', 'LIKE', "%{$search}%")
+                ->orWhere('tags', 'LIKE', "%{$search}%")
+                ->get();
 
         return view('news_list', compact('news'));
     }

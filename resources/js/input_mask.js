@@ -14,7 +14,7 @@ export function initInputMasks() {
         numericInput: true,
         digits: 0,
         allowMinus: false,
-        rightAlign: false
+        rightAlign: false,
     }).mask(documentInput);
 
 }

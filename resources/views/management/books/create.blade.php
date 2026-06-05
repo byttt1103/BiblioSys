@@ -1,29 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Crear libro')
 
 @section('content')
-    <div class="admin">
+    <section class="section admin">
         <a class="button" href="{{ route('books.index') }}">Volver a la lista de libros</a>
-
-
-        <!-- if the success variable is defined, we show it -->
-        @if (session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
 
         <div class="form">
             <h1>Agregar libro</h1>
@@ -77,5 +58,5 @@
                 <button type="submit">Enviar</button>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

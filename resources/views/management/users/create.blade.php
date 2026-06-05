@@ -1,20 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Crear Usuario')
 
 @section('content')
-    <div class="admin">
+    <section class="section admin">
         <h1>Crear Usuario</h1>
-
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <form method="POST" action="{{ route('users.store') }}">
             @csrf
@@ -45,7 +35,6 @@
                 <input type="email" id="email" name="email" value="{{ old('email') }}" required>
             </div>
 
-            {{-- * if the user is admin, it can select roles --}}
             @if (Auth::user()->roles->pluck('id')->contains(1))
                 <div>
                     <label for="roles">Roles:</label>
@@ -67,7 +56,7 @@
                 <label for="password_confirmation">Confirmar Contraseña:</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required>
             </div>
-                <button type="submit" class="button">Crear Usuario</button>
+            <button type="submit" class="button">Crear Usuario</button>
         </form>
-    </div>
+    </section>
 @endsection

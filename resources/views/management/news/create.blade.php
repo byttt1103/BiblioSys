@@ -1,21 +1,12 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Crear noticia')
 
 @section('content')
-
-    <div class="admin">
-        <!-- if this variable is set, we show it -->
-        @if (session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
-
-
+    <section class="section admin">
         <div class="form">
             <h1>Crear noticia</h1>
-            <form action="{{ route('news.store') }}"" method="POST">
+            <form action="{{ route('news.store') }}" method="POST">
                 @csrf
 
                 @error('not_found')
@@ -41,5 +32,5 @@
                 <button type="submit">Enviar</button>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

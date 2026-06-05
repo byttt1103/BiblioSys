@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 
 class Loan extends Model
@@ -25,4 +26,20 @@ class Loan extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+     protected function displayStatus(): Attribute
+    {
+    return Attribute::make(
+        get: function () {
+                return match ($this->status) {
+                    'requested' => 'Solicitado',
+                    'approved' => 'Aprobado',
+                    'rejected' => 'Rechazado',
+                    'returned' => 'Devuelto',
+                default => $this->status,
+                };
+            }
+        );
+    }
+
 }

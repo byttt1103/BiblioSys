@@ -32,6 +32,20 @@ body {
 
         @include p.stylePaginator;
         @include p.styleBookInfo;
+        @include c.alert;
+        @include c.card;
+        @include c.searchBar;
+
+        .section__search {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .admin__actions {
+            @include mixins.elements-flex(row, flex-start, center);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
         .admin{
             h1{
                 text-align: center;

@@ -3,18 +3,12 @@
 @section('title', 'Perfil')
 
 @section('content')
-
-    <div class="profile">
-        @if(session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <h3>Tu perfil</h3>
-        <form action="{{ route('profile.update') }}" method="POST">
-            @csrf
-            @method('PUT')
+    <section class="section">
+        <div class="profile">
+            <h3>Tu perfil</h3>
+            <form action="{{ route('profile.update') }}" method="POST">
+                @csrf
+                @method('PUT')
 
             <div>
                 @error('avatar_path')
@@ -89,8 +83,8 @@
                     <input type="password" id="password_confirmation" name="password_confirmation">
                 </div>
             </div>
-            <button type="submit" class="button">Actualizar</button>
-        </form>
-    </div>
-
+                <button type="submit" class="button">Actualizar</button>
+            </form>
+        </div>
+    </section>
 @endsection

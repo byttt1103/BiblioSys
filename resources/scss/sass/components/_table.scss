@@ -8,24 +8,38 @@
 
     th,td {
         border: none;
-        border-right: 1px solid variables.$mainColor   ;
-  border-collapse: collapse;
+        border-right: 1px solid variables.$emphasisSectionColor;
+        border-bottom: 1px solid variables.$emphasisSectionColor;
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    th:last-child, td:last-child {
+        border-right: none;
     }
 
 
     table {
-        border-radius: 1200px;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid variables.$emphasisSectionColor;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 
         thead {
             background-color: variables.$mainColor;
 
             tr {
-                border-radius: 50%;
-
                 th {
                     color: variables.$headerColor;
-                    padding: 15px;
-
+                    font-weight: 600;
+                    border-bottom: none;
+                    border-right: 1px solid rgba(255, 255, 255, 0.2);
+                }
+                th:last-child {
+                    border-right: none;
                 }
             }
         }
@@ -35,10 +49,12 @@
                 background-color: variables.$emphasisSectionColor;
             }
 
-            tr {
-                border-radius: 0;
+            tr:hover {
+                background-color: rgba(variables.$mainColor, 0.05);
+            }
 
-                td {}
+            tr:last-child td {
+                border-bottom: none;
             }
         }
     }

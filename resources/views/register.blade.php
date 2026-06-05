@@ -3,11 +3,11 @@
 @section('title', 'Registrarse')
 
 @section('content')
-
-    <div class="container">
-        <h1>Registro de Usuario</h1>
-        <form action="{{ route('register') }}" method="POST">
-            @csrf
+    <section class="section">
+        <div class="container">
+            <h1>Registro de Usuario</h1>
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
 
             <div>
                 @error('first_name')
@@ -31,7 +31,7 @@
                 @enderror
                 <label for="document_number">Número de documento:</label>
                 <input type="text" name="document_number" id="document_number" placeholder="Sin puntos ni espacios"
-                    maxlength="12"  required value="{{ old('document_number') }}">
+                    maxlength="10"  required value="{{ old('document_number') }}">
             </div>
 
             <div>
@@ -67,8 +67,8 @@
                 <label for="password_confirmation">Confirmar Contraseña:</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required>
             </div>
-            <button type="submit" class="button">Registrarse</button>
-        </form>
-    </div>
-
+                <button type="submit" class="button">Registrarse</button>
+            </form>
+        </div>
+    </section>
 @endsection

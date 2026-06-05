@@ -1,27 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Editar noticia')
 
 @section('content')
-
-    <div class="admin">
-        <!-- if this variable is set, we show it -->
-        @if (session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
+    <section class="section admin">
         <div class="form">
             <h1>Editar noticia</h1>
             <form action="{{ route('news.update', $news->id) }}" method="POST">
@@ -54,5 +36,5 @@
                 <button type="submit">Actualizar</button>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

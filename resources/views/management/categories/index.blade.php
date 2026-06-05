@@ -1,20 +1,22 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Categorías')
 
 @section('content')
-
-    <div class="admin">
-        <div class="title">
-            <h1>Categorías</h1>
+    <section class="section admin">
+        <div class="admin__actions">
+            <a href="{{ route('categories.create') }}" class="button">
+                <span class="text long medium short">Crear nueva categoría</span>
+            </a>
         </div>
-        <a href="{{ route('categories.create') }}" class="button">Crear nueva categoría</a>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        <div class="section__search">
+            @include('partials.search', [
+                'action' => route('categories.index'),
+                'placeholder' => 'Busca una categoría',
+                'search' => old('search', request('search')),
+            ])
+        </div>
 
         <table>
             <thead>
@@ -34,25 +36,21 @@
                         <td>{{ $category->created_at }}</td>
                         <td>{{ $category->updated_at }}</td>
                         <td>
-                            <a href="{{ route('categories.edit', $category->id) }}" class="button">Editar</a>
-                            <form action="{{ route('categories.destroy', $category->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Estás seguro?')">Eliminar</button>
-                            </form>
+                            <div class="admin__actions">
+                                <a href="{{ route('categories.edit', $category->id) }}" class="button button-small">Editar</a>
+                                @if(Auth::user()->id === 1)
+                                <form action="{{ route('categories.destroy', $category->id) }}" method="post" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="button button-small button-danger" onclick="return confirm('Estás seguro?')">Eliminar</button>
+                                </form>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-    </div>
-
-    <!-- Category has the following fields: -->
-    <!-- 'name', 'about', -->
-
-    <!-- We handle success messages -->
-
-    <!-- First we create the table -->
-    <!-- And we iterates for each category and adds a row to a table -->
+    </section>
 
 @endsection

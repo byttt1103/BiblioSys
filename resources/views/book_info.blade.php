@@ -5,7 +5,7 @@
 
 @foreach ($book->authors as $author)
     @section('content')
-        <div class="section book_info">
+        <section class="section book_info">
             <div class="book_container">
                 <h1>{{ $book->title }}</h1>
 
@@ -21,6 +21,6 @@
 
 
             </div>
-        </div>
+        </section>
     @endsection
 @endforeach

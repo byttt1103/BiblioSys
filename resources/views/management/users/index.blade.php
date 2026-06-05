@@ -1,16 +1,22 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Usuarios')
 
 @section('content')
-    <div class="admin">
-        <a href="{{ route('users.create') }}" class="button">Crear Usuario</a>
+    <section class="section admin">
+        <div class="admin__actions">
+            <a href="{{ route('users.create') }}" class="button">
+                <span class="text long medium short">Crear Usuario</span>
+            </a>
+        </div>
 
-        @if (session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
+        <div class="section__search">
+            @include('partials.search', [
+                'action' => route('users.index'),
+                'placeholder' => 'Busca un usuario',
+                'search' => old('search', request('search')),
+            ])
+        </div>
 
         <table>
             <thead>
@@ -39,17 +45,19 @@
 
                     <td>
                         @foreach ($user->roles as $role)
-                            {{ $role->name }}@if (!$loop->last), @endif
+                            {{ $role->displayName }}@if (!$loop->last), @endif
                         @endforeach
                     </td>
 
                     <td>
-                        <a href="{{ route('users.edit', $user->id) }}" class="button">Editar</a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="button" onclick="return confirm('¿Estás seguro?')">Eliminar </button>
-                        </form>
+                        <div class="admin__actions">
+                            <a href="{{ route('users.edit', $user->id) }}" class="button button-small">Editar</a>
+                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="button button-small button-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
@@ -57,5 +65,5 @@
         </table>
 
 
-    </div>
+    </section>
 @endsection

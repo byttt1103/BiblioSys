@@ -1,16 +1,10 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Configuración')
 
 @section('content')
-    <div class="admin">
+    <section class="section admin">
         <div class="config">
-            @if (session('success'))
-                <div style="color: green;">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <h3>Configuración de la web</h3>
             <form action="{{ route('admin.config.update') }}" method="POST">
                 @csrf
@@ -100,5 +94,5 @@
                 <button type="submit" class="button">Actualizar</button>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

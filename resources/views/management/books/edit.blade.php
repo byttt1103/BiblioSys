@@ -1,31 +1,13 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Editar libro')
 
 @section('content')
-    <div class="admin">
+    <section class="section admin">
         <a class="button" href="{{ route('books.index') }}">Volver a la lista de libros</a>
-        <!-- Si la variable success esta definida, la mostramos  -->
-        @if (session('success'))
-            <div style="color: green;">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
 
         <div class="form">
             <h1>Editar libro</h1>
-            <a href="{{ route('books.index') }}">Volver a la lista de libros</a>
             <form action="{{ route('books.update', $book->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -85,5 +67,5 @@
                 <button type="submit">Actualizar</button>
             </form>
         </div>
-    </div>
-    @endsection
+    </section>
+@endsection

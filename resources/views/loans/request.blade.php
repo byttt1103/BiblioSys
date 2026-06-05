@@ -1,9 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', $book->title)
 
 @section("content")
-    <div class="section book_info">
+    <section class="section book_info">
         <div class="book_container">
             <h1>Solicitar préstamo: {{ $book->title }}</h1>
             <p>Estás a punto de solicitar el libro <em>{{$book->title}}</em>, hoy {{ now()->format('d/m/Y') }}.</p>
@@ -20,5 +20,5 @@
 
 
         </div>
-    </div>
+    </section>
 @endsection

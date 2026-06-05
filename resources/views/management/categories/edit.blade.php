@@ -1,19 +1,9 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('title', 'Editar categoría')
 
 @section('content')
-
-    <div class="admin">
-
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="error">
-                    <p>Error: {{ $error }}</p>
-                </div>
-            @endforeach
-        @endif
-
+    <section class="section admin">
         <div class="title">
             <h1>Editar Categoría</h1>
         </div>
@@ -36,8 +26,5 @@
 
             <button type="submit">Actualizar categoría</button>
         </form>
-
-    </div>
-
-
+    </section>
 @endsection

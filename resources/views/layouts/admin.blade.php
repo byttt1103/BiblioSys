@@ -14,13 +14,13 @@
     <header>
         @include('partials.navbar')
     </header>
-    <main>
+    <main id="main-content" tabindex="-1">
+        @include('layouts.alerts')
         <div class="admin">
             @yield('content')
         </div>
     </main>
 
-    @include('partials.footer')
 </body>
 
 </html>
