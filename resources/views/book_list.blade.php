@@ -4,6 +4,7 @@
 
 @section('content')
     <section class="section">
+        <h1>Libros</h1>
         <div class="section__search">
             @include('partials.search', [
                 'action' => route('book.search'),

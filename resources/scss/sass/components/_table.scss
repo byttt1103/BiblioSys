@@ -49,10 +49,6 @@
                 background-color: variables.$emphasisSectionColor;
             }
 
-            tr:hover {
-                background-color: rgba(variables.$mainColor, 0.05);
-            }
-
             tr:last-child td {
                 border-bottom: none;
             }

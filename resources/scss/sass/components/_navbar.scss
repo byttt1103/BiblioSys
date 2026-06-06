@@ -21,6 +21,10 @@
             width: variables.$webWidth;
             padding: 0vw 10vw 0 10vw;
 
+            .page_info{
+                p{color: white;}
+            }
+
             .auth_info {
                 @include mixins.elements-flex(row, center, center);
                 @include button.button();
@@ -31,6 +35,17 @@
                     .text{
                         color: variables.$captionColor;
                     }
+
+                    svg{
+                        color: variables.$captionColor;
+                        pointer-events: none;
+
+                    }
+                    &:hover svg{
+                        color: variables.$mainColor;
+                    }
+
+
                 }
 
             }

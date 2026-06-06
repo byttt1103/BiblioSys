@@ -1,7 +1,7 @@
 @use "../base/variables";
 @use "../base/mixins";
 
-@mixin elementBox ($align){
+@mixin elementBox ($align) {
     .elementBox {
         box-sizing: border-box;
         padding: 20px;
@@ -10,10 +10,32 @@
         border-radius: 8px;
         transition: 0.3s ease;
         @include mixins.elements-flex(column, space-evenly, $align);
-        p{
+
+        p {
             font-size: small;
         }
 
+        .actions {
+            @include mixins.elements-flex(row, center, center);
+            gap: 10px;
+        }
+
+        .loanInfo {
+            @include mixins.elements-flex(column, center, center);
+            gap: 10px;
+
+            .loanInfoItem {
+                @include mixins.elements-flex(row, center, center);
+                gap: 3px;
+
+                @media (max-width: 889px) {
+                    @include mixins.elements-flex(column, center, center);
+                }
+            }
+
+
+
+        }
     }
 
     .elementBox:hover {

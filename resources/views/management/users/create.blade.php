@@ -19,7 +19,7 @@
             <div>
                 <label for="document_number">Numero de Documento:</label>
                 <input type="text" id="document_number" name="document_number" value="{{ old('document_number') }}"
-                    maxlength="12" pattern="[0-9]{1,10}" placeholder="Sin puntos ni espacios"required>
+                    maxlength="10" pattern="[0-9]{1,10}" placeholder="Sin puntos ni espacios"required>
             </div>
             <div>
                 <label for="phone_number">Número de teléfono:</label>
@@ -38,7 +38,7 @@
             @if (Auth::user()->roles->pluck('id')->contains(1))
                 <div>
                     <label for="roles">Roles:</label>
-                    <select id="roles" name="roles[]" required>
+                    <select id="roles" name="roles" required>
                         @foreach ($roles as $role)
                             <option value="{{ $role->id }}"
                                 {{ collect(old('roles'))->contains($role->id) ? 'selected' : '' }}>

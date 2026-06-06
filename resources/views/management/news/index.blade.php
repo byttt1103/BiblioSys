@@ -17,7 +17,7 @@
             ])
         </div>
 
-        @if(!$news->isEmpty())
+        @if (!$news->isEmpty())
             <table>
                 <thead>
                     <tr>
@@ -31,26 +31,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($news as $new)
+                    @foreach ($news as $singleNews)
                         <tr>
-                            <td>{{ $new->id }}</td>
-                            <td>{{ $new->title }}</td>
-                            <td>{{ $new->description }}</td>
+                            <td>{{ $singleNews->id }}</td>
+                            <td>{{ $singleNews->title }}</td>
+                            <td>{{ $singleNews->description }}</td>
                             <td>
-                                @if ($new->image_url)
-                                    <img src="{{ $new->image_url }}" alt="{{ $new->title }}"
+                                @if ($singleNews->image_url)
+                                    <img src="{{ $singleNews->image_url }}" alt="{{ $singleNews->title }}"
                                         style="max-width: 100px; max-height: 60px;">
                                 @endif
                             </td>
-                            <td>{{ $new->category }}</td>
-                            <td>{{ $new->tags }}</td>
+                            <td>{{ $singleNews->category }}</td>
+                            <td>{{ $singleNews->tags }}</td>
                             <td>
                                 <div class="admin__actions">
-                                    <a href="{{ route('news.edit', $new->id) }}" class="button button-small">Editar</a>
-                                    <form method="POST" action="{{ route('news.destroy', $new->id) }}" style="display:inline;">
+                                    <a href="{{ route('news.edit', $singleNews->id) }}"
+                                        class="button button-small"><div class="text">Editar</div></a>
+                                    <form method="POST" action="{{ route('news.destroy', $singleNews->id) }}"
+                                        style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="button button-small button-danger" onclick="return confirm('Estas seguro?')">Borrar</button>
+                                        <button type="submit" class="button button-small button-danger"
+                                            onclick="return confirm('Estas seguro?')">Borrar</button>
                                     </form>
                                 </div>
                             </td>
@@ -59,7 +62,7 @@
                 </tbody>
             </table>
         @else
-            <p>No hay noticias actualmente: <a href=" {{ route('news.create') }} "><button>Crear noticia</button></a></p>
+            <p>No hay noticias actualmente.</p>
         @endif
     </section>
 @endsection

@@ -15,11 +15,11 @@ class HomeController extends Controller
     public function index()
     {
         // Gets the last new to show
-        $new = News::query()
+        $news = News::query()
             ->orderBy('created_at', 'desc')
             ->first();
 
-        return view('index', compact('new'));
+        return view('index', compact('news'));
     }
 
     public function book_list(): View

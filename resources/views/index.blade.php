@@ -21,22 +21,22 @@
     <div class="section new">
         <h2>Novedades</h2>
 
-        @if ($new)
+        @if ($news)
             <div class="card mb-3">
                 <div class="card-body">
-                    @if ($new->image_url)
-                        <img src="{{ $new->image_url }}" alt="Imagen de la noticia" class="img-fluid mb-3">
+                    @if ($news->image_url)
+                        <img src="{{ $news->image_url }}" alt="Imagen de la noticia" class="img-fluid mb-3">
                     @endif
-                    <h5 class="card-title">{{ $new->title }}</h5>
-                    <p class="card-text">{{ $new->description }}</p>
+                    <h5 class="card-title">{{ $news->title }}</h5>
+                    <p class="card-text">{{ $news->description }}</p>
 
-                    @if ($new->category)
-                        <p class="category"><strong>Categoría:</strong> {{ $new->category }}</p>
+                    @if ($news->category)
+                        <p class="category"><strong>Categoría:</strong> {{ $news->category }}</p>
                     @endif
 
-                    @if ($new->tags)
+                    @if ($news->tags)
                         <p>
-                            @foreach (explode(',', $new->tags) as $tag)
+                            @foreach (explode(',', $news->tags) as $tag)    
                                 <span class="badge badge-secondary">{{ trim($tag) }}</span>
                             @endforeach
                         </p>

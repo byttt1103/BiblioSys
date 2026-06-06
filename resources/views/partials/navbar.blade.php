@@ -17,14 +17,14 @@
         @else
             @if (Auth::user()->roles->pluck('id')->contains(2))
                 @if (!Str::contains(Request::url(), 'admin'))
-                    <a class="button" href="{{ route('admin.index') }}">Dashboard</a>
+                    <a class="button" href="{{ route('admin.index') }}"><div class="text">Dashboard</div></a>
                 @else
-                    <a class="button" href="{{ route('index') }}">Salir del Dashboard</a>
+                    <a class="button" href="{{ route('index') }}"><div class="text">Salir del Dashboard</div></a>
                 @endif
             @endif
             <div class="dropdown">
                 <button onclick="dropdown(this)" class="button dropdownBtn">
-                    <svg class="dropdownBtn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" /><path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" /></svg>
+                    <svg  class="dropdownBtn" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" /><path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" /></svg>
                 </button>
 
                 <div id="menu" class="dropdown-content">

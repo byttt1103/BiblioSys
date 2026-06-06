@@ -1,31 +1,63 @@
-@extends('layouts.admin')
+@extends('layouts.main')
 
-@section('title', "Libros")
+@section('title', 'Libros')
 
-@section("content")
+@section('content')
     <section class="section admin">
-        <h2>Libros de {{$user->first_name}}</h2>
+        <h2>Libros de {{ $user->first_name }}</h2>
+        @if ($loans->isEmpty())
+            <p>No se encontraron préstamos.</p>
+        @else
+            <div class="grid">
+                @foreach ($loans as $loan)
+                    <div class="elementBox">
+                        <div class="loanInfo">
+                            <h2>{{ $loan->book->title }}</h2>
+                            <div class="loanInfoItem">
+                                <h5>Estado:</h5>
+                                <p>{{ $loan->displayStatus }}</p>
+                            </div>
 
-        @foreach($loans as $loan)
-            <div class="elementBox">
-                <h2>{{ $loan->book->title}}</h2>
-                <p>Estado: {{ $loan->status }}</p>
-                <p>Pedida el: {{ $loan->loan_date }}</p>
-                <p>Expira el: {{ $loan->due_date }}</p>
-                <p>Pedidos: {{ $loan->quantity }}</p>
+                            <div class="loanInfoItem">
+                                <h5>Fecha de préstamo:</h5>
+                                <p>{{ $loan->loan_date }}</p>
+                            </div>
 
-                @if (Auth::user()->roles->pluck('name')->contains('admin'))
-                    <a href="{{ route('admin.loans.edit', $loan) }}"><button>Editar</button></a>
-                @endif
+                            <div class="loanInfoItem">
+                                <h5>Fecha de devolución:</h5>
+                                <p>{{ $loan->due_date }}</p>
+                            </div>
+                            <div class="loanInfoItem">
+                                <h5>Cantidad:</h5>
+                                <p>{{ $loan->quantity }}</p>
+                            </div>
+                        </div>
 
-                @if (Auth::user()->roles->pluck('name')->contains('admin'))
-                    <form method="POST" action="{{ route('admin.loans.destroy', $loan->id) }}" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Estás seguro?')">Eliminar</button>
-                    </form>
-                @endif
+
+                        <div class="actions">
+                            @if (Auth::user()->roles->pluck('name')->contains('admin'))
+                                <a class="button button-small" href="{{ route('admin.loans.edit', $loan) }}">
+                                    <div class="text">Editar</div>
+                                </a>
+                            @endif
+
+                            @if ($loan->status === 'requested' || Auth::user()->roles->pluck('name')->contains('admin'))
+                                <form method="POST" action="{{ route('admin.loans.destroy', $loan->id) }}"
+                                    style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="button button-small button-danger"
+                                        onclick="return confirm('Estás seguro?')">
+                                        <div class="text">Cancelar</div>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
+
+            </div>
+        @endif
     </section>
 @endsection

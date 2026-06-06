@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             BookSeeder::class,
             LibraryInfoSeeder::class,
             BookCategorySeeder::class,
+            NewsSeeder::class,
+            LoanSeeder::class,
 
         ]);
     }

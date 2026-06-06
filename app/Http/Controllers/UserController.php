@@ -42,9 +42,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        // Default to role ID 3 if not provided
-        $data['roles'] = $data['roles'] ?? 3;
-
         $data = $request->validate([
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
@@ -53,24 +50,28 @@ class UserController extends Controller
             'address' => 'required|string|max:255',
             'email' => 'email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required|array',
-            'roles.*' => 'exists:roles,id',
+            'roles' => 'required|integer|exists:roles,id',
+
         ]);
 
-        if ($data['roles'] == 1) {
-            $roles = [$data['roles'], 2];
-        } elseif ($data['roles'] == 2) {
-            $roles = [$data['roles']];
-        } else {
-            $roles = [$data['roles']];
+        $selectedRole = $data['roles'];
+
+        $addedRoles = [];
+
+        if ($selectedRole == 1) {
+            $addedRoles = [1, 2];
+        } else{
+            $addedRoles = [$selectedRole];
         }
 
         unset($data['roles']);
 
-        DB::transaction(function () use ($data, $roles) {
+        DB::transaction(function () use ($data, $addedRoles) {
             $user = User::create($data);
-            $user->roles()->attach($roles);
+            $user->roles()->attach($addedRoles);
         });
+
+         return redirect()->route('users.index')->with('success', 'Usuario creado correctamente');
     }
 
     public function edit(User $user)
@@ -96,13 +97,6 @@ class UserController extends Controller
 
         $roles = $data['roles'];
 
-        // if($data['roles'] == 1){
-        //     $roles = [$data['roles'], 2];
-        // }else if($data['roles'] == 2){
-        //     $roles = [$data['roles'], 3];
-        // }else {
-        //     $roles = [$data['roles']];
-        // }
 
         if (! empty($data['password'])) {
             $data['password'] = bcrypt($data['password']);
@@ -117,15 +111,13 @@ class UserController extends Controller
             $user->roles()->sync(array_values($roles));
         });
 
-        return redirect()->back()->with('success', 'Usuario actualizado correctamente');
+        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente');
     }
 
     public function destroy(User $user)
     {
-        $user->loans()->delete();
-        $user->delete();
 
-        return redirect()->back()->with('success', 'Usuario eliminado correctamente');
+        return redirect()->route('users.index')->with('success', 'Usuario desactivado correctamente');
     }
 
     public function show_profile()
