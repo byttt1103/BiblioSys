@@ -32,6 +32,7 @@
                 gap: 15px;
                 .button{
                     background-color: white;
+                    min-height: 25px;
                     .text{
                         color: variables.$captionColor;
                     }

@@ -1,0 +1,42 @@
+//? base blocks (inserted manually for better handling)
+@use "../base/global";
+@use "../base/mixins";
+@use "../base/reset";
+@use "../base/variables";
+@use "../components/input";
+
+@mixin styleForm {
+    .form {
+        height:100%;
+        width: 100%;
+        background-color: variables.$emphasisSectionColor;
+        padding: 20px;
+        border-radius: 10px;
+        @include mixins.elements-flex(column, center, center);
+
+        form {
+            @include mixins.elements-flex(column, center, flex-start);
+
+            gap: 12px;
+
+            .form_group {
+                @include mixins.elements-flex(column, center, flex-start);
+                @include input.input;
+
+                .password_group {
+                    @include mixins.elements-flex(row, space-evenly, center);
+                    button{
+                        font-size: 25px;
+                        cursor: pointer;
+                        padding: 4px;
+                    }
+                }
+
+                label {
+                    font-family: variables.$contentFont;
+                }
+            }
+        }
+    }
+
+}

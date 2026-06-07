@@ -48,7 +48,7 @@
         @endif
     </div>
     <div class="buttons">
-        <button class=" button searchBar__submit" type="submit"><div class="text">Buscar</div></button>
-        <a href="{{ $resetUrl }}" class="button searchBar__reset"><div class="text">Reiniciar búsqueda</div></a>
+        <button class="button button-small searchBar__submit" type="submit"><div class="text">Buscar</div></button>
+        <a href="{{ $resetUrl }}" class="button button-small searchBar__reset"><div class="text">Reiniciar búsqueda</div></a>
     </div>
 </form>

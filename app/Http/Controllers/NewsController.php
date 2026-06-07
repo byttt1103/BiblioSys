@@ -96,7 +96,7 @@ class NewsController extends Controller
                 ->orWhere('description', 'LIKE', "%{$search}%")
                 ->orWhere('category', 'LIKE', "%{$search}%")
                 ->orWhere('tags', 'LIKE', "%{$search}%")
-                ->get();
+                ->paginate(12);
 
         return view('news_list', compact('news'));
     }

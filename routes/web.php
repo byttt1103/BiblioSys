@@ -17,7 +17,6 @@ use App\Http\Middleware\BookerAdminMiddleware;
 // ==== General ====
 Route::get('/admin',[AdminController::class, 'index'])->middleware(BookerAdminMiddleware::class)->name('admin.index');
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/about_us', [HomeController::class, 'about'])->name('about.library');
 
 
 // ==== Session ====
@@ -41,21 +40,21 @@ Route::resource('/admin/authors', AuthorController::class)->middleware(BookerAdm
 Route::resource('/admin/categories', CategoryController::class)->middleware(BookerAdminMiddleware::class);
 
 
-// ==== BOOKS ====
+// ==== Books ====
 Route::resource('/admin/books', BookController::class)->middleware(BookerAdminMiddleware::class);
 Route::get('/books', [HomeController::class, 'book_list'])->name('book.list');
 Route::get('/books/search', [BookController::class, 'search'])->name('book.search');
+Route::get('/books/archived', [BookController::class, 'archived'])->name('books.archived');
 Route::get('/books/{book_id}', [HomeController::class, 'book_info'])->name('book.info');
 
-
-// ==== NEWS ====
+// ==== News ====
 Route::resource('/admin/news', NewsController::class)->middleware(BookerAdminMiddleware::class);
 Route::get('/news', [HomeController::class, 'news_list'])->name('news.list');
 Route::get('/news/search', [NewsController::class, 'search'])->name('news.search');
 Route::get('/news/{news_id}', [HomeController::class, 'news_info'])->name('news.info');
 
 
-// ==== LOANS ====
+// ==== Loans ====
 Route::get('/loan/new/{book}', [LoanController::class, 'form_new'])->name("loans.request")->middleware("auth");
 Route::post('/loan/new/{book}', [LoanController::class, 'confirm_loan'])->name("loans.confirm")->middleware("auth");
 
@@ -67,7 +66,7 @@ Route::get('/admin/loan/edit/{loan}', [LoanController::class, 'show_edit_form'])
 Route::put('/admin/loan/edit/{loan}', [LoanController::class, 'update_loan'])->name("admin.loans.update")->middleware(BookerAdminMiddleware::class);
 Route::delete('/admin/loan/destroy/{loan}', [LoanController::class ,'destroy'])->name("admin.loans.destroy")->middleware(BookerAdminMiddleware::class);
 
-// ==== USERS ====
+// ==== Users ====
 Route::resource('/admin/users', UserController::class)->middleware(BookerAdminMiddleware::class);
 
 // ==== Config ====

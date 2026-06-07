@@ -9,10 +9,10 @@
 @use "./sass/base/variables";
 
 //? components
-@use "./sass/components/index" as c;
+@use "./sass/components/index"as c;
 
 //? partials (components but richer)
-@use "./sass/partials/index" as p;
+@use "./sass/partials/index"as p;
 
 
 
@@ -26,34 +26,54 @@ body {
         // height: max-content;
         min-height: calc(100vh - 10vh - 93px);
         box-sizing: border-box;
-        padding-top:20px;
+        padding-top: 20px;
 
         @include p.styleGrid;
-
+        @include p.styleForm;   
         @include p.stylePaginator;
         @include p.styleBookInfo;
         @include c.alert;
         @include c.card;
         @include c.searchBar;
 
-        .section__search {
+        .section_search {
             width: 100%;
             margin-bottom: 20px;
         }
 
-        .admin__actions {
-            @include mixins.elements-flex(row, flex-start, center);
-            gap: 8px;
-            margin-bottom: 20px;
+        .section {
+            h1 {
+                text-align: center;
+            }
+
+            p {
+                text-align: center;
+            }
+
+            .actions, .admin_actions {
+                @include mixins.elements-flex(row, flex-start, center);
+                gap: 8px;
+                margin-bottom: 20px;
+            }
         }
-        .admin{
-            h1{
-                text-align: center;
-            }
-            p{
-                text-align: center;
-            }
+
+        .admin {
+
             @include c.table;
+            @include p.styleAdminStats;
+
+            .tables {
+                @include mixins.elements-flex(column, center, center);
+
+                table {
+                    margin-bottom: 40px;
+                }
+
+            }
+
+            .tables:last-child {
+                margin-top: 40px;
+            }
         }
     }
 

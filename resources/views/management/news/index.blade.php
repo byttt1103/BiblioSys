@@ -4,18 +4,23 @@
 
 @section('content')
     <section class="section admin">
-        <div class="admin__actions">
-            <a href="{{ route('news.create') }}" class="button">
+        <div class="admin_actions">
+            <a href="{{ route('news.create') }}" class="button button-small">
                 <span class="text long medium short">Crear noticia</span>
             </a>
+            <a href="{{ route('admin.index') }}" class="button button-small">
+                <span class="text long medium">Volver al inicio</span>
+                <span class="text short">Inicio</span>
+            </a>
         </div>
-        <div class="section__search">
+        <div class="section_search">
             @include('partials.search', [
                 'action' => route('news.index'),
                 'placeholder' => 'Busca una noticia',
                 'search' => old('search', request('search')),
             ])
         </div>
+        <h1>Noticias</h1>
 
         @if (!$news->isEmpty())
             <table>
@@ -45,15 +50,18 @@
                             <td>{{ $singleNews->category }}</td>
                             <td>{{ $singleNews->tags }}</td>
                             <td>
-                                <div class="admin__actions">
-                                    <a href="{{ route('news.edit', $singleNews->id) }}"
-                                        class="button button-small"><div class="text">Editar</div></a>
+                                <div class="admin_actions">
+                                    <a href="{{ route('news.edit', $singleNews->id) }}" class="button button-small">
+                                        <div class="text">Editar</div>
+                                    </a>
                                     <form method="POST" action="{{ route('news.destroy', $singleNews->id) }}"
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="button button-small button-danger"
-                                            onclick="return confirm('Estas seguro?')">Borrar</button>
+                                            onclick="return confirm('Estas seguro?')">
+                                            <div class="text">Borrar</div>
+                                        </button>
                                     </form>
                                 </div>
                             </td>

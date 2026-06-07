@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Loan extends Model
 {
     protected $fillable = [
+        'you',//huh
         'user_id',
         'book_id',
         'status',
+        'is_archived',
         'loan_date',
         'due_date',
         'quantity',

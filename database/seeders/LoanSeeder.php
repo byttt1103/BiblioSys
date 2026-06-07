@@ -30,6 +30,7 @@ class LoanSeeder extends Seeder
                 'due_date' => '2026-05-17',
                 'quantity' => 1,
                 'returned_at' => '2026-05-15',
+                'is_archived' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -41,6 +42,7 @@ class LoanSeeder extends Seeder
                 'due_date' => '2026-06-08',
                 'quantity' => 1,
                 'returned_at' => null,
+                'is_archived' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -56,11 +58,12 @@ class LoanSeeder extends Seeder
                 'due_date' => '2026-06-11',
                 'quantity' => 2,
                 'returned_at' => null,
+                'is_archived' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
-
+ 
         // Loans for Ana Gómez (New Reader)
         if ($anaReader) {
             $loans[] = [
@@ -71,6 +74,7 @@ class LoanSeeder extends Seeder
                 'due_date' => '2026-05-27',
                 'quantity' => 1,
                 'returned_at' => null,
+                'is_archived' => false,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
@@ -82,11 +86,11 @@ class LoanSeeder extends Seeder
                 'due_date' => '2026-05-08',
                 'quantity' => 1,
                 'returned_at' => '2026-05-07',
+                'is_archived' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
         }
-
         // Insert the generated loans into the database
         if (!empty($loans)) {
             DB::table('loans')->insert($loans);

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('phone_number')->unique()->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('address')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_archived')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

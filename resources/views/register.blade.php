@@ -4,12 +4,12 @@
 
 @section('content')
     <section class="section">
-        <div class="container">
-            <h1>Registro de Usuario</h1>
+        <div class="form">
+            <h1>Registrarse</h1>
             <form action="{{ route('register') }}" method="POST">
                 @csrf
 
-            <div>
+            <div class="form_group">
                 @error('first_name')
                     <p class="error">Nombre invalido</p>
                 @enderror
@@ -17,7 +17,7 @@
                 <input type="text" name="first_name" id="first_name" placeholder="Nombre" value="{{ old('first_name') }}">
             </div>
 
-            <div>
+            <div class="form_group">
                 @error('last_name')
                     <p class="error">Apellido invalido</p>
                 @enderror
@@ -25,7 +25,7 @@
                 <input type="text" name="last_name" id="last_name" placeholder="Apellido" value="{{ old('last_name') }}">
             </div>
 
-            <div>
+            <div class="form_group">
                 @error('document_number')
                     <p class="error">Número de documento invalido</p>
                 @enderror
@@ -34,7 +34,7 @@
                     maxlength="10"  required value="{{ old('document_number') }}">
             </div>
 
-            <div>
+            <div class="form_group">
                 @error('phone_number')
                     <p class="error">Número de teléfono invalido</p>
                 @enderror
@@ -47,7 +47,7 @@
                 <input type="email" id="email" name="email" value="{{ old('email') }}">
             </div>
 
-            <div>
+            <div class="form_group">
                 @error('address')
                     <p class="error">Dirección invalida</p>
                 @enderror
@@ -55,7 +55,7 @@
                 <input type="text" name="address" id="address" placeholder="Dirección" value="{{ old('address') }}">
             </div>
 
-            <div>
+            <div class="form_group">
                 @error('password')
                     <p class="error">Contraseña invalida</p>
                 @enderror
@@ -63,12 +63,12 @@
                 <input type="password" name="password" id="password" required>
 
             </div>
-             <div>
+             <div class="form_group">
                 <label for="password_confirmation">Confirmar Contraseña:</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required>
-            </div>
-                <button type="submit" class="button">Registrarse</button>
-            </form>
+
+                <button type="submit" class="button"><span class="text">Registrarse</span></button>
+
         </div>
     </section>
 @endsection

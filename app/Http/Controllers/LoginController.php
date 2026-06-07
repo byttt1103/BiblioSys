@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Library;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,11 +11,15 @@ use Illuminate\Support\Facades\DB;
 class LoginController extends Controller
 {
     public function show_login_form() {
-        return view('login');
+        $library = Library::query()->first();
+
+        return view('login', compact('library'));
     }
 
     public function show_register_form() {
-        return view('register');
+        $library = Library::query()->first();
+
+        return view('register', compact('library'));
     }
 
     public function logout(Request $request) {

@@ -1,0 +1,18 @@
+//? base blocks (inserted manually for better handling)
+@use "../base/global";
+@use "../base/mixins";
+@use "../base/reset";
+@use "../base/variables";
+
+//? components
+@use "../components/elementBox";
+
+@mixin styleAdminStats {
+    .libraryStats {
+        @include mixins.elements-flex(column, center, center);
+
+        .elementBox {
+            @include elementBox.elementBox(flex-start);
+        }
+    }
+}

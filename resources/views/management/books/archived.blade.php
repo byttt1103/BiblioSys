@@ -4,12 +4,13 @@
 
 @section('content')
     <section class="section admin">
-        <div class="actions">
+        <div class="admin_actions">
             <a href="{{ route('books.create') }}" class="button button-small">
                 <span class="text long medium short">Crear libro</span>
             </a>
-            <a href="{{ route('books.archived') }}" class="button button-small">
-                <span class="text long medium short">Ver archivados</span>
+            {{-- Es probable que la ruta en tus definiciones de rutas use el nombre en plural: 'books.archived' en lugar de 'book.archived', ya que la ruta 'books.create' de arriba funciona y usa plural. Laravel suele nombrar las rutas de recursos en plural para el recurso principal. --}}
+            <a href="{{ route('books.index') }}" class="button button-small">
+                <span class="text long medium short">Ver activos</span>
             </a>
             <a href="{{ route('admin.index') }}" class="button button-small"><span class="text long medium short">Volver a Inicio</span></a>
         </div>
@@ -26,7 +27,6 @@
         </div>
 
         <table>
-            <h1>Libros</h1>
             <thead>
                 <tr>
                     <th>ID</th>

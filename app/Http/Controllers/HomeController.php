@@ -18,8 +18,9 @@ class HomeController extends Controller
         $news = News::query()
             ->orderBy('created_at', 'desc')
             ->first();
+        $library = Library::query()->first();
 
-        return view('index', compact('news'));
+        return view('index', compact('news', 'library'));
     }
 
     public function book_list(): View
@@ -32,21 +33,33 @@ class HomeController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('book_list', compact('books', 'categories'));
+        $library = Library::query()->first();
+
+        return view('book_list', compact('books', 'categories', 'library'));
     }
 
     public function book_info($id)
     {
         $book = Book::with('authors')->find($id);
+        $library = Library::query()->first();
 
-        return view('book_info', compact('book'));
+        return view('book_info', compact('book', 'library'));
     }
 
     public function news_list()
     {
-        $news = News::query()->get();
+        $news = News::query()->paginate(12);
+        $library = Library::query()->first();
 
-        return view('news_list', compact('news'));
+        return view('news_list', compact('news', 'library'));
+    }
+
+    public function news_info($id)
+    {
+        $news = News::query()->find($id);
+        $library = Library::query()->first();
+
+        return view('news_info', compact('news', 'library'));
     }
 
     public function about()

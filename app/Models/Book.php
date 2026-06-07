@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+
 
 class Book extends Model
 {
@@ -18,13 +21,13 @@ class Book extends Model
         return $this->belongsToMany(Category::class)->withTimestamps();
     }
 
-    public function loans(): BelongsToMany
+    public function loans(): HasMany
     {
-        return $this->belongToMany(Loan::class)->withTimestamps();
+        return $this->hasMany(Loan::class);
     }
     public function holds(): BelongsToMany
     {
-        return $this->belongToMany(Hold::class)->withTimestamps();
+        return $this->belongsToMany(Hold::class)->withTimestamps();
     }
 
     protected $fillable = [
@@ -35,7 +38,8 @@ class Book extends Model
         'description',
         'publication_year',
         'isbn',
-        'stock'
+        'stock',
+        'is_archived'
     ];
 
     // mutators: they convert any incoming data in something more standard,

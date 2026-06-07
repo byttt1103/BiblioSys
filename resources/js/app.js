@@ -5,6 +5,7 @@ import './bootstrap';
 import './fix_height';
 import './dropdown';
 import './input_mask';
+import './toggle_password';
 
 window.Alpine = Alpine;
 window.Inputmask = Inputmask;

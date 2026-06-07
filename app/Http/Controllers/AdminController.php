@@ -4,13 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Library;
+use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('management.index');
+
+        // Retrieve the 5 most recent loans ordered by loan_date descending
+        $recentLoans = Loan::orderBy('loan_date', 'desc')->take(5)->get();
+        // Retrieve top 5 books with the most loans
+        $topBorrowedBooks = Book::withCount('loans')
+            ->with('authors')
+            ->orderBy('loans_count', 'desc')
+            ->take(5)
+            ->get();
+        $users = User::query()->count();
+
+        return view('management.index', compact('recentLoans', 'topBorrowedBooks', 'users'));
     }
 
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('synopsis')->nullable();
             $table->string('isbn')->unique();
             $table->unsignedInteger('stock');
+            $table->boolean('is_archived')->default(false);
             $table->unsignedSmallInteger('publication_year')->nullable();
             $table->timestamps();
         });

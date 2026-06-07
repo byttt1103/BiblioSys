@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Library;
 use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -64,7 +65,9 @@ class LoanController extends Controller
         // Retrieves every loan from the user
         $loans = $user->loans()->get();
 
-        return view('loans.user', compact('user', 'loans'));
+        $library = Library::query()->first();
+
+        return view('loans.user', compact('user', 'loans', 'library'));
     }
 
     // Returns a view with a form for editing a current loan

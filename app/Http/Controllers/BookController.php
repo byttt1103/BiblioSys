@@ -5,24 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Loan;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    // Returns a view with every existant book
+    // Returns a view with every existant book, without the archived ones
+    // Also returns the categories for the search form
     public function index(Request $request): View
     {
         $search = $request->string('search')->toString();
         $categoryIds = collect($request->input('categories', []))
-            ->filter(static fn (mixed $id): bool => is_numeric($id))
-            ->map(static fn (mixed $id): int => (int) $id)
+            ->filter(static fn(mixed $id): bool => is_numeric($id))
+            ->map(static fn(mixed $id): int => (int) $id)
             ->unique()
             ->values();
 
         $books = Book::query()
             ->with(['authors'])
+            ->where('is_archived', 0) // Only include non-archived books
             ->when($search !== '', function ($query) use ($search) {
                 $query->where(function ($query) use ($search) {
                     $query
@@ -46,6 +50,44 @@ class BookController extends Controller
         return view('management.books.index', compact('books', 'categories'));
     }
 
+    // Returns a view with every book including archived ones
+    // Also returns the categories for the search form
+    public function archived(Request $request): View
+    {
+        $search = $request->string('search')->toString();
+        $categoryIds = collect($request->input('categories', []))
+            ->filter(static fn(mixed $id): bool => is_numeric($id))
+            ->map(static fn(mixed $id): int => (int) $id)
+            ->unique()
+            ->values();
+
+        $books = Book::query()
+            ->with(['authors'])
+            ->where('is_archived', 1) // Only include archived books
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($query) use ($search) {
+                    $query
+                        ->where('title', 'LIKE', "%{$search}%")
+                        ->orWhere('publisher', 'LIKE', "%{$search}%")
+                        ->orWhere('synopsis', 'LIKE', "%{$search}%")
+                        ->orWhere('isbn', 'LIKE', "%{$search}%");
+                });
+            })
+            ->when($categoryIds->isNotEmpty(), function ($query) use ($categoryIds) {
+                $query->whereHas('categories', function ($query) use ($categoryIds) {
+                    $query->whereIn('categories.id', $categoryIds);
+                });
+            })
+            ->get();
+
+        $categories = Category::query()
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return view('management.books.archived', compact('books', 'categories'));
+    }
+
+
     // Returns a form with for creating a new book
     public function create()
     {
@@ -59,7 +101,6 @@ class BookController extends Controller
     public function show(Book $book)
     {
         return view('management.books.show', compact('book'));
-
     }
 
     // returns the edit form with the book data
@@ -71,17 +112,17 @@ class BookController extends Controller
         return view('management.books.edit', compact('book', 'authors', 'categories'));
     }
 
-    // 🥐 aggiornamenta il libro con i dati del form di edit
+    //  Updates the book data
     public function update(Request $request, Book $book)
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'cover_path' => 'nullable|string|max:255',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'publisher' => 'required|string|max:100',
             'synopsis' => 'required|string',
             'description' => 'nullable|string',
-            'publication_year' => 'nullable|integer|max:'.date('Y'),
-            'isbn' => 'required|string|max:20|unique:books,isbn,'.$book->id,
+            'publication_year' => 'nullable|integer|max:' . date('Y'),
+            'isbn' => 'required|string|max:20|unique:books,isbn,' . $book->id,
             'stock' => 'required|integer|min:0', // foreign data to be stored in the copies table
             'authors' => 'required|array', // foreign data
             'authors.*' => 'exists:authors,id', // Ensure each author ID exists in the authors table
@@ -94,8 +135,17 @@ class BookController extends Controller
         $categories = $data['categories'];
 
         // dettatch the non-necesarry data for the book table
-        unset($data['authors']);
-        unset($data['categories']);
+        unset($data['authors'], $data['categories']);
+
+        // Handle the cover image upload if a file was provided
+        if ($request->hasFile('cover')) {
+            // delete the old cover if it exists
+            if ($book->cover_path) {
+                Storage::disk('public')->delete($book->cover_path);
+            }
+            // store the new cover and save the path to the data array
+            $data['cover_path'] = $request->file('cover')->store('covers', 'public');
+        }
 
         // create the transaction for the trillion tables we have to update oh my gosh
         DB::transaction(function () use ($data, $book, $authors, $categories) {
@@ -106,18 +156,21 @@ class BookController extends Controller
 
         return redirect()->route('books.index')
             ->with('success', '¡Libro actualizado existosamente!');
-
     }
 
     // Drops the book from the database
     public function destroy(Book $book)
     {
-        $book->authors()->detach();
-        $book->categories()->detach();
-        $book->delete();
+        $book->update(['is_archived' => true]);
+
+        $loans = Loan::where('book_id', $book->id)->get();
+
+        foreach ($loans as $loan) {
+            $loan->update(['is_archived' => true]);
+        }
 
         return redirect()->route('books.index')
-            ->with('success', 'Libro eliminado existosamente');
+            ->with('success', 'Libro archivado existosamente');
     }
 
     // create a new book with the data from the create form
@@ -127,11 +180,11 @@ class BookController extends Controller
         // Validate the incoming request data
         $data = $request->validate([
             'title' => 'required|string|max:255',
-            'cover_path' => 'nullable|string|max:255',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096', // Validate the uploaded cover image (optional, max size 4MB)
             'publisher' => 'required|string|max:100',
             'synopsis' => 'required|string',
             'description' => 'nullable|string',
-            'publication_year' => 'nullable|integer|max:'.date('Y'),
+            'publication_year' => 'nullable|integer|max:' . date('Y'),
             'isbn' => 'required|string|max:20|unique:books', // Assuming ISBN is stored in the copies table
             'stock' => 'required|integer|min:0', // foreign data to be stored in the copies table
             'authors' => 'required|array', // foreign data
@@ -143,8 +196,13 @@ class BookController extends Controller
         $authors = $data['authors'];
         $categories = $data['categories'];
 
-        unset($data['authors']);
-        unset($data['categories']);
+        unset($data['authors'], $data['categories']);
+
+        // Handle the cover image upload if a file was provided
+        if ($request->hasFile('cover')) {
+            $data['cover_path'] = $request->file('cover')->store('covers', 'public');
+        }
+
         // we use a transaction to avoid errors when creating the book and attaching the authors and categories
         // if any of the operations fail, the transaction will be rolled back and the database will not be left in an inconsistent state
         DB::transaction(function () use ($data, $authors, $categories) {
@@ -164,8 +222,8 @@ class BookController extends Controller
     {
         $search = $request->string('search')->toString();
         $categoryIds = collect($request->input('categories', []))
-            ->filter(static fn (mixed $id): bool => is_numeric($id))
-            ->map(static fn (mixed $id): int => (int) $id)
+            ->filter(static fn(mixed $id): bool => is_numeric($id))
+            ->map(static fn(mixed $id): int => (int) $id)
             ->unique()
             ->values();
 

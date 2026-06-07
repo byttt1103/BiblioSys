@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Library;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -77,8 +78,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+        $library = Library::query()->first();
 
-        return view('management.users.update', compact('user', 'roles'));
+        return view('management.users.update', compact('user', 'roles', 'library'));
     }
 
     public function update(Request $request, User $user)
@@ -123,8 +125,9 @@ class UserController extends Controller
     public function show_profile()
     {
         $user = Auth::user();
+        $library = Library::query()->first();
 
-        return view('profile.show', compact('user'));
+        return view('profile.show', compact('user', 'library'));
     }
 
     public function update_profile(Request $request)

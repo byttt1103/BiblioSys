@@ -45,7 +45,6 @@
             <li><a href="{{ route('index') }}">Inicio</a></li>
             <li><a href="{{ route('book.list') }}">Libros</a></li>
             <li><a href="{{ route('news.list') }}">Noticias</a></li>
-            <li><a href="{{ route('about.library') }}">Sobre Nosotros</a></li>
         </ul>
     @else
         <ul id="libraryLinks">

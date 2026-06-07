@@ -7,15 +7,16 @@ const phone_number = document.querySelector("#phone_number")
 const form = document.querySelector("form");
 
 export function initInputMasks() {
-
-    Inputmask("+57 999 999 9999").mask(phoneInput)
-
     Inputmask("numeric", {
         numericInput: true,
         digits: 0,
         allowMinus: false,
         rightAlign: false,
     }).mask(documentInput);
+    
+    Inputmask("+57 999 999 9999").mask(phoneInput)
+
+
 
 }
 

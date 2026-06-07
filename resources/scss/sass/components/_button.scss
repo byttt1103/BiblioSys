@@ -5,7 +5,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 10px 15px;
+        padding: 8px 10px;
         gap: 15px;
         background-color: variables.$mainColor;
         outline: 3px variables.$mainColor solid;
@@ -21,8 +21,8 @@
         .text {
             color: white;
             font-family: variables.$contentFont;
+            font-size: 14px;
             font-weight: 500;
-            font-size: medium;
             transition: 400ms;
         }
 
@@ -126,7 +126,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 10px 15px;
+        padding: 8px 10px;
         gap: 15px;
         background-color: variables.$disabled_button;
         outline: 3px variables.$disabled_button solid;

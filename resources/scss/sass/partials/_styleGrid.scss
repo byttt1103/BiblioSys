@@ -10,6 +10,7 @@
         padding-top: 25px;
 
         .elementBox {
+            justify-content: space-evenly;
             height: 100%;
             text-align: center;
             @include button.button;

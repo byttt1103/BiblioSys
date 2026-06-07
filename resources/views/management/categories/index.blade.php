@@ -4,13 +4,13 @@
 
 @section('content')
     <section class="section admin">
-        <div class="admin__actions">
+        <div class="admin_actions">
             <a href="{{ route('categories.create') }}" class="button">
                 <span class="text long medium short">Crear nueva categoría</span>
             </a>
         </div>
 
-        <div class="section__search">
+        <div class="section_search">
             @include('partials.search', [
                 'action' => route('categories.index'),
                 'placeholder' => 'Busca una categoría',
@@ -19,6 +19,7 @@
         </div>
 
         <table>
+            <h1>Categorías</h1>
             <thead>
                 <tr>
                     <th>Nombre de categoría</th>

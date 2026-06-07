@@ -4,6 +4,7 @@
 
 @section('content')
     <section class="section">
+        <h1>Noticias</h1>
         <div class="section__search">
             @include('partials.search', [
                 'action' => route('news.search'),
@@ -15,33 +16,48 @@
 
         @if ($news->isEmpty())
             <p>No se encontraron noticias.</p>
-
         @else
-
             <div class="grid">
                 @foreach ($news as $item)
-             <div class="card">
-                 <div class="card__body">
-                     @if ($item->image_url)
-                         <img src="{{ $item->image_url }}" alt="Imagen de la noticia" class="card__image">
-                     @endif
-                     <h5 class="card__title">{{ $item->title }}</h5>
-                     <p class="card__text">{{ $item->description }}</p>
+                    <div class="elementBox">
 
-                     @if ($item->category)
-                         <p class="card__category"><strong>Categoría:</strong> {{ $item->category }}</p>
-                     @endif
+                        @if ($item->image_url)
+                            <div class="newsImage">
+                                <img src="{{ $item->image_url }}" alt="Imagen de la noticia">
+                            </div>
+                        @endif
 
-                     @if ($item->tags)
-                            <p class="card__tags">
-                                @foreach (explode(',', $item->tags) as $tag)
-                                    <span class="badge">{{ trim($tag) }}</span>
-                                @endforeach
-                             </p>
-                         @endif
-                     </div>
-                 </div>
-            @endforeach
+                        <div class="info">
+                            <h2>{{ $item->title }}</h2>
+                            @if ($item->category)
+                                <p class="category"><strong>Categoría:</strong> {{ $item->category }}</p>
+                            @endif
+                            <p>{{ $item->description }}</p>
+
+
+                            @if ($item->tags)
+                                <p class="tags">
+                                    @foreach (explode(',', $item->tags) as $tag)
+                                        <span class="badge">{{ trim($tag) }}</span>
+                                    @endforeach
+                                </p>
+                            @endif
+
+                        </div>
+                        <div class="actions">
+                            <a class="button news_info" href="{{ route('news.info', ['news_id' => $item->id]) }}">
+                                <p class="text long medium">
+                                    Ver más <span aria-hidden="true">🠲</span>
+                                </p>
+                                <p class="text short" aria-hidden="true">Más 🠲</p>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="paginator">
+                {{ $news->links('partials.pagination') }}
             </div>
         @endif
     </section>

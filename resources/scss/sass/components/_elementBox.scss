@@ -11,13 +11,63 @@
         transition: 0.3s ease;
         @include mixins.elements-flex(column, space-evenly, $align);
 
-        p {
-            font-size: small;
+        .image {
+            width: 12rem;
+            height: 16rem;
+
+            img {
+                height: 100%;
+                width: 100%;
+                font-family: variables.$contentFont;
+            }
+        }
+
+        .newsImage {
+            width: 100%;
+            height: 100%;
+
+            img {
+                height: 100%;
+                width: 100%;
+                font-family: variables.$contentFont;
+                border-radius: 10px;
+            }
+        }
+
+        .info {
+
+            @include mixins.elements-flex(column, center, space-between);
+            gap: 10px;
+
+            .tags{
+                @include mixins.elements-flex(row, center, center);
+                gap: 5px;
+                margin-bottom: 10px;
+                .badge{
+                    background-color: variables.$otherSectionColor;
+                    color: variables.$captionColor;
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    font-size: 0.8rem;
+                    font-family: variables.$contentFont;
+                    font-weight: bold;
+                }
+            }
         }
 
         .actions {
             @include mixins.elements-flex(row, center, center);
             gap: 10px;
+            width: 100%;
+
+            .button {
+                height: 25px;
+                max-width: 150px;
+            }
+        }
+
+        .no_stock {
+            color: red;
         }
 
         .loanInfo {
@@ -32,8 +82,6 @@
                     @include mixins.elements-flex(column, center, center);
                 }
             }
-
-
 
         }
     }
