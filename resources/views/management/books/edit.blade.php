@@ -26,27 +26,45 @@
                 </div>
 
                 <div class="form_group">
-                    <label for="authors">Autor</label>
-                    <select name="authors[]" multiple required>
-                        <option value="">Selecciona un autor</option>
+                    <label>Autores</label>
+
+                    @php
+                        $selectedAuthors = old('authors', $book->authors->pluck('id')->toArray());
+                    @endphp
+
+                    <div class="multi_select">
                         @foreach ($authors as $author)
-                            <option value="{{ $author->id }}"
-                                {{ in_array($author->id, old('authors', $book->authors->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                {{ $author->name }}</option>
+                            <div class="select_item">
+                                <input type="checkbox" name="authors[]" value="{{ $author->id }}" class="checkbox"
+                                    id="author_{{ $author->id }}" @checked(in_array($author->id, $selectedAuthors))>
+
+                                <label for="author_{{ $author->id }}">
+                                    {{ $author->name }}
+                                </label>
+                            </div>
                         @endforeach
-                    </select>
+                    </div>
                 </div>
 
                 <div class="form_group">
-                    <label for="category">Categoría</label>
-                    <select name="categories[]" multiple required>
-                        <option value="">Selecciona una categoría</option>
+                    <label>Categorías</label>
+
+                    @php
+                        $selectedCategories = old('categories', $book->categories->pluck('id')->toArray());
+                    @endphp
+
+                    <div class="multi_select">
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ in_array($category->id, old('categories', $book->categories->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                {{ $category->name }}</option>
+                            <div class="select_item">
+                                <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="checkbox"
+                                    id="category_{{ $category->id }}" @checked(in_array($category->id, $selectedCategories))>
+
+                                <label for="category_{{ $category->id }}">
+                                    {{ $category->name }}
+                                </label>
+                            </div>
                         @endforeach
-                    </select>
+                    </div>
                 </div>
 
                 <div class="form_group">
@@ -55,15 +73,16 @@
                 </div>
 
                 <div class="form_group">
-                <label for="publication_year">Año de publicación</label>
-                <input type="number" name="publication_year" maxlength="200" placeholder="Escriba el año de publicación"
-                    value="{{ old('publication_year', $book->publication_year) }}">
+                    <label for="publication_year">Año de publicación</label>
+                    <input type="number" name="publication_year" maxlength="200"
+                        placeholder="Escriba el año de publicación"
+                        value="{{ old('publication_year', $book->publication_year) }}">
                 </div>
 
                 <div class="form_group">
-                <label for="publisher">Editorial</label>
-                <input type="text" name="publisher" maxlength="100" placeholder="Escribe la editorial del libro aquí"
-                    value="{{ old('publisher', $book->publisher) }}">
+                    <label for="publisher">Editorial</label>
+                    <input type="text" name="publisher" maxlength="100" placeholder="Escribe la editorial del libro aquí"
+                        value="{{ old('publisher', $book->publisher) }}">
                 </div>
 
                 <div class="form_group">
@@ -75,7 +94,8 @@
                 <div class="form_group">
                     <label for="stock">Cantidad de ejemplares</label>
                     <input type="number" name="stock" min="0"
-                        placeholder="Escribe la cantidad de ejemplares disponibles" value="{{ old('stock', $book->stock) }}">
+                        placeholder="Escribe la cantidad de ejemplares disponibles"
+                        value="{{ old('stock', $book->stock) }}">
                 </div>
 
                 <div class="form_group">

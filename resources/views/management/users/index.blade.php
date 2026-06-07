@@ -14,7 +14,7 @@
             </a>
         </div>
 
-        <div class="section_search">
+        <div class="searchBar">
             @include('partials.search', [
                 'action' => route('users.index'),
                 'placeholder' => 'Busca un usuario',
@@ -64,7 +64,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="button button-small button-danger"
-                                                    onclick="return confirm('¿Estás seguro?')"><span class="text long medium short">Archivar</span></button>
+                                                    onclick="return confirm('¿Estás seguro? El usuario se desactivará, junto con sus préstamos.')"><span class="text long medium short">Desactivar</span></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -112,12 +112,11 @@
                                     <td>
                                         <div class="admin_actions">
                                             <a href="{{ route('users.edit', $user->id) }}" class="button button-small">Editar</a>
-                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                            <form action="{{ route('users.restore', $user->id) }}" method="POST"
                                                 style="display:inline;">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="button button-small button-danger"
-                                                    onclick="return confirm('¿Estás seguro?')">Eliminar</button>
+                                                @method('PUT')
+                                                <button type="submit" class="button button-small"><span class="text long medium short">Activar</span></button>
                                             </form>
                                         </div>
                                     </td>

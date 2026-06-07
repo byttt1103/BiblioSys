@@ -18,12 +18,11 @@
                 </div>
                 <div class="form_group">
                     <label for="password">Contraseña:</label>
-                    <div class="password_group">
+                    <div class="password_input">
                         <input type="password" id="password" name="password" placeholder="Contraseña">
-                        <button type="button" id="togglePassword"><span class="icon">
-                                🙈
-                            </span></button>
+                        <button type="button" id="togglePassword"><span class="icon">🙈 </span></button>
                     </div>
+
                 </div>
 
 

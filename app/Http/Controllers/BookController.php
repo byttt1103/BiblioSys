@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\Library;
 use App\Models\Loan;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -47,10 +48,12 @@ class BookController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
+
+
         return view('management.books.index', compact('books', 'categories'));
     }
 
-    // Returns a view with every book including archived ones
+    // Returns a view with every archived book
     // Also returns the categories for the search form
     public function archived(Request $request): View
     {
@@ -86,6 +89,22 @@ class BookController extends Controller
 
         return view('management.books.archived', compact('books', 'categories'));
     }
+
+
+
+    // Restores the book from the archived list
+    public function restore(Request $request, Book $book)
+    {
+        $book->update(['is_archived' => 0]);
+
+         $loans = Loan::where('book_id', $book->id)->get();
+
+        foreach ($loans as $loan) {
+            $loan->update(['is_archived' => false]);
+        }
+        return redirect()->route('books.index')->with('success', '¡Libro restaurado con éxito!');
+    }
+
 
 
     // Returns a form with for creating a new book
@@ -250,6 +269,8 @@ class BookController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('book_list', compact('books', 'categories'));
+        $library = Library::query()->first();
+
+        return view('book_list', compact('books', 'categories', 'library'));
     }
 }

@@ -4,13 +4,18 @@
 
 @section('content')
     <section class="section admin">
-        <div class="config">
+
+        <div class="admin_actions">
+            <a class="button" href="{{ route('admin.index') }}"> <span class="text">Volver a la página principal</span></a>
+        </div>
+
+        <div class="form">
             <h3>Configuración de la web</h3>
             <form action="{{ route('admin.config.update') }}" method="POST">
                 @csrf
                 @method('PUT')
 
-                <div>
+                <div class="form_group">
                     @error('name')
                         <p class="error">Nombre inválido</p>
                     @enderror
@@ -19,7 +24,7 @@
                         value="{{ old('name', $config->name ?? '') }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('address')
                         <p class="error">Dirección inválida</p>
                     @enderror
@@ -28,7 +33,7 @@
                         value="{{ old('address', $config->address ?? '') }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('phone_number')
                         <p class="error">Número de teléfono inválido</p>
                     @enderror
@@ -37,7 +42,7 @@
                         value="{{ old('phone_number', $config->phone_number ?? '') }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('email')
                         <p class="error">Correo electrónico inválido</p>
                     @enderror
@@ -46,7 +51,7 @@
                         value="{{ old('email', $config->email ?? '') }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('description')
                         <p class="error">Descripción inválida</p>
                     @enderror
@@ -56,7 +61,7 @@
 
                 <h4>Horario de atención</h4>
 
-                <div>
+                <div class="form_group">
                     @error('opening_hour_weekday')
                         <p class="error">Hora de apertura en días de semana inválida</p>
                     @enderror
@@ -65,7 +70,7 @@
                         value="{{ old('opening_hour_weekday', substr($config->getRawOriginal('opening_hour_weekday') ?? '', 0, 5)) }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('closing_hour_weekday')
                         <p class="error">Hora de cierre en días de semana inválida</p>
                     @enderror
@@ -74,7 +79,7 @@
                         value="{{ old('closing_hour_weekday', substr($config->getRawOriginal('closing_hour_weekday') ?? '', 0, 5)) }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('opening_hour_weekend')
                         <p class="error">Hora de apertura en fines de semana inválida</p>
                     @enderror
@@ -83,7 +88,7 @@
                         value="{{ old('opening_hour_weekend', substr($config->getRawOriginal('opening_hour_weekend') ?? '', 0, 5)) }}">
                 </div>
 
-                <div>
+                <div class="form_group">
                     @error('closing_hour_weekend')
                         <p class="error">Hora de cierre en fines de semana inválida</p>
                     @enderror

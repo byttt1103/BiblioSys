@@ -10,7 +10,7 @@
             </a>
         </div>
 
-        <div class="section_search">
+        <div class="searchBar">
             @include('partials.search', [
                 'action' => route('authors.index'),
                 'placeholder' => 'Busca un autor',
@@ -34,8 +34,12 @@
                         <td>{{ $author->biography }}</td>
                         <td>
                             <div class="admin_actions">
-                                <a href="{{ route('authors.edit', $author->id) }}" class="button button-small">Editar</a>
-                                @if (Auth::user()->id === 1)
+                                @if (Auth::user()->id === 1 && $author->name != 'Otros Autores')
+                                <a href="{{ route('authors.edit', $author->id) }}" class="button button-small"><span class="text long medium short">Editar</span></a>
+                                @else
+                                    <span class="text long medium short">No se puede editar.</span>
+                                @endif
+                                @if (Auth::user()->id === 1 && $author->name != 'Otros Autores')
                                     <form action="{{ route('authors.destroy', $author->id) }}" method="POST"
                                         style="display: inline;">
                                         @csrf

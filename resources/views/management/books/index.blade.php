@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="section admin">
-        <div class="actions">
+        <div class="admin_actions">
             <a href="{{ route('books.create') }}" class="button button-small">
                 <span class="text long medium short">Crear libro</span>
             </a>
@@ -14,7 +14,7 @@
             <a href="{{ route('admin.index') }}" class="button button-small"><span class="text long medium short">Volver a Inicio</span></a>
         </div>
 
-        <div class="section_search">
+        <div class="searchBar">
             @include('partials.search', [
                 'action' => route('books.index'),
                 'placeholder' => 'Busca un libro',

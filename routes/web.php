@@ -41,10 +41,11 @@ Route::resource('/admin/categories', CategoryController::class)->middleware(Book
 
 
 // ==== Books ====
+Route::get('/admin/books/archived', [BookController::class, 'archived'])->name('books.archived')->middleware(BookerAdminMiddleware::class);
+Route::put('/admin/books/restore/{book}', [BookController::class, 'restore'])->name('books.restore')->middleware(BookerAdminMiddleware::class);
 Route::resource('/admin/books', BookController::class)->middleware(BookerAdminMiddleware::class);
 Route::get('/books', [HomeController::class, 'book_list'])->name('book.list');
 Route::get('/books/search', [BookController::class, 'search'])->name('book.search');
-Route::get('/books/archived', [BookController::class, 'archived'])->name('books.archived');
 Route::get('/books/{book_id}', [HomeController::class, 'book_info'])->name('book.info');
 
 // ==== News ====
@@ -59,6 +60,7 @@ Route::get('/loan/new/{book}', [LoanController::class, 'form_new'])->name("loans
 Route::post('/loan/new/{book}', [LoanController::class, 'confirm_loan'])->name("loans.confirm")->middleware("auth");
 
 Route::get('/loan/user/{user}', [LoanController::class, 'list_user_loans'])->name("loans.user")->middleware("auth");
+Route::put('/admin/loan/restore/{loan}', [LoanController::class, 'restore'])->name("admin.loans.restore")->middleware(BookerAdminMiddleware::class);
 
 Route::get('/admin/loan', [LoanController::class, 'list_loans'])->name("admin.loans")->middleware(BookerAdminMiddleware::class);
 Route::get('/admin/ /user/{user}', [LoanController::class, 'list_user_loans'])->name("admin.loans.user")->middleware(BookerAdminMiddleware::class);
@@ -67,6 +69,7 @@ Route::put('/admin/loan/edit/{loan}', [LoanController::class, 'update_loan'])->n
 Route::delete('/admin/loan/destroy/{loan}', [LoanController::class ,'destroy'])->name("admin.loans.destroy")->middleware(BookerAdminMiddleware::class);
 
 // ==== Users ====
+Route::put('/admin/users/restore/{user}', [UserController::class, 'restore'])->name('users.restore')->middleware(BookerAdminMiddleware::class);
 Route::resource('/admin/users', UserController::class)->middleware(BookerAdminMiddleware::class);
 
 // ==== Config ====

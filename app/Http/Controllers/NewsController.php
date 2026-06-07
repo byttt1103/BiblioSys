@@ -74,7 +74,7 @@ class NewsController extends Controller
 
         $news->update($data);
 
-        return redirect()->back()->with('success', '¡El post se actualizó correctamente!');
+        return redirect()->route('news.index')->with('success', '¡El post se actualizó correctamente!');
 
     }
 
@@ -82,7 +82,7 @@ class NewsController extends Controller
     {
         $news->delete();
 
-        return redirect()->back()->with('success', '¡El post se eliminó correctamente!');
+        return redirect()->route('news.index')->with('success', '¡El post se eliminó correctamente!');
     }
 
     public function search(Request $request): View

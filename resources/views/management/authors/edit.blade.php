@@ -1,10 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', "Editar autor")
+@section('title', 'Editar autor')
 
-@section("content")
-    <section class="section">
-        <a href="{{ route('authors.index') }}" class="button">Volver a la lista de autores</a>
+@section('content')
+    <section class="section admin">
+        
+        <div class="admin_actions">
+            <a href="{{ route('authors.index') }}" class="button button-small"><span class="text long medium short">Volver a los autores</span></a>
+        </div>
+
         <div class="form">
             <h1>Editar autor</h1>
             <form action="{{ route('authors.update', $author->id) }}" method="POST">
@@ -14,12 +18,15 @@
                 @error('not_found')
                     <p class="error">{{ $message }}</p>
                 @enderror
-
-                <label for="name">Nombre del autor</label>
-                <input type="text" name="name" maxlength="255" placeholder="Escribe el nombre del autor aquí" required value="{{ old('name', $author->name) }}">
-
-                <label for="biography">Biografía</label>
-                <textarea name="biography" placeholder="Escribe la biografía aquí" required>{{ old('biography', $author->biography) }}</textarea>
+                <div class="form_group">
+                    <label for="name">Nombre del autor</label>
+                    <input type="text" name="name" maxlength="255" placeholder="Escribe el nombre del autor aquí"
+                        required value="{{ old('name', $author->name) }}">
+                </div>
+                <div class="form_group">
+                    <label for="biography">Biografía</label>
+                    <textarea name="biography" placeholder="Escribe la biografía aquí" required>{{ old('biography', $author->biography) }}</textarea>
+                </div>
 
                 <button type="submit">Actualizar autor</button>
             </form>

@@ -33,6 +33,7 @@ class User extends Authenticatable
         'email',
         'address',
         'password',
+        'is_archived',
     ];
 
     protected $hidden = [

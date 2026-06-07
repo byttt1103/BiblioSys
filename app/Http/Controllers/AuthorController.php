@@ -28,10 +28,13 @@ class AuthorController extends Controller
     }
 
     // Returns a view with a form to create a new author
-    public function create() {}
+    public function create(): View
+    {
+        return view('management.authors.create');
+    }
 
     // Returns a view with a form to edit an existing author
-    public function edit(Author $author)
+    public function edit(Author $author): View
     {
         return view('management.authors.edit', compact('author'));
     }
@@ -74,7 +77,8 @@ class AuthorController extends Controller
 
         $otherAuthor = Author::query()->where('name', 'LIKE', 'Otros Autores')->first();
 
-        // Reasigna cada libro al autor "Otros Autores"
+        // Reassign each book to the other author
+        // We detach the author from the books first to avoid any errors
         foreach ($author->books as $book) {
             $book->authors()->syncWithoutDetaching([$otherAuthor->id]);
         }

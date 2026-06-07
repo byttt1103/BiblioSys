@@ -1,82 +1,135 @@
 @use "../base/variables";
 @use "../base/mixins";
 @use "../components/button";
+@use "../components/input";
+@use "../components/multiSelect";
 
 @mixin searchBar {
+
     @include button.button;
-    #searchBar,
+    @include input.input;
+    @include multiSelect.multiSelect;
+
     .searchBar {
-        width: 100%;
-        max-width: 800px;
-        box-sizing: border-box;
-        @include mixins.elements-flex(row, space-between, center);
-        gap: 8px;
-        background-color: variables.$otherSectionColor;
-        border: 2px solid variables.$mainColor;
-        border-radius: 5px;
-        padding: 6px 8px;
-        margin: 0 auto;
-    }
+        max-width: 500px;
+        background-color: variables.$emphasisSectionColor;
+        border-radius: 10px;
+        @include mixins.elements-flex(row, center, center);
+        padding: 15px;
+        margin: auto;
 
-    .searchBar__fields {
-        grid-auto-flow: dense;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+        .searchBar_form {
+            width: 100%;
+            @media(max-width: 550px) {
+                @include mixins.elements-flex(column, center, center);
+            }
+            @media(min-width: 550px) {
+                @include mixins.elements-flex(row, center, center);
+            }
+            gap: 8px;
 
-        &:has(.searchBar__field:nth-child(2):last-child) {
-            @media (min-width: 900px) {
-                grid-template-columns: 1fr 260px;
-                align-items: center;
+            .searchBar_fields {
+                @include mixins.elements-flex(column, center, center);
+                width: 100%;
+                .searchBar_field {
+                    width: 100%;
+
+                }
+            }
+            .buttons{
+                @media(max-width: 550px) {
+                    @include mixins.elements-flex(row, center, center);
+                }
+                @media(min-width: 550px) {
+                    @include mixins.elements-flex(column, center, center);
+                }
+                .button {
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                @include mixins.elements-flex(column, center, center);
+                gap: 8px;
             }
         }
 
-        &:has(.searchBar__field:only-child) {
-            grid-template-columns: 1fr;
-        }
-        flex: 1 1 auto;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 8px;
-        min-width: 0;
     }
 
-    .searchBar__field {
-        min-width: 0;
-    }
+    // #searchBar,
+    // .searchBar {
+    //     width: 100%;
+    //     max-width: 500px;
+    //     box-sizing: border-box;
+    //     @include mixins.elements-flex(row, space-between, center);
+    //     gap: 8px;
+    //     background-color: variables.$otherSectionColor;
+    //     border: 2px solid variables.$mainColor;
+    //     border-radius: 5px;
+    //     padding: 6px 8px;
+    //     margin: 0 auto;
+    // }
 
-    .searchBar__input,
-    .searchBar__select {
-        width: 100%;
-        height: calc(variables.$H5 - 18px);
-        box-sizing: border-box;
-        border: 2px solid variables.$mainColor;
-        border-radius: 5px;
-        background-color: white;
-        font-size: 14px;
-        padding: 6px 8px;
+    // .searchBar__fields {
+    //     grid-auto-flow: dense;
+    //     grid-template-columns: 1fr;
+    //     grid-template-rows: auto;
 
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(51, 102, 204, 0.2);
-        }
-    }
+    //     &:has(.searchBar__field:nth-child(2):last-child) {
+    //         @media (min-width: 900px) {
+    //             grid-template-columns: 1fr 260px;
+    //             align-items: center;
+    //         }
+    //     }
 
-    .searchBar__select {
-        height: auto;
-        min-height: calc(variables.$H5 - 18px);
-        padding: 6px 8px;
-    }
-    .buttons{
-        @include mixins.elements-flex(column, center, stretch);
-        gap: 8px;
-    }
+    //     &:has(.searchBar__field:only-child) {
+    //         grid-template-columns: 1fr;
+    //     }
+
+    //     flex: 1 1 auto;
+    //     display: grid;
+    //     grid-template-columns: 1fr;
+    //     gap: 8px;
+    //     min-width: 0;
+
+    //     .searchBar__field {
+    //         min-width: 0;
+    //     }
+
+    //     .searchBar__input,
+    //     .multi_select {
+    //         width: 100%;
+    //         height: calc(variables.$H5 - 18px);
+    //         box-sizing: border-box;
+    //         border: 2px solid variables.$mainColor;
+    //         border-radius: 5px;
+    //         background-color: white;
+    //         font-size: 14px;
+    //         padding: 6px 8px;
+
+    //         &:focus {
+    //             outline: none;
+    //             box-shadow: 0 0 0 2px rgba(51, 102, 204, 0.2);
+    //         }
+    //     }
+
+    //     .multi_select {
+    //         height: auto;
+    //         min-height: calc(variables.$H5 - 18px);
+    //         padding: 6px 8px;
+    //     }
 
 
+    // }
 
-    @media (min-width: 900px) {
-        .searchBar__fields {
-            grid-template-columns: 1fr 260px;
-            align-items: center;
-        }
-    }
+    // .buttons {
+    //     @include mixins.elements-flex(column, center, stretch);
+    //     gap: 8px;
+    // }
+
+    // @media (min-width: 900px) {
+    //     .searchBar__fields {
+    //         width: 10rem;
+    //         grid-template-columns: 1fr 1fr;
+    //         align-items: center;
+    //     }
+    // }
 }

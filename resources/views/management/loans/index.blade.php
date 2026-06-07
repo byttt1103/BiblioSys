@@ -7,7 +7,7 @@
         <div class="admin_actions">
             <a href="{{ route('admin.index') }}" class="button button-small"> <div class="text">Volver al inicio</div></a>
         </div>
-        <div class="section_search">
+        <div class="searchBar">
             @include('partials.search', [
                 'action' => route('admin.loans'),
                 'placeholder' => 'Busca un préstamo',
@@ -46,14 +46,15 @@
                                     <td>
                                         <div class="admin_actions">
                                             <a href="{{ route('admin.loans.edit', $loan->id) }}"
-                                                class="button button-small">Editar</a>
-                                            @if ($loan->status == 'requested' || Auth::user()->id === 1)
+                                                class="button button-small"><span class="text">Editar</span></a>
+
+                                            @if ($loan->status !== 'requested' && Auth::user()->id === 1)
                                                 <form method="POST" action="{{ route('admin.loans.destroy', $loan->id) }}"
                                                     style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="button button-small button-danger"
-                                                        onclick="return confirm('¿Estás seguro?')">Archivar</button>
+                                                        onclick="return confirm('¿Estás seguro?')"><span class="text">Archivar</span></button>
                                                 </form>
                                             @endif
                                         </div>
@@ -94,15 +95,14 @@
                                     <td>{{ $loan->quantity }}</td>
                                     <td>
                                         <div class="admin_actions">
-                                            <a href="{{ route('admin.loans.edit', $loan->id) }}"
-                                                class="button button-small">Editar</a>
-                                            @if ($loan->status == 'requested' || Auth::user()->id === 1)
-                                                <form method="POST" action="{{ route('admin.loans.destroy', $loan->id) }}"
+
+                                            @if ($loan->status === 'requested' || Auth::user()->id === 1)
+                                                <form method="POST" action="{{ route('admin.loans.restore', $loan->id) }}"
                                                     style="display:inline;">
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="button button-small button-danger"
-                                                        onclick="return confirm('¿Estás seguro?')">Archivar</button>
+                                                    @method('PUT')
+                                                    <button type="submit" class="button button-small"
+                                                        ><span class="text">Restaurar</span></button>
                                                 </form>
                                             @endif
                                         </div>

@@ -10,7 +10,7 @@
             </a>
         </div>
 
-        <div class="section_search">
+        <div class="searchBar">
             @include('partials.search', [
                 'action' => route('categories.index'),
                 'placeholder' => 'Busca una categoría',
@@ -37,14 +37,22 @@
                         <td>{{ $category->created_at }}</td>
                         <td>{{ $category->updated_at }}</td>
                         <td>
-                            <div class="admin__actions">
-                                <a href="{{ route('categories.edit', $category->id) }}" class="button button-small">Editar</a>
-                                @if(Auth::user()->id === 1)
-                                <form action="{{ route('categories.destroy', $category->id) }}" method="post" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="button button-small button-danger" onclick="return confirm('Estás seguro?')">Eliminar</button>
-                                </form>
+                            <div class="admin_actions">
+                                @if ($category->name !== 'Otros')
+                                    <a href="{{ route('categories.edit', $category->id) }}"
+                                        class="button button-small">Editar</a>
+                                    @if (Auth::user()->id === 1)
+                                        <form action="{{ route('categories.destroy', $category->id) }}" method="post"
+                                            style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="button button-small button-danger"
+                                                onclick="return confirm('Estás seguro? Libros asociados a esta categoría, quedarán con la categoría Otros.')"><span
+                                                    class="text">Eliminar</span></button>
+                                        </form>
+                                    @endif
+                                @else
+                                    <span class="text">No se puede eliminar</span>
                                 @endif
                             </div>
                         </td>

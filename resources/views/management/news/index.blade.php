@@ -13,7 +13,7 @@
                 <span class="text short">Inicio</span>
             </a>
         </div>
-        <div class="section_search">
+        <div class="searchBar">
             @include('partials.search', [
                 'action' => route('news.index'),
                 'placeholder' => 'Busca una noticia',

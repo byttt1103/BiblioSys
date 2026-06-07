@@ -4,7 +4,9 @@
 
 @section('content')
     <section class="section admin">
-        <a class="button" href="{{ route('books.index') }}"><span class="text">Volver a la lista de libros</span></a>
+        <div class="admin_actions">
+            <a class="button" href="{{ route('books.index') }}"><span class="text">Volver a la lista de libros</span></a>
+        </div>
 
         <div class="form">
             <h1>Agregar libro</h1>
@@ -17,27 +19,40 @@
 
                 <div class="form_group">
                     <label for="title">Título del libro</label>
-                    <input type="text" name="title" maxlength="255" placeholder="Escribe el título del libro aquí" required>
+                    <input type="text" name="title" maxlength="255" placeholder="Escribe el título del libro aquí"
+                        required>
                 </div>
 
                 <div class="form_group">
-                    <label for="author">Autor</label>
-                    <select name="authors[]" multiple required>
-                        <option value="">Selecciona un autor</option>
+                    <label>Autores</label>
+
+                    <div class="multi_select">
                         @foreach ($authors as $author)
-                            <option value="{{ $author->id }}">{{ $author->name }}</option>
+                            <div class="select_item">
+                                <input type="checkbox" name="authors[]" value="{{ $author->id }}" class="checkbox"
+                                    id="author_{{ $author->id }}">
+                                <label for="author_{{ $author->id }}">
+                                    {{ $author->name }}
+                                </label>
+                            </div>
                         @endforeach
-                    </select>
+                    </div>
                 </div>
 
                 <div class="form_group">
-                    <label for="category">Categoría</label>
-                    <select name="categories[]" multiple required>
-                        <option value="">Selecciona una categoría</option>
+                    <label>Categorías</label>
+
+                    <div class="multi_select">
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <div class="select_item">
+                                <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="checkbox"
+                                    id="category_{{ $category->id }}">
+                                <label for="category_{{ $category->id }}">
+                                    {{ $category->name }}
+                                </label>
+                            </div>
                         @endforeach
-                    </select>
+                    </div>
                 </div>
 
                 <div class="form_group">
@@ -47,12 +62,14 @@
 
                 <div class="form_group">
                     <label for="publication_year">Año de publicación</label>
-                    <input type="number" name="publication_year" maxlength="200" placeholder="Escriba el año de publicación">
+                    <input type="number" name="publication_year" maxlength="200"
+                        placeholder="Escriba el año de publicación">
                 </div>
 
                 <div class="form_group">
                     <label for="publisher">Editorial</label>
-                    <input type="text" name="publisher" maxlength="100" placeholder="Escribe la editorial del libro aquí">
+                    <input type="text" name="publisher" maxlength="100"
+                        placeholder="Escribe la editorial del libro aquí">
                 </div>
 
                 <div class="form_group">

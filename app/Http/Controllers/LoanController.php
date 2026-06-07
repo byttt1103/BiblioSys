@@ -87,10 +87,14 @@ class LoanController extends Controller
             'returned_at' => 'nullable|date',
         ]);
 
+        if ($data['status'] === 'returned' || $data['status'] === 'rejected') {
+            $data['is_archived'] = 1;
+        }
+
         $loan->update($data);
 
         return redirect()->action([LoanController::class, 'list_loans'])
-            ->with('success', 'El prestamo se ha actualizado correctamente');
+            ->with('success', "El prestamo '{$loan->id}' se ha actualizado correctamente");
     }
 
     // Returns a view with every existent loan
@@ -126,9 +130,18 @@ class LoanController extends Controller
     // Drops a loan
     public function destroy(Loan $loan)
     {
-        $loan->delete();
+        $loan->update(['is_archived' => 1]);
 
         return redirect()->action([LoanController::class, 'list_loans'])
-            ->with('success', 'El prestamo se ha actualizado correctamente');
+            ->with('success', '¡El prestamo se ha archivado con éxito!');
+    }
+
+    // Restores a loan from the archived list
+    public function restore(Request $request, Loan $loan)
+    {
+        $loan->update(['is_archived' => 0]);
+
+        return redirect()->action([LoanController::class, 'list_loans'])
+            ->with('success', '¡El prestamo se ha restaurado con éxito!');
     }
 }

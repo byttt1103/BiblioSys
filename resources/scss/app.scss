@@ -29,7 +29,7 @@ body {
         padding-top: 20px;
 
         @include p.styleGrid;
-        @include p.styleForm;   
+        @include p.styleForm;
         @include p.stylePaginator;
         @include p.styleBookInfo;
         @include c.alert;
@@ -42,6 +42,7 @@ body {
         }
 
         .section {
+            box-sizing: border-box;
             h1 {
                 text-align: center;
             }

@@ -13,13 +13,14 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
+            ['name' => 'Otros', 'about' => 'Obras de cualquier tipo.'],
             ['name' => 'Novela', 'about' => 'Obras de ficción narrativa en prosa.'],
             ['name' => 'Ensayo', 'about' => 'Textos de reflexión, crítica o divulgación.'],
             ['name' => 'Poesía', 'about' => 'Obras en verso y lírica.'],
             ['name' => 'Teatro', 'about' => 'Obras dramáticas para representación.'],
             ['name' => 'Cuento', 'about' => 'Narrativa breve.'],
             ['name' => 'No ficción', 'about' => 'Biografías, historia, divulgación científica.'],
-            
+
 
         ];
 

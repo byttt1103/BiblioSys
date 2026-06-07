@@ -1,6 +1,9 @@
 document.getElementById('togglePassword').addEventListener('click', function () {
-    const passwordInput = document.getElementById('password');
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    this.textContent = type === 'password' ? '🙈' : '🙉';
+    const passwordInputs = document.querySelectorAll('.password');
+
+    passwordInputs.forEach(input => {
+        input.type = input.type === 'password' ? 'text' : 'password';
+    });
+
+    this.textContent = passwordInputs[0].type === 'password' ? '🙈' : '🙉';
 });

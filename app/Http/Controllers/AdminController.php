@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-
+        //administrative statistics
         // Retrieve the 5 most recent loans ordered by loan_date descending
         $recentLoans = Loan::orderBy('loan_date', 'desc')->take(5)->get();
         // Retrieve top 5 books with the most loans
@@ -49,6 +49,6 @@ class AdminController extends Controller
         $config = Library::first();
         $config->update($data);
 
-        return redirect()->route('admin.config.index')->with('success', 'Configuración actualizada correctamente.');
+        return redirect()->route('admin.index')->with('success', 'Configuración actualizada correctamente.');
     }
 }

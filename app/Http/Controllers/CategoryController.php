@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -75,10 +76,17 @@ class CategoryController extends Controller
     }
 
     // Handles the deletion of a category
-    public function destroy(Category $category)
+    public function destroy(Book $book,Category $category)
     {
-        // First we delete the author
-        $category->books()->detach();
+
+        $otherCategory = Category::query()->where('name', 'LIKE', 'Otros')->firstOrNew();
+
+        // We move the books to the other category
+        foreach ($category->books as $book) {
+            $book->categories()->syncWithoutDetaching([$otherCategory->id]);
+        }
+
+        // We delete the category
         $category->delete();
 
         // Then we redirect back the user with success

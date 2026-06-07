@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Library;
+use App\Models\Loan;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -118,9 +119,29 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
+        $user->update(['is_archived' => 1]);
+        $loans = Loan::where('user_id', $user->id)->get();
+
+        foreach ($loans as $loan) {
+            $loan->update(['is_archived' => 1]);
+        }
 
         return redirect()->route('users.index')->with('success', 'Usuario desactivado correctamente');
     }
+
+    public function restore(User $user)
+    {
+        $user->update(['is_archived' => 0]);
+        $loans = Loan::where('user_id', $user->id)->get();
+
+        foreach ($loans as $loan) {
+            $loan->update(['is_archived' => 0]);
+        }
+
+        return redirect()->route('users.index')->with('success', 'Usuario activado correctamente');
+    }
+
+
 
     public function show_profile()
     {
