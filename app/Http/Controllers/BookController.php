@@ -147,6 +147,17 @@ class BookController extends Controller
             'authors.*' => 'exists:authors,id', // Ensure each author ID exists in the authors table
             'categories' => 'required|array', // foreign data
             'categories.*' => 'exists:categories,id', // Ensure each category ID exists in the categories table
+        ],[
+            'title.required' => 'El título es obligatorio.',
+            'cover.required' => 'La portada es obligatoria.',
+            'publisher.required' => 'El editor es obligatorio.',
+            'synopsis.required' => 'La resumen es obligatorio.',
+            'description.required' => 'La descripción es obligatoria.',
+            'publication_year.required' => 'El año de publicación es obligatorio.',
+            'isbn.required' => 'El ISBN es obligatorio.',
+            'stock.required' => 'El stock es obligatorio.',
+            'authors.required' => 'Los autores son obligatorios.',
+            'categories.required' => 'Las categorías son obligatorias.',
         ]);
 
         // fetch the foreign data to the pivot tables
@@ -210,6 +221,17 @@ class BookController extends Controller
             'authors.*' => 'exists:authors,id', // Ensure each author ID exists in the authors table
             'categories' => 'required|array', // foreign data
             'categories.*' => 'exists:categories,id', // Ensure each category ID exists in the categories table
+        ],[
+            'title.required' => 'El título es obligatorio.',
+            'cover.required' => 'La portada es obligatoria.',
+            'publisher.required' => 'El editor es obligatorio.',
+            'synopsis.required' => 'La resumen es obligatorio.',
+            'description.required' => 'La descripción es obligatoria.',
+            'publication_year.required' => 'El año de publicación es obligatorio.',
+            'isbn.required' => 'El ISBN es obligatorio.',
+            'stock.required' => 'El stock es obligatorio.',
+            'authors.required' => 'Los autores son obligatorios.',
+            'categories.required' => 'Las categorías son obligatorias.',
         ]);
 
         $authors = $data['authors'];

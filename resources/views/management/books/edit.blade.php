@@ -16,9 +16,6 @@
                 @csrf
                 @method('PUT')
 
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
                 <div class="form_group">
                     <label for="title">Título del libro</label>
                     <input type="text" name="title" maxlength="255" placeholder="Escribe el título del libro aquí"

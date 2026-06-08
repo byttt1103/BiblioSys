@@ -54,6 +54,19 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'roles' => 'required|integer|exists:roles,id',
 
+        ], [
+            'first_name.required' => 'El nombre es obligatorio.',
+            'last_name.required' => 'El apellido es obligatorio.',
+            'document_number.required' => 'El número de documento es obligatorio.',
+            'phone_number.required' => 'El número de teléfono es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'address.required' => 'La dirección es obligatoria.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
+            'document_number.unique' => 'El número de documento ya está registrado.',
+            'phone_number.unique' => 'El número de teléfono ya está registrado.',
+            'email.unique' => 'El correo electrónico ya está registrado.',
+            'address.max' => 'La dirección no puede exceder 255 caracteres.',
         ]);
 
         $selectedRole = $data['roles'];
@@ -96,6 +109,19 @@ class UserController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
             'roles' => 'required|array',
             'roles.*' => 'exists:roles,id',
+        ], [
+            'first_name.required' => 'El nombre es obligatorio.',
+            'last_name.required' => 'El apellido es obligatorio.',
+            'document_number.required' => 'El número de documento es obligatorio.',
+            'phone_number.required' => 'El número de teléfono es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'address.required' => 'La dirección es obligatoria.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
+            'document_number.unique' => 'El número de documento ya está registrado.',
+            'phone_number.unique' => 'El número de teléfono ya está registrado.',
+            'email.unique' => 'El correo electrónico ya está registrado.',
+            'address.max' => 'La dirección no puede exceder 255 caracteres.',
         ]);
 
         $roles = $data['roles'];

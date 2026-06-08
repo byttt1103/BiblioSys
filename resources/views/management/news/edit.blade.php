@@ -17,9 +17,7 @@
                 @csrf
                 @method('PUT')
 
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
+
 
                 <div class="form_group">
                 <label for="title">Título</label>

@@ -4,7 +4,7 @@
 
 @section('content')
     <section class="section admin">
-        
+
         <div class="admin_actions">
             <a href="{{ route('authors.index') }}" class="button button-small"><span class="text long medium short">Volver a los autores</span></a>
         </div>
@@ -15,9 +15,7 @@
                 @csrf
                 @method('PUT')
 
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
+
                 <div class="form_group">
                     <label for="name">Nombre del autor</label>
                     <input type="text" name="name" maxlength="255" placeholder="Escribe el nombre del autor aquí"

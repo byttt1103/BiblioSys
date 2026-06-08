@@ -15,17 +15,13 @@
                 @csrf
                 @method('PUT')
 
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
+
                 <div class="form_group">
                     <label for="name">Nombre de la categoría</label>
                     <input type="text" name="name" maxlength="255"
                         placeholder="Escribe el nombre de la categoría aquí" required
                         value="{{ old('name', $category->name) }}">
-                        @error('name')
-                            <p class="error"> Ese nombre ya ha sido tomado.</p>
-                        @enderror
+
                 </div>
                 <div class="form_group">
                     <label for="about">Descripción de la categoría</label>

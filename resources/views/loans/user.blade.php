@@ -1,10 +1,10 @@
 @extends('layouts.main')
 
-@section('title', 'Libros')
+@section('title', 'Préstamos de ' . $user->first_name)
 
 @section('content')
     <section class="section admin">
-        <h2>Libros de {{ $user->first_name }}</h2>
+        <h2>Préstamos de {{ $user->first_name }}</h2>
         @if ($loans->isEmpty())
             <p>No se encontraron préstamos.</p>
         @else
@@ -41,7 +41,7 @@
                                 </a>
                             @endif
 
-                            @if ($loan->status === 'requested' || Auth::user()->roles->pluck('name')->contains('admin'))
+                            @if ($loan->status === 'requested' && Auth::user()->roles->pluck('name')->contains('admin'))
                                 <form method="POST" action="{{ route('admin.loans.destroy', $loan->id) }}"
                                     style="display:inline;">
                                     @csrf

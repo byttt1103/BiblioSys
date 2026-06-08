@@ -44,6 +44,16 @@ class AdminController extends Controller
             'closing_hour_weekday' => 'date_format:H:i',
             'opening_hour_weekend' => 'date_format:H:i',
             'closing_hour_weekend' => 'date_format:H:i',
+        ], [
+            'name.required' => 'El nombre es obligatorio.',
+            'address.max' => 'La dirección no puede exceder 255 caracteres.',
+            'phone_number.max' => 'El número de teléfono no puede exceder 20 caracteres.',
+            'email.max' => 'El correo electrónico no puede exceder 255 caracteres.',
+            'description.max' => 'La descripción no puede exceder 1000 caracteres.',
+            'opening_hour_weekday.required' => 'El horario de apertura de la semana es obligatorio.',
+            'closing_hour_weekday.required' => 'El horario de cierre de la semana es obligatorio.',
+            'opening_hour_weekend.required' => 'El horario de apertura de fin de semana es obligatorio.',
+            'closing_hour_weekend.required' => 'El horario de cierre de fin de semana es obligatorio.',
         ]);
 
         $config = Library::first();

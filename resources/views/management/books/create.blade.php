@@ -13,9 +13,6 @@
             <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
 
                 <div class="form_group">
                     <label for="title">Título del libro</label>

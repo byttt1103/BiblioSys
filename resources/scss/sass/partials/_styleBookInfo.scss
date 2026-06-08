@@ -50,6 +50,12 @@
                 @include mixins.elements-flex(column, space-evenly, center);
                 gap: clamp(15px, 3vw, 25px);
 
+                form{
+                    label{
+                        font-family: variables.$contentFont;
+                    }
+                }
+
                 .book_data {
                     @include mixins.grid(3, 10px, 10px);
                     text-align: center;

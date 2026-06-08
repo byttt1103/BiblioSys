@@ -49,6 +49,9 @@ class CategoryController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name',
             'about' => 'string',
+        ],[
+            'name.required' => 'El nombre es obligatorio.',
+            'about.required' => 'La descripción es obligatoria.',
         ]);
 
         // Then we store it

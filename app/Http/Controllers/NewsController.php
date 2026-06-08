@@ -51,6 +51,12 @@ class NewsController extends Controller
             'image_url' => 'nullable|url|max:255',
             'category' => 'nullable|string|max:200',
             'tags' => 'nullable|string|max:100',
+        ], [
+            'title.required' => 'El título es obligatorio.',
+            'description.required' => 'La descripción es obligatoria.',
+            'image_url.max' => 'La URL de la imagen no puede exceder 255 caracteres.',
+            'category.max' => 'La categoría no puede exceder 200 caracteres.',
+            'tags.max' => 'Los tags no pueden exceder 100 caracteres.',
         ]);
 
         // Crea la noticia con los datos creados

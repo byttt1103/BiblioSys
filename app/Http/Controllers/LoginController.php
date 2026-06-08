@@ -48,12 +48,27 @@ class LoginController extends Controller
         $data = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'document_number' => 'required|string|max:50',
-            'phone_number' => 'required|integer|digits:10', // Assuming a max of 10 digits for phone numbers
+            'document_number' => 'required|integer|digits:10|unique:users',
+            'phone_number' => 'required|integer|digits:10|unique:users', // Assuming a max of 10 digits for phone numbers
             'email' => 'email|unique:users',
             'address' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
-        ]);
+        ],
+        [
+            'first_name.required' => 'El nombre es obligatorio.',
+            'last_name.required' => 'El apellido es obligatorio.',
+            'document_number.required' => 'El número de documento es obligatorio.',
+            'phone_number.required' => 'El número de teléfono es obligatorio.',
+            'email.required' => 'El correo electrónico es obligatorio.',
+            'address.required' => 'La dirección es obligatoria.',
+            'password.required' => 'La contraseña es obligatoria.',
+            'password.confirmed' => 'Las contraseñas no coinciden.',
+            'document_number.unique' => 'El número de documento ya está registrado.',
+            'phone_number.digits' => 'El número de teléfono debe tener exactamente 10 dígitos.',
+            'email.unique' => 'El correo electrónico ya está registrado.',
+            'address.max' => 'La dirección no puede exceder 255 caracteres.',
+        ]
+        );
 
         DB::transaction(function() use ($data){
             $user = User::create($data);

@@ -46,6 +46,9 @@ class AuthorController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
+        ],[
+            'name.required' => 'El nombre es obligatorio.',
+            'biography.required' => 'La biografía es obligatoria.',
         ]);
 
         // Then we store it
@@ -62,6 +65,9 @@ class AuthorController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'biography' => 'nullable|string',
+        ],[
+            'name.required' => 'El nombre es obligatorio.',
+            'biography.required' => 'La biografía es obligatoria.',
         ]);
 
         // Then we update it

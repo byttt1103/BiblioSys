@@ -12,10 +12,6 @@
             <h1>Crear autor</h1>
             <form action="{{ route('authors.store') }}" method="POST">
                 @csrf
-
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
                 <div class="form_group">
                     <label for="name">Nombre del autor</label>
                     <input type="text" name="name" maxlength="255" placeholder="Escribe el nombre del autor aquí"

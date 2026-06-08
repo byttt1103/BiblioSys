@@ -10,63 +10,44 @@
                 @csrf
 
                 <div class="form_group">
-                    @error('first_name')
-                        <p class="error">Nombre invalido. Ingresa solo letras</p>
-                    @enderror
                     <label for="first_name">Nombre:</label>
                     <input type="text" name="first_name" id="first_name" placeholder="Nombre"
                         value="{{ old('first_name') }}">
                 </div>
 
                 <div class="form_group">
-                    @error('last_name')
-                        <p class="error">Apellido invalido. Ingresa solo letras</p>
-                    @enderror
                     <label for="last_name">Apellido:</label>
                     <input type="text" name="last_name" id="last_name" placeholder="Apellido"
                         value="{{ old('last_name') }}">
                 </div>
 
                 <div class="form_group">
-                    @error('document_number')
-                        <p class="error">Número de documento invalido. El número de documento debe ser de mínimo 6 dígitos</p>
-                    @enderror
                     <label for="document_number">Número de documento:</label>
                     <input type="text" name="document_number" id="document_number" placeholder="Sin puntos ni espacios"
                         maxlength="10" required value="{{ old('document_number') }}">
                 </div>
 
                 <div class="form_group">
-                    @error('phone_number')
-                        <p class="error">Número de teléfono invalido. Asegúrate de ingresar un número de teléfono válido de 10
-                            dígitos</p>
-                    @enderror
                     <label for="phone_number">Número de teléfono:</label>
                     <input type="text" id="phone_number_show" placeholder="+57 3XX XXX XXXX"
                         value="{{ old('phone_number') }}" required>
                     <input type="hidden" name="phone_number" id="phone_number" value="{{ old('phone_number') }}">
                 </div>
                 <div class="form_group">
-                    @error('email')
-                        <p class="error">Correo Electrónico inválido. Asegúrate de ingresar un correo electrónico válido</p>
-                    @enderror
+
                     <label for="email">Correo Electrónico:</label>
                     <input type="email" id="email" name="email" value="{{ old('email') }}">
                 </div>
 
                 <div class="form_group">
-                    @error('address')
-                        <p class="error">Dirección invalida</p>
-                    @enderror
+
                     <label for="address">Dirección:</label>
                     <input type="text" name="address" id="address" placeholder="Dirección"
                         value="{{ old('address') }}">
                 </div>
 
                 <div class="form_group">
-                    @error('password')
-                        <p class="error">Contraseña invalida. Debe tener al menos 8 caracteres</p>
-                    @enderror
+
                     <label for="password">Contraseña:</label>
                     <div class="password_input">
                         <input type="password" class="password" name="password" placeholder="Contraseña">

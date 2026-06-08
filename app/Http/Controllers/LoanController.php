@@ -27,26 +27,38 @@ class LoanController extends Controller
         $max = now()->addDays(60)->toDateString();
 
         $data = $request->validate([
-            'fecha' => [
+            'date' => [
                 'required',
                 'date',
                 "after:$min",
                 "before_or_equal:$max",
             ],
-        ]);
+
+            'quantity' => 'required|integer|min:1|max:' . $book->stock,
+
+            'confirmacion_documento' => 'required|digits_between:1,10|exists:users,document_number',
+
+        ],
+        [
+            'date.after' => "La fecha de devolución debe ser al menos un día después de hoy.",
+            'date.before_or_equal' => "La fecha de devolución no puede ser más de 60 días después de hoy.",
+            'quantity.max' => "No hay suficiente stock para esa cantidad. Stock disponible: {$book->stock}.",
+            'confirmacion_documento.exists' => "El número de documento no coincide con el usuario autenticado.",
+        ]
+        );
 
         $loan = Loan::create([
             'user_id' => Auth::id(),
             'book_id' => $book->id,
             'status' => 'requested',
             'loan_date' => now(),
-            'due_date' => $data['fecha'],
+            'due_date' => $data['date'],
             'quantity' => 1,
         ]);
 
         // Goes back to the own user loan list
         return redirect()->action([LoanController::class, 'list_user_loans'], ['user' => Auth::user()])
-            ->with('success', 'El prestamo se ha registrado con exito, pasese por la biblioteca para recogerlo.');
+            ->with('success', 'El préstamo se ha registrado con éxito, pásese por la biblioteca para recogerlo.');
     }
 
     // Returns a view with all the loans of a user
@@ -85,7 +97,13 @@ class LoanController extends Controller
             'due_date' => 'required|date|after_or_equal:loan_date',
             'quantity' => 'required|integer|min:1',
             'returned_at' => 'nullable|date',
+        ],[
+            'status.required' => 'El estado es obligatorio.',
+            'due_date.required' => 'La fecha de devolución es obligatoria.',
+            'quantity.required' => 'La cantidad es obligatoria.',
         ]);
+
+
 
         if ($data['status'] === 'returned' || $data['status'] === 'rejected') {
             $data['is_archived'] = 1;

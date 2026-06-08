@@ -10,15 +10,12 @@
                 <span class="text long medium short">Volver a la lista de noticias</span>
             </a>
         </div>
-        
+
         <div class="form">
             <h1>Crear noticia</h1>
             <form action="{{ route('news.store') }}" method="POST">
                 @csrf
 
-                @error('not_found')
-                    <p class="error">{{ $message }}</p>
-                @enderror
                 <div class="form_group">
                     <label for="title">Título de la noticia</label>
                     <input type="text" name="title" maxlength="255" placeholder="Escribe el título de aquí" required>
