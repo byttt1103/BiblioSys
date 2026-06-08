@@ -18,6 +18,7 @@
                 @method('PUT')
                 <div class="form_group">
                     <p>Préstamo de: {{ $loan->user->first_name }}</p>
+                    <p>Libro: {{ $loan->book->title }}</p>
                 </div>
 
                 <div class="form_group">
@@ -26,8 +27,8 @@
                         <option value="requested" {{ old('status', $loan->status) === 'requested' ? 'selected' : '' }}>
                             Solicitado
                         </option>
-                        <option value="approved" {{ old('status', $loan->status) === 'approved' ? 'selected' : '' }}>En
-                            curso
+                        <option value="approved" {{ old('status', $loan->status) === 'approved' ? 'selected' : '' }}>
+                            En curso
                         </option>
                         <option value="rejected" {{ old('status', $loan->status) === 'rejected' ? 'selected' : '' }}>
                             Rechazado
@@ -39,12 +40,12 @@
                 </div>
                 <div class="form_group">
                     <label for="loan_date">Fecha desde que se pidió</label>
-                    <input type="date" id="loan_date" name="loan_date" value="{{ old('loan_date', $loan->loan_date) }}">
+                    <p>{{ $loan->created_at_formatted }}</p>
                 </div>
 
                 <div class="form_group">
                     <label for="due_date">Fecha de expiración</label>
-                    <input type="date" id="due_date" name="due_date" value="{{ old('due_date', $loan->due_date) }}">
+                    <input type="datetime-local" id="due_date" name="due_date" value="{{ old('due_date', $loan->due_date) }}">
                 </div>
 
                 <div class="form_group">
@@ -54,8 +55,9 @@
 
                 <div class="form_group">
                     <label for="returned_at">Fecha de devolución</label>
-                    <input type="datetime-local" id="returned_at" name="returned_at"
-                        value="{{ old('returned_at', $loan->returned_at) }}">
+                    <input type="datetime-local" id="returned_at" name="returned_at" step="1"
+                        value="{{ old('returned_at', $loan->returned_at?->format('Y-m-d\TH:i:s')) }}"
+                         min="{{ $loan->created_at->format('Y-m-d\TH:i:s') }}">
                 </div>
 
                 <button type="submit">Actualizar préstamo</button>

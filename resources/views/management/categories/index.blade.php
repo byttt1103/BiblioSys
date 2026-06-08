@@ -5,9 +5,10 @@
 @section('content')
     <section class="section admin">
         <div class="admin_actions">
-            <a href="{{ route('categories.create') }}" class="button">
+            <a href="{{ route('categories.create') }}" class="button button-small">
                 <span class="text long medium short">Crear nueva categoría</span>
             </a>
+            <a href="{{ route('admin.index') }}" class="button button-small"><span class="text long medium short">Volver a Inicio</span></a>
         </div>
 
         <div class="searchBar">
@@ -52,7 +53,7 @@
                                         </form>
                                     @endif
                                 @else
-                                    <span class="text">No se puede eliminar</span>
+                                    <span class="text">No se puede eliminar.</span>
                                 @endif
                             </div>
                         </td>

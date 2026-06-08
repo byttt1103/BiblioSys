@@ -9,6 +9,9 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\LoanRequested;
+use App\Mail\LoanStatusUpdated;
+use Illuminate\Support\Facades\Mail;
 
 class LoanController extends Controller
 {
@@ -22,39 +25,43 @@ class LoanController extends Controller
     // Posts the form data
     public function confirm_loan(Request $request, Book $book)
     {
-        // Validates the requested expiration date
-        $min = now()->addDay()->toDateString();
-        $max = now()->addDays(60)->toDateString();
+        //? Validates the requested expiration date
+        $min = now()->addDay()->toDateTimeString();
+        $max = now()->addDays(28)->toDateTimeString();
 
-        $data = $request->validate([
-            'date' => [
-                'required',
-                'date',
-                "after:$min",
-                "before_or_equal:$max",
+        $data = $request->validate(
+            [
+                'date' => [
+                    'required',
+                    'date',
+                    "after:$min",
+                    "before_or_equal:$max",
+                ],
+
+                'quantity' => 'required|integer|min:1|max:' . $book->stock,
+                'confirmacion_documento' => 'required|digits_between:1,10|exists:users,document_number',
+
             ],
-
-            'quantity' => 'required|integer|min:1|max:' . $book->stock,
-
-            'confirmacion_documento' => 'required|digits_between:1,10|exists:users,document_number',
-
-        ],
-        [
-            'date.after' => "La fecha de devolución debe ser al menos un día después de hoy.",
-            'date.before_or_equal' => "La fecha de devolución no puede ser más de 60 días después de hoy.",
-            'quantity.max' => "No hay suficiente stock para esa cantidad. Stock disponible: {$book->stock}.",
-            'confirmacion_documento.exists' => "El número de documento no coincide con el usuario autenticado.",
-        ]
+            [
+                'date.after' => "La fecha de devolución debe ser al menos un día después de hoy.",
+                'date.before_or_equal' => "La fecha de devolución no puede ser más de 60 días después de hoy.",
+                'quantity.max' => "No hay suficiente stock para esa cantidad. Stock disponible: {$book->stock}.",
+                'confirmacion_documento.exists' => "El número de documento no coincide con el usuario autenticado.",
+            ]
         );
 
         $loan = Loan::create([
             'user_id' => Auth::id(),
             'book_id' => $book->id,
             'status' => 'requested',
-            'loan_date' => now(),
             'due_date' => $data['date'],
-            'quantity' => 1,
+            'quantity' => $data['quantity'],
         ]);
+
+        //? Sends the loan requested email
+        if ($loan->user->email) {
+            Mail::to($loan->user->email)->send(new LoanRequested($loan));
+        }
 
         // Goes back to the own user loan list
         return redirect()->action([LoanController::class, 'list_user_loans'], ['user' => Auth::user()])
@@ -93,11 +100,10 @@ class LoanController extends Controller
     {
         $data = $request->validate([
             'status' => 'required|in:requested,approved,rejected,returned',
-            'loan_date' => 'required|date',
-            'due_date' => 'required|date|after_or_equal:loan_date',
+            'due_date' => 'required|date|after_or_equal:created_at',
             'quantity' => 'required|integer|min:1',
-            'returned_at' => 'nullable|date',
-        ],[
+            'returned_at' => 'nullable|date|after_or_equal:created_at',
+        ], [
             'status.required' => 'El estado es obligatorio.',
             'due_date.required' => 'La fecha de devolución es obligatoria.',
             'quantity.required' => 'La cantidad es obligatoria.',
@@ -110,6 +116,13 @@ class LoanController extends Controller
         }
 
         $loan->update($data);
+
+        //? Sends the loan status updated email
+        $notify = ['approved', 'rejected', 'returned'];
+
+        if (in_array($data['status'], $notify) && $loan->user->email) {
+            Mail::to($loan->user->email)->send(new LoanStatusUpdated($loan));
+        }
 
         return redirect()->action([LoanController::class, 'list_loans'])
             ->with('success', "El prestamo '{$loan->id}' se ha actualizado correctamente");

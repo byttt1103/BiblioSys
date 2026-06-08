@@ -133,6 +133,10 @@
                         margin-top: 10px;
                     }
                 }
+
+                .no_stock{
+                    color: variables.$dangerColor;
+                }
             }
         }
     }

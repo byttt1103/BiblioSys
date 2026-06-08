@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\BookerMiddleware;
+use App\Http\Controllers\HoldController;
 use App\Http\Middleware\BookerAdminMiddleware;
 
 // ==== General ====
@@ -75,6 +76,9 @@ Route::resource('/admin/users', UserController::class)->middleware(BookerAdminMi
 // ==== Config ====
 Route::get('/admin/config', [AdminController::class, 'show_config_form'])->name('admin.config.index')->middleware(AdminMiddleware::class);
 Route::put('/admin/config', [AdminController::class, 'update_config'])->name('admin.config.update')->middleware(AdminMiddleware::class);
+
+// ==== Holds ====
+Route::post('/books/{book}/hold', [HoldController::class, 'toggle'])->name('books.hold')->middleware('auth');
 
 // //Sobrecribimos el /dashboard que trae breeze
 // // Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware(AdminMiddleware::class);

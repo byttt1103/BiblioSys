@@ -16,7 +16,6 @@ return new class extends Migration
             // Campos de los lectores
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('avatar_path')->nullable();
             $table->unsignedBigInteger('document_number')->unique();
             $table->unsignedBigInteger('phone_number')->unique()->nullable();
             $table->string('email')->unique()->nullable();

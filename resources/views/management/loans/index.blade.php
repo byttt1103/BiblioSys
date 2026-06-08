@@ -39,9 +39,9 @@
                                     <td>{{ $loan->user->first_name }}</td>
                                     <td><a href="{{ route('book.info', $loan->book->id) }}">{{ $loan->book->title }}</a></td>
                                     <td>{{ $loan->displayStatus }}</td>
-                                    <td>{{ $loan->loan_date }}</td>
-                                    <td class="{{ $loan->due_date < now() ? 'due' : 'ontime' }}">{{ $loan->due_date }}</td>
-                                    <td>{{ $loan->returned_at }}</td>
+                                    <td>{{ $loan->created_at_formatted }}</td>
+                                    <td class="{{ $loan->due_date < $loan->returned_at ? 'due' : 'ontime' }}">{{ $loan->due_date_formatted }}</td>
+                                    <td>{{ $loan->returned_at_formatted }}</td>
                                     <td>{{ $loan->quantity }}</td>
                                     <td>
                                         <div class="admin_actions">
@@ -86,12 +86,10 @@
                                     <td>{{ $loan->id }}</td>
                                     <td>{{ $loan->user->first_name }}</td>
                                     <td><a href="{{ route('book.info', $loan->book->id) }}">{{ $loan->book->title }}</a>
-                                    </td>
                                     <td>{{ $loan->displayStatus }}</td>
-                                    <td>{{ $loan->loan_date }}</td>
-                                    <td class="{{ $loan->due_date < now() ? 'due' : 'ontime' }}">{{ $loan->due_date }}
-                                    </td>
-                                    <td>{{ $loan->returned_at }}</td>
+                                    <td>{{ $loan->created_at_formatted }}</td>
+                                     <td class="{{ $loan->due_date < $loan->returned_at ? 'due' : 'ontime' }}">{{ $loan->due_date_formatted }}</td>
+                                    <td>{{ $loan->returned_at_formatted }}</td>
                                     <td>{{ $loan->quantity }}</td>
                                     <td>
                                         <div class="admin_actions">

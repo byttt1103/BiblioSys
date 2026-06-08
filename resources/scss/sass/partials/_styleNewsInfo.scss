@@ -1,0 +1,60 @@
+//? base blocks (inserted manually for better handling)
+@use "../base/global";
+@use "../base/mixins";
+@use "../base/reset";
+@use "../base/variables";
+
+@mixin styleNewsInfo {
+    .newsInfo {
+        @include mixins.elements-flex(column, center, center);
+        width: 80%;
+
+        .intro{
+            @include mixins.elements-flex(row, flex-start, stretch);
+            width: 100%;
+            background-color: variables.$otherSectionColor;
+            border-radius: 10px;
+            gap: 25px;
+            margin-bottom: 15px;
+            .info{
+                @include mixins.elements-flex(column, center, stretch);
+                flex: 1;
+                padding: 25px;
+                box-sizing: border-box;
+
+            }
+
+            .image{
+
+                width: 0;
+                display: none;
+
+                &:has(img){
+                    width: 40%;
+                    display: block;
+                }
+                height: auto;
+                box-sizing: border-box;
+                img{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 0 10px 10px 0;
+                }
+            }
+        }
+
+        .content{
+            @include mixins.elements-flex(column, flex-start, stretch);
+            width: 100%;
+            padding: 0 25px 25px 25px;
+            box-sizing: border-box;
+            p{
+                font-size: 0.9rem;
+                line-height: 1.7;
+                text-align: justify;
+                text-indent: 3em;
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

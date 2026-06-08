@@ -36,8 +36,30 @@
 
                     @if ($book->stock === 0)
                         <p class="desc stock no_stock">
-                            Sin stock disponible. Revisa más tarde o contacta a la biblioteca para más información.
+                            Sin stock disponible.
                         </p>
+
+                        @auth
+                            @php
+                                $userHasHold = $book->holds()->where('user_id', Auth::id())->exists();
+                            @endphp
+
+                            <form method="POST" action="{{ route('books.hold', $book) }}">
+                                @csrf
+                                @if ($userHasHold)
+                                    <button type="submit" class="button secondary">
+                                        <span class="text long medium short">Cancelar aviso</span>
+                                    </button>
+                                @else
+                                    <button type="submit" class="button">
+                                        <span class="text long medium short">Avisarme cuando esté disponible</span>
+                                    </button>
+                                @endif
+                            </form>
+                        @else
+                            <p><a href="{{ route('login') }}" class="button">Inicia sesión</a> para recibir un aviso cuando esté disponible.
+                            </p>
+                        @endauth
                     @else
                         <p class="desc stock">
                             Stock: {{ $book->stock }}

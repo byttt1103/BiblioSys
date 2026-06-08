@@ -2,6 +2,7 @@
 @use "../base/mixins";
 
 @mixin elementBox ($align) {
+
     .elementBox {
         box-sizing: border-box;
         padding: 20px;
@@ -38,6 +39,7 @@
 
             @include mixins.elements-flex(column, center, space-between);
             gap: 10px;
+            font-family: variables.$contentFont;
 
             .tags{
                 @include mixins.elements-flex(row, center, center);

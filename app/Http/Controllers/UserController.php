@@ -182,7 +182,6 @@ class UserController extends Controller
         $user = Auth::user();
 
         $data = $request->validate([
-            'avatar_path' => 'nullable|url|max:255',
             'phone_number' => 'required|integer|max:3999999999', // Assuming a max of 10 digits for phone numbers
             'address' => 'required|string|max:255',
             'email' => 'email|unique:users,email,'.$user->id,
@@ -201,6 +200,6 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->back()->with('success', 'Perfil actualizado correctamente');
+        return redirect()->route('index')->with('success', 'Perfil actualizado correctamente');
     }
 }

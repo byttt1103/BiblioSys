@@ -26,10 +26,9 @@ class LoanSeeder extends Seeder
                 'user_id' => $mainReader->id,
                 'book_id' => 1, // Assume that the book ID exists
                 'status' => 'returned',
-                'loan_date' => '2026-05-10',
-                'due_date' => '2026-05-17',
+                'due_date' => '2026-06-10 12:00:01', // Updated to be after 2026-06-09 12:00:00
                 'quantity' => 1,
-                'returned_at' => '2026-05-15',
+                'returned_at' => '2026-06-10 12:00:01', // Updated to match new due date
                 'is_archived' => true,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -38,8 +37,7 @@ class LoanSeeder extends Seeder
                 'user_id' => $mainReader->id,
                 'book_id' => 2,
                 'status' => 'approved',
-                'loan_date' => '2026-06-01',
-                'due_date' => '2026-06-08',
+                'due_date' => '2026-06-15 12:00:00', // Updated to be after 2026-06-09 12:00:00
                 'quantity' => 1,
                 'returned_at' => null,
                 'is_archived' => false,
@@ -54,8 +52,7 @@ class LoanSeeder extends Seeder
                 'user_id' => $carlosReader->id,
                 'book_id' => 3,
                 'status' => 'requested',
-                'loan_date' => '2026-06-04',
-                'due_date' => '2026-06-11',
+                'due_date' => '2026-06-18 12:00:00', // Updated to be after 2026-06-09 12:00:00
                 'quantity' => 2,
                 'returned_at' => null,
                 'is_archived' => true,
@@ -63,15 +60,14 @@ class LoanSeeder extends Seeder
                 'updated_at' => now(),
             ];
         }
- 
+
         // Loans for Ana Gómez (New Reader)
         if ($anaReader) {
             $loans[] = [
                 'user_id' => $anaReader->id,
                 'book_id' => 1,
                 'status' => 'rejected',
-                'loan_date' => '2026-05-20',
-                'due_date' => '2026-05-27',
+                'due_date' => '2026-06-17 12:00:00', // Updated to be after 2026-06-09 12:00:00
                 'quantity' => 1,
                 'returned_at' => null,
                 'is_archived' => false,
@@ -82,11 +78,10 @@ class LoanSeeder extends Seeder
                 'user_id' => $anaReader->id,
                 'book_id' => 2,
                 'status' => 'returned',
-                'loan_date' => '2026-05-01',
-                'due_date' => '2026-05-08',
+                'due_date' => '2026-06-12 12:00:00', // Updated to be after 2026-06-09 12:00:00
                 'quantity' => 1,
-                'returned_at' => '2026-05-07',
-                'is_archived' => true,
+                'returned_at' => '2026-06-11 12:00:00', // Updated to match new due date
+                'is_archived' => true,                // Updated to match new due date
                 'created_at' => now(),
                 'updated_at' => now(),
             ];

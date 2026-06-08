@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hold extends Model
 {
+    public $table = 'holds';
+
     public function book()
     {
         return $this->belongsTo(Book::class);
@@ -19,7 +21,5 @@ class Hold extends Model
     protected $fillable = [
         'user_id',
         'book_id',
-        'quantity',
-        'hold_creation',
     ];
 }

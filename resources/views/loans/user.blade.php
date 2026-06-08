@@ -20,12 +20,12 @@
 
                             <div class="loanInfoItem">
                                 <h5>Fecha de préstamo:</h5>
-                                <p>{{ $loan->loan_date }}</p>
+                                <p>{{ $loan->created_at_formatted }}</p>
                             </div>
 
                             <div class="loanInfoItem">
                                 <h5>Fecha de devolución:</h5>
-                                <p>{{ $loan->due_date }}</p>
+                                <p>{{ $loan->due_date_formatted }}</p>
                             </div>
                             <div class="loanInfoItem">
                                 <h5>Cantidad:</h5>

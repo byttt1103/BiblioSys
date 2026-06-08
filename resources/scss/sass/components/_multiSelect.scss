@@ -12,15 +12,15 @@
         max-height: 100px;
         overflow-y: auto;
         overflow-x: hidden;
-
         padding: 3px;
+
 
         .select_item {
             @include mixins.elements-flex(row, flex-start, center);
 
             color: variables.$textColor;
 
-            padding: 0 7px;
+            padding: 0 7px 0 10px;
             font-size: 0.9em;
             font-family: variables.$contentFont;
 

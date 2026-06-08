@@ -5,7 +5,8 @@
 @section('content')
     <section class="section admin">
         <div class="admin_actions">
-            <a href="{{ route('authors.create') }}" class="button">
+                        <a href="{{ route('admin.index') }}" class="button button-small"><span class="text long medium short">Volver a Inicio</span></a>
+            <a href="{{ route('authors.create') }}" class="button button-small">
                 <span class="text long medium short">Crear nuevo autor</span>
             </a>
         </div>

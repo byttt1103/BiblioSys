@@ -25,9 +25,9 @@ class Book extends Model
     {
         return $this->hasMany(Loan::class);
     }
-    public function holds(): BelongsToMany
+    public function holds(): HasMany
     {
-        return $this->belongsToMany(Hold::class)->withTimestamps();
+        return $this->hasMany(Hold::class);
     }
 
     protected $fillable = [

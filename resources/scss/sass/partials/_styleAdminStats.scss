@@ -10,9 +10,136 @@
 @mixin styleAdminStats {
     .libraryStats {
         @include mixins.elements-flex(column, center, center);
+        width: 80%;
+        padding: 20px 0;
+        box-sizing: border-box;
 
-        .elementBox {
-            @include elementBox.elementBox(flex-start);
+        .badges{
+            @include mixins.elements-flex(row, center, center);
+            gap: 8px;
+            margin-bottom: 20px;
+
+            .badge-item{
+                background-color: variables.$otherSectionColor;
+                padding: 4px 8px;
+                border-radius: 20px;
+                font-family: variables.$contentFont;
+                p{
+                    font-size: 0.8rem;
+                }
+            }
+            .bad{
+                background-color: rgb(variables.$dangerColor, 0.25);
+
+                p{
+                    color: variables.$dangerColor;
+                }
+            }
+            .good{
+                background-color: rgb(variables.$successColor, 0.25);
+
+                p{
+                    color: variables.$successColor;
+                }
+            }
+        }
+
+        .quickCards {
+            @include mixins.elements-flex(row, center, stretch);
+            gap: 20px;
+            width: 100%;
+            height: auto;
+            flex-wrap: wrap;
+
+            @include elementBox.elementBox(center);
+
+            .elementBox {
+                @include mixins.elements-flex(column, flex-start, stretch);
+                border: 1.5px solid variables.$linkColor;
+                box-sizing: border-box;
+                overflow: hidden;
+                padding: 15px;
+                flex: 1 1 calc(50% - 12px);
+                max-width: calc(50% - 12px);
+                height: 22rem;
+
+                h2{
+                    margin-bottom: 10px;
+                    flex-shrink: 0;
+                }
+
+                .info {
+                    @include mixins.elements-flex(column, none, none);
+                    width: 100%;
+                    flex:1;
+                    min-height: 0;
+
+
+                    ul {
+                        @include mixins.elements-flex(column, flex-start, center);
+                        width: 100%;
+                        list-style-type: none;
+                        padding: 0;
+                        padding-right: 4px;
+                        margin: 0;
+                        flex:1;
+                        overflow-y: scroll;
+
+                        li {
+                            @include mixins.elements-flex(row, space-between, center);
+                            box-sizing: border-box;
+                            width: 100%;
+                            gap: 12px;
+                            background-color: variables.$emphasisSectionColor;
+                            border-radius: 12px;
+                            padding: 10px 14px;
+                            margin-bottom: 8px;
+                            font-size: 0.8rem;
+                            flex-shrink: 0;
+
+                            .bookInfo {
+                                @include mixins.elements-flex(column, center, flex-start);
+                                gap: 2px;
+                                flex: 1;
+                                min-width: 0;
+
+                                .title {
+                                    width: 100%;
+                                    font-weight: 600;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+
+                                .author {
+                                    width: 100%;
+                                    font-size: 0.65rem;
+                                    color: variables.$captionColor;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+                            }
+
+                            .loanCount {
+                                font-size: 0.75rem;
+                                color: variables.$linkColor;
+                                font-weight: bold;
+                                background-color: rgba(variables.$linkColor, 0.1);
+                                padding: 4px 8px;
+                                border-radius: 6px;
+                                flex-shrink: 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .elementBox:hover {
+                transition: 0.3s ease-out;
+                box-shadow: 10px 8px 16px rgba(variables.$linkColor, 0.5);
+                transform: translateY(-3px);
+            }
         }
     }
 }

@@ -10,17 +10,6 @@
                 @csrf
                 @method('PUT')
 
-            <div>
-                @error('avatar_path')
-                    <p class="error">Avatar invalido</p>
-                @enderror
-                <label for="avatar_path">Avatar:</label>
-                <input type="text" name="avatar_path" id="avatar_path" placeholder="URL del avatar" value="{{ $user->avatar_path}}">
-
-                @if($user->avatar_path)
-                    <img src="{{ $user->avatar_path }}" alt="Avatar" width="100">
-                @endif
-            </div>
 
             <div>
                 @error('first_name')

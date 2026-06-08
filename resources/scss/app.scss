@@ -32,6 +32,7 @@ body {
         @include p.styleForm;
         @include p.stylePaginator;
         @include p.styleBookInfo;
+        @include p.styleNewsInfo;
         @include c.alert;
         @include c.card;
         @include c.searchBar;
@@ -57,11 +58,15 @@ body {
                 margin-bottom: 20px;
             }
         }
+        .adminStats{
+            @include mixins.elements-flex(column, center, center);
+                        @include p.styleAdminStats;
+        }
 
         .admin {
 
             @include c.table;
-            @include p.styleAdminStats;
+
 
             .tables {
                 @include mixins.elements-flex(column, center, center);

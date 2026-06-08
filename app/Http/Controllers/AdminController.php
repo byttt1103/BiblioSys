@@ -12,28 +12,57 @@ class AdminController extends Controller
 {
     public function index()
     {
-        //administrative statistics
-        // Retrieve the 5 most recent loans ordered by loan_date descending
-        $recentLoans = Loan::orderBy('loan_date', 'desc')->take(5)->get();
-        // Retrieve top 5 books with the most loans
+
+
+        //? admin badges
+        $users = User::query()->count();
+        $books = Book::query()->count();
+        $loans = Loan::query()->count();
+        $overdueLoans = Loan::query()
+            ->whereNull('returned_at') // If not returned
+            ->where('due_date', '<', now()) // If overdue date
+            ->count();
+
+        //? administrative charts
+        //* Retrieve the 5 most recent loans ordered by loan_date descending
+        $recentLoans = Loan::with(['user', 'book'])
+            ->orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        //* Retrieve top 5 books with the most loans
         $topBorrowedBooks = Book::withCount('loans')
             ->with('authors')
             ->orderBy('loans_count', 'desc')
             ->take(5)
             ->get();
-        $users = User::query()->count();
 
-        return view('management.index', compact('recentLoans', 'topBorrowedBooks', 'users'));
+
+        //* Retrieve top 5 users with the most loans
+        $topUsers = User::withCount('loans')
+            ->orderBy('loans_count', 'desc')
+            ->take(5)
+            ->get();
+
+        //* Retrieve top 5 books with the lowest stock
+        $lowStockBooks = Book::query()
+            ->orderBy('stock', 'asc')
+            ->take(5)
+            ->get();
+            
+        return view('management.index', compact('books', 'loans', 'recentLoans', 'topBorrowedBooks', 'users', 'topUsers', 'lowStockBooks', 'overdueLoans'));
     }
 
 
-    public function show_config_form(){
+    public function show_config_form()
+    {
         $config = Library::first();
 
         return view('management.config.index', compact('config'));
     }
 
-    public function update_config(Request $request){
+    public function update_config(Request $request)
+    {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'string|max:255',

@@ -57,6 +57,12 @@
                     color: variables.$textColor;
                     font-size: 13px;
                 }
+                .due{
+                    color: variables.$dangerColor;
+                }
+                .ontime{
+                    color: variables.$successColor;
+                }
             }
 
             tr:nth-child(even) {

@@ -23,20 +23,20 @@
                 <h1>Solicitar préstamo: {{ $book->title }}</h1>
                 <p>Estás a punto de solicitar el libro <em>{{ $book->title }}</em>, hoy {{ now()->format('d/m/Y') }}.</p>
                 <p>Por favor, selecciona la fecha hasta la cual deseas usar el libro. Ten en cuenta que el préstamo mínimo
-                    es de 2 días y el máximo de 60 días.</p>
+                    es de 2 días y el máximo de 28 días.</p>
 
                 <form method="POST" action="{{ route('loans.confirm', $book) }}">
                     @csrf
                     <div class="form_group">
-                        <label for="date">¿Hasta que dia lo vas a usar?</label>
-                        <input type="date" name="date" required min="{{ now()->addDays(2)->format('Y-m-d') }}"
-                            max="{{ now()->addDays(60)->format('Y-m-d') }}">
+                        <label for="date">¿Hasta que dia lo vas a usar? ¿A qué hora lo devolverás?</label>
+                        <input type="datetime-local" name="date" required step="1" min="{{ now()->addDays(2)->format('Y-m-d\TH:i:s') }}"
+                            max="{{ now()->addDays(28)->format('Y-m-d\TH:i:s') }}">
 
                     </div>
 
                     <div class="form_group">
                         <label for="quantity">Cantidad:</label>
-                        <input type="number" name="quantity" required min="1" max="{{ $book->stock }}"
+                        <input type="number" name="quantity" required min="1" max="3"
                             value="1">
                     </div>
 

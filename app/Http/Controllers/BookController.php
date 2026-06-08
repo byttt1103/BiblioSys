@@ -11,6 +11,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\BookAvailable;
+use App\Models\Hold;
+use Illuminate\Support\Facades\Mail;
 
 class BookController extends Controller
 {
@@ -97,7 +100,7 @@ class BookController extends Controller
     {
         $book->update(['is_archived' => 0]);
 
-         $loans = Loan::where('book_id', $book->id)->get();
+        $loans = Loan::where('book_id', $book->id)->get();
 
         foreach ($loans as $loan) {
             $loan->update(['is_archived' => false]);
@@ -147,7 +150,7 @@ class BookController extends Controller
             'authors.*' => 'exists:authors,id', // Ensure each author ID exists in the authors table
             'categories' => 'required|array', // foreign data
             'categories.*' => 'exists:categories,id', // Ensure each category ID exists in the categories table
-        ],[
+        ], [
             'title.required' => 'El título es obligatorio.',
             'cover.required' => 'La portada es obligatoria.',
             'publisher.required' => 'El editor es obligatorio.',
@@ -183,6 +186,21 @@ class BookController extends Controller
             $book->authors()->sync($authors);
             $book->categories()->sync($categories);
         });
+
+        // if the stock increased, notify the users waiting for the book
+        if (isset($data['stock']) && $data['stock'] > 0) {
+            $holds = Hold::where('book_id', $book->id)->with('user')->get();
+
+            foreach ($holds as $hold) {
+                if ($hold->user->email) {
+                    Mail::to($hold->user->email)
+                        ->send(new BookAvailable($book, $hold->user));
+                }
+            }
+
+            // Eliminar los holds ya notificados
+            Hold::where('book_id', $book->id)->delete();
+        }
 
         return redirect()->route('books.index')
             ->with('success', '¡Libro actualizado existosamente!');
@@ -221,7 +239,7 @@ class BookController extends Controller
             'authors.*' => 'exists:authors,id', // Ensure each author ID exists in the authors table
             'categories' => 'required|array', // foreign data
             'categories.*' => 'exists:categories,id', // Ensure each category ID exists in the categories table
-        ],[
+        ], [
             'title.required' => 'El título es obligatorio.',
             'cover.required' => 'La portada es obligatoria.',
             'publisher.required' => 'El editor es obligatorio.',

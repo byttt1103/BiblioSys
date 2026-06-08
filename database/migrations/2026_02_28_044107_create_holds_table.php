@@ -16,8 +16,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('book_id')->constrained('books');
-            $table->unsignedInteger('quantity');
-            $table->timestamp('hold_creation')->useCurrent();
             $table->timestamps();
         });
     }
