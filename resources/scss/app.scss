@@ -33,6 +33,7 @@ body {
         @include p.stylePaginator;
         @include p.styleBookInfo;
         @include p.styleNewsInfo;
+        @include p.styleHome;
         @include c.alert;
         @include c.card;
         @include c.searchBar;

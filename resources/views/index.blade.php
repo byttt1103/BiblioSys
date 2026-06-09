@@ -3,91 +3,131 @@
 @section('title', 'Inicio')
 
 @section('content')
-    <div class="section greeter">
-        <div class="header">
-            <div id="start_banner">
+
+    {{-- ===== HERO SECTION ===== --}}
+    <div class="section header">
+
+        <div id="greeter">
+            <div class="greeter_text">
                 @if (Auth::user() == null)
-                    <h1>Bienvenido a la biblioteca</h1>
+                    <h1>Bienvenido a {{ $library->name }}</h1>
                 @else
-                    <h1>Bienvenido a la biblioteca, {{ Auth::user()->first_name }}.</h1>
+                    <h1>Bienvenido, {{ Auth::user()->first_name }}.</h1>
                 @endif
+                <p class="greeter_subtitle">Explora nuestra biblioteca y descubre los mejores libros.</p>
             </div>
-            <div id="start_mosaic">
 
+            <div class="searchBar">
+                @include('partials.search', [
+                    'action' => route('book.search'),
+                    'placeholder' => 'Busca...',
+                    'search' => old('search', request('search')),
+                    'mode' => 'books',
+                    'categories' => $categories ?? collect(),
+                    'selectedCategories' => request('categories', []),
+                ])
             </div>
         </div>
+
+        <div class="services">
+            <h2>Servicios</h2>
+            <div class="services_grid">
+
+                {{-- Books panel --}}
+                <div class="elementBox">
+                    <div class="info">
+                        <h4>Libros</h4>
+                        <p>Explora nuestra colección de libros.</p>
+                        <div class="actions">
+                            <a href="{{ route('book.list') }}" class="button button_small">
+                                <span class="text">Ver libros</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- News panel --}}
+                <div class="elementBox">
+                    <div class="info">
+                        <h4>Noticias</h4>
+                        <p>Mantente informado con las últimas novedades.</p>
+                        <div class="actions">
+                            <a href="{{ route('news.list') }}" class="button button_small">
+                                <span class="text">Ver noticias</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Loans panel --}}
+                <div class="elementBox">
+                    <div class="info">
+                        <h4>Mis Préstamos</h4>
+                        <p>Consulta el estado de tus préstamos.</p>
+                        <div class="actions">
+                            @if (Auth::check())
+                                <a href="{{ route('loans.user', Auth::user()->id) }}" class="button button_small">
+                                    <span class="text">Ver mis préstamos</span>
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="button button_small">
+                                    <span class="text">Inicia sesión</span>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="about">
+                <div class="dividerShort"></div>
+                <h3>¿Quiénes somos?</h3>
+                <p>{{ $library->description }}</p>
+            </div>
+        </div>
+
     </div>
 
-    <div class="section new">
+    {{-- ===== NEWS SECTION ===== --}}
+    <div class="section">
         <h2>Novedades</h2>
+        <div class="news">
+            @foreach ($news as $item)
+                <div class="elementBox">
 
-        @if ($news)
-            <div class="card mb-3">
-                <div class="card-body">
-                    @if ($news->image_url)
-                        <img src="{{ $news->image_url }}" alt="Imagen de la noticia" class="img-fluid mb-3">
-                    @endif
-                    <h5 class="card-title">{{ $news->title }}</h5>
-                    <p class="card-text">{{ $news->description }}</p>
-
-                    @if ($news->category)
-                        <p class="category"><strong>Categoría:</strong> {{ $news->category }}</p>
+                    @if ($item->image_url)
+                        <div class="newsImage">
+                            <img src="{{ $item->image_url }}" alt="Imagen de la noticia">
+                        </div>
                     @endif
 
-                    @if ($news->tags)
-                        <p>
-                            @foreach (explode(',', $news->tags) as $tag)    
-                                <span class="badge badge-secondary">{{ trim($tag) }}</span>
-                            @endforeach
-                        </p>
-                    @endif
-                </div>
-            </div>
-        @endif
-    </div>
+                    <div class="info">
+                        <h2>{{ $item->title }}</h2>
+                        @if ($item->category)
+                            <p class="category"><strong>Categoría:</strong> {{ $item->category }}</p>
+                        @endif
+                        <p>{{ $item->description }}</p>
 
-    <div class="section services">
-        <h2>Servicios</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Books panel -->
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Libros</h5>
-                    <p class="card-text">Explora nuestra colección de libros.</p>
-                    <a href="{{ route('book.list') }}" class="btn btn-primary">Ver libros</a>
-                </div>
-            </div>
+                        @if ($item->tags)
+                            <p class="tags">
+                                @foreach (explode(',', $item->tags) as $tag)
+                                    <span class="badge">{{ trim($tag) }}</span>
+                                @endforeach
+                            </p>
+                        @endif
+                    </div>
 
-            <!-- News panel -->
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Noticias</h5>
-                    <p class="card-text">Mantente informado con las últimas novedades.</p>
-                    <a href="{{ route('news.list') }}" class="btn btn-primary">Ver noticias</a>
-                </div>
-            </div>
+                    <div class="actions">
+                        <a class="button news_info" href="{{ route('news.info', ['news_id' => $item->id]) }}">
+                            <p class="text long medium">Ver más <span aria-hidden="true">🠲</span></p>
+                            <p class="text short" aria-hidden="true">Más 🠲</p>
+                        </a>
+                    </div>
 
-            <!-- Loans panel -->
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Mis Préstamos</h5>
-                    <p class="card-text">Consulta el estado de tus préstamos.</p>
-                    @if(Auth::check())
-                        <a href="{{ route('loans.user', Auth::user()->id) }}" class="btn btn-primary">Ver mis préstamos</a>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-primary">Iniciar sesión para ver mis préstamos</a>
-                    @endif
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
-
-    <div class="section about">
-        <h2>¿Quiénes somos?</h2>
-        <p>Somos una biblioteca dedicada a proporcionar acceso a una amplia variedad de libros y recursos educativos para la
-            comunidad. Nuestro objetivo es fomentar el amor por la lectura y el aprendizaje, ofreciendo un espacio acogedor
-            y recursos de calidad para todos los visitantes.</p>
-    </div>
-
 
 @endsection

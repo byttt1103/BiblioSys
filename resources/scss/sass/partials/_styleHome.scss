@@ -4,12 +4,204 @@
 @use "../base/reset";
 @use "../base/variables";
 
-.greeter {
-    @include mixins.elements-flex(column, center, center);
+//? components
+@use "../components/elementBox";
+
+@mixin styleHome {
+
+    // ===HEADER/HERO ===
 
     .header {
-        @include mixins.elements-flex(row, center, center)
+        @include mixins.elements-flex(row, flex-start, stretch);
+        gap: 20px;
+        width: 100%;
+        margin-left: 20px;
+        margin-right: 20px;
+        padding-bottom: 30px;
+
+        box-sizing: border-box;
+
+        // ── Greeter (left column) ────────────────
+        #greeter {
+            @include mixins.elements-flex(column, center, flex-start);
+            flex: 1 1 40%;
+
+
+            background-color: variables.$emphasisSectionColor;
+            border-radius: 12px;
+            padding: 36px 32px;
+            box-sizing: border-box;
+
+            .greeter_text {
+                @include mixins.elements-flex(column, flex-start, flex-start);
+                gap: 8px;
+
+                h1 {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    line-height: 1.25;
+                }
+            }
+
+            .searchBar {
+                width: 100%;
+            }
+        }
+
+        // ── Services (right column) ──────────────
+        .services {
+            @include mixins.elements-flex(column, flex-start, stretch);
+            flex: 1 1 55%;
+            gap: 20px;
+
+            // Service cards grid
+            .services_grid {
+                @include mixins.grid(3, 16px, 16px);
+
+                @include elementBox.elementBox(center);
+
+                .elementBox {
+                    min-height: variables.$H4; // 100px
+
+                    .info {
+
+
+                        p {
+                            font-size: 0.8rem;
+                            color: variables.$captionColor;
+                            line-height: 1.5;
+                        }
+                    }
+                }
+
+                .elementBox:hover {
+                    border-top-color: variables.$linkColor;
+                    box-shadow: 0px 6px 16px rgba(variables.$mainColor, 0.15);
+                }
+            }
+
+            // About block
+            .about {
+                @include mixins.elements-flex(column, flex-start, flex-start);
+                @include mixins.dividerShort;
+                gap: 8px;
+                background-color: variables.$otherSectionColor;
+                border-radius: 8px;
+                padding: 20px 24px;
+                box-sizing: border-box;
+
+                p {
+                    font-size: 0.85rem;
+                    line-height: 1.6;
+                    text-align: justify;
+                }
+            }
+        }
+
+        // ── Responsive: stack at medium breakpoint ─
+        @media (max-width: 900px) {
+            @include mixins.elements-flex(column, flex-start, stretch);
+
+            #greeter {
+                flex: none;
+                width: 100%;
+            }
+
+            .services {
+                flex: none;
+                width: 100%;
+
+                .services_grid {
+                    @include mixins.grid(2, 14px, 14px);
+                }
+            }
+        }
+
+        @media (max-width: 560px) {
+            .services .services_grid {
+                @include mixins.grid(1, 12px, 12px);
+            }
+        }
     }
 
+    // === NEWS ===
+
+
+    .news {
+        @include mixins.elements-flex(row, flex-start, stretch);
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+
+        @include elementBox.elementBox(flex-start);
+
+        .elementBox {
+            flex: 1 1 calc(33% - 14px);
+            min-width: 240px;
+            max-width: calc(50% - 10px);
+
+            .newsImage {
+                width: 100%;
+                max-height: 160px;
+                overflow: hidden;
+                border-radius: 6px;
+                flex-shrink: 0;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 6px;
+                    display: block;
+                }
+            }
+
+            .info {
+                flex: 1;
+
+                h2 {
+                    font-size: 1rem;
+                }
+
+                .category {
+                    font-size: 0.78rem;
+                    color: variables.$captionColor;
+                }
+
+                p {
+                    font-size: 0.82rem;
+                    line-height: 1.5;
+
+                    //? Clamp long descriptions to 3 lines
+                    // Uses WebKit's multi-line text truncation to limit text to 3 lines:
+                    // 1. display: -webkit-box enables flexible box layout for this legacy truncation method
+                    // 2. -webkit-line-clamp: 3 caps the number of visible lines at 3
+                    // 3. -webkit-box-orient: vertical stacks child content vertically (required for line clamping)
+                    // 4. overflow: hidden hides any text that exceeds the 3-line limit
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+            }
+
+            //? Push action button to bottom
+            .actions {
+                .news_info {
+                    width: 100%;
+                    max-width: none;
+                    justify-content: center;
+                }
+            }
+        }
+
+        //? responsive: stack at medium breakpoint
+        @media (max-width: 700px) {
+            .elementBox {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+        }
+    }
 
 }
