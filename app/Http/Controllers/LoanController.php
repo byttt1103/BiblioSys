@@ -60,7 +60,7 @@ class LoanController extends Controller
 
         //? Sends the loan requested email
         if ($loan->user->email) {
-            Mail::to($loan->user->email)->send(new LoanRequested($loan));
+            Mail::to($loan->user->email)->queue(new LoanRequested($loan));
         }
 
         // Goes back to the own user loan list
@@ -115,18 +115,21 @@ class LoanController extends Controller
             $data['is_archived'] = 1;
         }
 
-        $loan->update($data);
 
         //? Sends the loan status updated email
-        $notify = ['approved', 'rejected', 'returned'];
 
-        if (in_array($data['status'], $notify) && $loan->user->email) {
-            Mail::to($loan->user->email)->send(new LoanStatusUpdated($loan));
+        $loan->update($data);
+
+        $loan->refresh();
+
+        if (in_array($loan->status, ['approved', 'rejected', 'returned']) && $loan->user->email) {
+            Mail::to($loan->user->email)->queue(new LoanStatusUpdated($loan));
         }
 
         return redirect()->action([LoanController::class, 'list_loans'])
             ->with('success', "El prestamo '{$loan->id}' se ha actualizado correctamente");
     }
+
 
     // Returns a view with every existent loan
     public function list_loans(Request $request): View

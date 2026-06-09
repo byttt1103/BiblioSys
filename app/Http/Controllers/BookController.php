@@ -179,6 +179,7 @@ class BookController extends Controller
             // store the new cover and save the path to the data array
             $data['cover_path'] = $request->file('cover')->store('covers', 'public');
         }
+        $oldStock = $book->stock;
 
         // create the transaction for the trillion tables we have to update oh my gosh
         DB::transaction(function () use ($data, $book, $authors, $categories) {
@@ -187,18 +188,20 @@ class BookController extends Controller
             $book->categories()->sync($categories);
         });
 
+        $book->refresh();
+
         // if the stock increased, notify the users waiting for the book
-        if (isset($data['stock']) && $data['stock'] > 0) {
+        if ($oldStock === 0 && $book->stock > 0) {
             $holds = Hold::where('book_id', $book->id)->with('user')->get();
 
             foreach ($holds as $hold) {
                 if ($hold->user->email) {
                     Mail::to($hold->user->email)
-                        ->send(new BookAvailable($book, $hold->user));
+                        ->queue(new BookAvailable($book, $hold->user));
                 }
             }
 
-            // Eliminar los holds ya notificados
+            // Delete notified holds
             Hold::where('book_id', $book->id)->delete();
         }
 
