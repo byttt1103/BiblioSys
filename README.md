@@ -1,18 +1,31 @@
-
 # BiblioSys
-### A book catalog management system for libraries, with book lending system and news blog.
+### A comprehensive library management system with catalog organization, book lending, and built-in news blog
 
 ---
 ## About BiblioSys
 
-BiblioSys is a web-based book catalog management system aimed to optimize the organization, access and control of bibliographic material in physical libraries. Its purpose is to support staff in the efficient management of loans and book classification, while offering users a modern experience through a digital catalog. BiblioSys arises as a response to the limitations of traditional manual book management methods, seeking to modernize and facilitate the use of library resources for the entire community.
+BiblioSys is a modern, web-based library management platform designed to streamline the organization, access, and administration of bibliographic resources for physical libraries. Built to address the inefficiencies of outdated manual and legacy digital systems, it empowers library staff with intuitive tools to manage book catalogs, and track loans, while delivering a seamless, user-friendly experience for patrons to browse and interact with the library's collection digitally.
 
-This system not only aims to be a practical book catalog management system, but also a web platform where the library can promote itself, expanding the library's audience and promoting its events and services.
+Far more than just a back-office management tool, BiblioSys serves as a public-facing hub for libraries to engage their communities. The integrated news and events blog lets institutions promote programming, share updates, highlight new acquisitions, and expand their reach beyond regular visitors, turning the system into a central resource for the entire community it serves.
 
-This project is being developed in Laravel PHP framework.
+BiblioSys is built on the Laravel PHP framework, leveraging its robust security, scalability, and ecosystem to deliver a reliable, maintainable solution for libraries of all sizes.
+
+## Key Features
+* **Staff Tools**: Streamlined catalog management, real-time loan tracking, and patron account administration
+* **Patron Experience**: Searchable digital catalog, online loan reservations, and personal reading history
+* **Community Engagement**: Built-in news and events blog to promote library services, programming, and new acquisitions
+* **Scalable Architecture**: Built to support small community libraries through to large institutional collections
 
 ## Installation
 
+### Prerequisites
+Before you begin, ensure your system meets the following requirements:
+- PHP 8.2 or higher
+- Composer dependency manager
+- MySQL 8.0 / PostgreSQL 13 or compatible database
+- Web server (Apache / Nginx) with SSL support for production deployments
+
+### Step-by-Step Setup
 1. Clone the GitHub repository:
 
 ```bash
